@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import Nav from './Components/Support Files/Nav'
+// import Nav from './Components/Support Files/Nav'
 import Landing from './Components/Pages/Landing'
 import Login from './Components/Pages/Login'
 import Signup from './Components/Pages/Signup'
@@ -12,14 +12,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 //Setting up a basic nav bar on each page. We can modify this structure later to
 //Work better with Authtication and Redux
-class App extends Component {
-  render() {
+const App = () => {
+
     return (
       <Router>
         <div className="App">
-          <Nav />
+          {/* <Nav /> */}
           {/* replace this <br /> with CSS */}
-          <br /> 
           <Switch>
 
             <Route exact path='/' component={Landing} />
@@ -34,6 +33,5 @@ class App extends Component {
       </Router>
     )
   }
-}
 
 export default App;
