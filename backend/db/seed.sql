@@ -1,7 +1,7 @@
 DROP DATABASE if exists humanstories;
 CREATE DATABASE humanstories;
 
--- \c humanstories;
+\c humanstories;
 -- this database seed will be changed alot but this should be a good start
 
 DROP TABLE IF EXISTS users;
@@ -12,39 +12,39 @@ CREATE TABLE users (
     username VARCHAR NOT NULL UNIQUE,
     password VARCHAR NOT NULL,
     region VARCHAR,
-    info VARCHAR
+    info VARCHAR,
+    email VARCHAR,
+    avatar VARCHAR
 );
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL REFERENCES users(id),
-    user_comment VARCHAR NOT NULL.
-    like INT,
+    user_comment VARCHAR NOT NULL,
+    num_likes INT,
     tag VARCHAR 
 );
 
-INSERT INTO  
-   users (username, password, region, info) 
+INSERT INTO  users (username, password, region, info, email, avatar) 
 VALUES
    --1
-   ('Tester1', 'testing', 'United States', 'I like puppies'),
+   ('Tester1', 'testing', 'United States', 'I like puppies', 'tester1@us.com','http://localhost:3100/avatar_links/avatar1.jpeg'),
    --2
-   ('Tester2', 'testing', 'Angola', 'I like kitties'),
+   ('Tester2', 'testing', 'Angola', 'I like kitties', 'tester2@ang.com', 'http://localhost:3100/avatar_links/avatar2.png'),
    --3
-   ('Tester3', 'testing', 'Guiana', 'I like turtles'),
+   ('Tester3', 'testing', 'Guiana', 'I like turtles', 'tester3@gu.com', 'http://localhost:3100/avatar_links/avatar3.png'),
    --4
-   ('Tester4', 'testing', 'Peru', 'I like cars'),
+   ('Tester4', 'testing', 'Peru', 'I like cars', 'tester4@per.com', 'http://localhost:3100/avatar_links/avatar4.jpeg'),
    --5
-   ('Tester5', 'testing', 'Uganda', 'I like flowers'),
+   ('Tester5', 'testing', 'Uganda', 'I like flowers', 'tester5@ug.com', 'http://localhost:3100/avatar_links/avatar5.jpeg'),
    --6
-   ('Tester6', 'testing', 'Trinidad', 'I like power'),
+   ('Tester6', 'testing', 'Trinidad', 'I like power', 'tester6@tr.com', 'http://localhost:3100/avatar_links/avatar6.gif'),
    --7
-   ('Tester7', 'testing', 'Hong Kong', 'I like headphones'),
+   ('Tester7', 'testing', 'Hong Kong', 'I like headphones', 'tester7@hk.com', 'http://localhost:3100/avatar_links/avatar7.jpeg'),
    --8
-   ('Tester8', 'testing', 'Moscow', 'I like buckets'),
+   ('Tester8', 'testing', 'Russia', 'I like buckets', 'tester8@ru.com', 'http://localhost:3100/avatar_links/avatar8.jpeg');
 
-INSERT INTO  
-   posts (user_id, user_comment, like, tag) 
+INSERT INTO  posts (user_id, user_comment, num_likes, tag) 
 VALUES
    --1
    (4, 'Im telling a story', 4, '#realtalk'),
@@ -77,4 +77,4 @@ VALUES
    --15
    (4, 'Im telling a story', 4, '#realtalk'),
    --16
-   (1, 'Im telling a story', 4, '#realtalk'),
+   (1, 'Im telling a story', 4, '#realtalk');
