@@ -1,8 +1,118 @@
 .App {
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
 }
 
-nav {
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+h1 {
+  font-size: 6em;
+  color: #E9F2F1;
+  line-height: 0.8em;
+  text-align: left;
+}
+
+h1 span {
+  color: #FE4A73;
+}
+
+hr {
+  margin: 20px 0;
+  border-top: none;
+}
+
+p {
+  color: #E9F2F1;
+}
+
+.bottom {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn:first-child {
+  margin-right: 20px;
+}
+
+button {
+  font-family: "Nirmala UI";
+  font-size: 2.5em;
+  font-weight: bold;
+  border: none;
+  background: #E9F2F1;
+  color: #FE4A73;
+  border-radius: 15px;
+  width: 50px;
+  height: 60px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #FE4A73;
+  color: #E9F2F1;
+  outline: none;
+}
+
+.floater {
+  background: #FE4A73;
+  position: absolute;
+  width: 170px;
+  border-radius: 0 130px 130px 0;
+  margin: 30px 0 0 -20px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: -5px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+
+.icon-temp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#header {
+  font-size: 3em;
+  margin-left: 10px;
+}
+
+#story-img {
+  width: 300px;
+  height: 460px;
+  border-radius: 0 130px 0 130px;
+  box-shadow: -5px 5px 7px 1px rgba(0, 0, 0, 0.2);
+}
+
+.story {
+  text-align: right;
+  color: #E9F2F1;
+  margin-top: 10px;
+}
+
+.story p:last-child {
+  font-size: 1.7em;
+}
+
+/* nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -17,8 +127,8 @@ nav {
   justify-content: space-around;
   align-items: center;
   list-style: none;
-}
-
+} */
+/* 
 .img-links {
   list-style: none;
 }
@@ -54,4 +164,4 @@ form, #results {
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus { 
   background: red;  
   border-color: #952b2b; 
-}
+} */
