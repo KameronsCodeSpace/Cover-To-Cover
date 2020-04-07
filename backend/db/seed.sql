@@ -19,10 +19,32 @@ CREATE TABLE users (
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES users(id),
-    user_comment VARCHAR NOT NULL,
-    num_likes INT,
-    tag VARCHAR 
+    file_src VARCHAR,
+    caption VARCHAR,
+    p_username INT NOT NULL REFERENCES users(id),
+);
+
+CREATE TABLE likes(
+    post_id INT,
+    liker_name VARCHAR
+);
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    comment VARCHAR,
+    c_post_id INT,
+    commentors_name VARCHAR
+);
+
+CREATE TABLE tags (
+   id SERIAL PRIMARY KEY,
+   tag_name VARCHAR UNIQUE
+);
+
+CREATE TABLE post_tag (
+   id SERIAL PRIMARY KEY,
+   tag_id INT REFERENCES tags(id),
+   ptag_id INT REFERENCES posts(id)
 );
 
 INSERT INTO  users (username, password, region, info, email, avatar) 
@@ -44,37 +66,37 @@ VALUES
    --8
    ('Tester8', 'testing', 'Russia', 'I like buckets', 'tester8@ru.com', 'http://localhost:3100/avatar_links/avatar8.jpeg');
 
-INSERT INTO  posts (user_id, user_comment, num_likes, tag) 
-VALUES
-   --1
-   (4, 'Im telling a story', 4, '#realtalk'),
-   --2
-   (2, 'Im telling a story', 4, '#realtalk'),
-   --3
-   (6, 'Im telling a story', 4, '#realtalk'),
-   --4
-   (7, 'Im telling a story', 4, '#realtalk'),
-   --5
-   (7, 'Im telling a story', 4, '#realtalk'),
-   --6
-   (8, 'Im telling a story', 4, '#realtalk'),
-   --7
-   (4, 'Im telling a story', 4, '#realtalk'),
-   --8
-   (1, 'Im telling a story', 4, '#realtalk'),
-   --9
-   (4, 'Im telling a story', 4, '#realtalk'),
-   --10
-   (2, 'Im telling a story', 4, '#realtalk'),
-   --11
-   (6, 'Im telling a story', 4, '#realtalk'),
-   --12
-   (7, 'Im telling a story', 4, '#realtalk'),
-   --13
-   (7, 'Im telling a story', 4, '#realtalk'),
-   --14
-   (8, 'Im telling a story', 4, '#realtalk'),
-   --15
-   (4, 'Im telling a story', 4, '#realtalk'),
-   --16
-   (1, 'Im telling a story', 4, '#realtalk');
+-- INSERT INTO  posts (user_id, user_comment, num_likes, tag) 
+-- VALUES
+--    --1
+--    (4, 'Im telling a story', 4, '#realtalk'),
+--    --2
+--    (2, 'Im telling a story', 4, '#realtalk'),
+--    --3
+--    (6, 'Im telling a story', 4, '#realtalk'),
+--    --4
+--    (7, 'Im telling a story', 4, '#realtalk'),
+--    --5
+--    (7, 'Im telling a story', 4, '#realtalk'),
+--    --6
+--    (8, 'Im telling a story', 4, '#realtalk'),
+--    --7
+--    (4, 'Im telling a story', 4, '#realtalk'),
+--    --8
+--    (1, 'Im telling a story', 4, '#realtalk'),
+--    --9
+--    (4, 'Im telling a story', 4, '#realtalk'),
+--    --10
+--    (2, 'Im telling a story', 4, '#realtalk'),
+--    --11
+--    (6, 'Im telling a story', 4, '#realtalk'),
+--    --12
+--    (7, 'Im telling a story', 4, '#realtalk'),
+--    --13
+--    (7, 'Im telling a story', 4, '#realtalk'),
+--    --14
+--    (8, 'Im telling a story', 4, '#realtalk'),
+--    --15
+--    (4, 'Im telling a story', 4, '#realtalk'),
+--    --16
+--    (1, 'Im telling a story', 4, '#realtalk');
