@@ -3,8 +3,8 @@ import './App.css';
 
 // main pages
 import Landing from './Components/Pages/Landing';
-import Login from './Components/Pages/Login';
-import Signup from './Components/Pages/Signup';
+import Login from './Components/Auth/Login';
+import Signup from './Components/Auth/Registration';
 import Travel from './Components/Pages/Travel';
 import Trending from './Components/Pages/Trending';
 import UserProfile from './Components/Pages/UserProfile';
