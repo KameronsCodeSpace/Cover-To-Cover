@@ -1,7 +1,6 @@
 import React from 'react';
 import background from '../../img/bg-shape.svg'
 
-
 function AppTitlePage() {
     return (
         <div>
