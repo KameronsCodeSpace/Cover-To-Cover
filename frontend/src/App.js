@@ -4,10 +4,11 @@ import './App.css';
 // main pages
 import Landing from './Components/Pages/Landing';
 import Login from './Components/Auth/Login';
-import Signup from './Components/Auth/Registration';
+import Registration from './Components/Auth/Registration';
 import Travel from './Components/Pages/Travel';
 import Trending from './Components/Pages/Trending';
 import UserProfile from './Components/Pages/UserProfile';
+import Explore from './Components/Pages/Explore';
 
 // supporting jsx files
 // import Nav from './Components/Support Files/Nav'
@@ -26,7 +27,8 @@ const App = () => {
 
           <Route exact path='/' component={Landing} />
           <Route path='/login' component={Login} />
-          <Route path='/signup' component={Signup} />
+          <Route path='/registration' component={Registration} />
+          <Route path='/explore' component={Explore} />
           <Route path='/travel' component={Travel} />
           <Route path='/trending' component={Trending} />
           <Route path='/userprofile' component={UserProfile} />
