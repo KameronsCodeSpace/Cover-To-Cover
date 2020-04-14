@@ -33,8 +33,12 @@ p {
   color: #E9F2F1;
 }
 
+.quotes {
+  margin-top: 60px;
+}
+
 .bottom {
-  margin-top: 100px;
+  margin-top: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,17 +46,19 @@ p {
 
 .buttons {
   display: flex;
+  justify-content: space-around;
 }
 
 .btn-holder {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.btn-holder:first-child {
   margin-right: 20px;
 }
+
+/* .btn-holder:first-child {
+  margin-right: 20px;
+} */
 
 .floater {
   background: #FE4A73;
@@ -150,7 +156,8 @@ p {
   width: 398px;
   height: 478px;
   float: right;
-  /* border: 1px solid #FE4A73; */
+  background-color: white;
+  border: 1px solid white;
 }
 
 .box {
@@ -164,7 +171,7 @@ p {
   text-align: center;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #ffffff;
+  color: #37353f;
 }
 
 .inputSBox {
