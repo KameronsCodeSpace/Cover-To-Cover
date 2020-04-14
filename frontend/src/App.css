@@ -312,7 +312,7 @@ p {
   background-image: url("/frontend/src/img/twitterIcon.png")
 } */
 
-/* nav {
+nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -327,7 +327,7 @@ p {
   justify-content: space-around;
   align-items: center;
   list-style: none;
-} */
+}
 /* 
 .img-links {
   list-style: none;
