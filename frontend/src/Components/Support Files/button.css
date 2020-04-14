@@ -27,13 +27,13 @@
     border: none;    
 }
 
-.btn--login--outline {
+.btn--login--solid {
     background-color: var(--login);
     color: var(--white);
     border: none;    
 }
 
-.btn--sight--outline {
+.btn--sight--solid {
     background-color: var(--sight);
     color: var(--white);
     border: none;    
@@ -43,12 +43,13 @@
 
 .btn--medium {
     padding: 10px 20px;
-    font-size: 18px;   
+    font-size: 18px; 
 }
 
 .btn--large {
     padding: 15px 30px;
     font-size: 20px; 
+    width: 100%;
 }
 
 .btn--tall {
