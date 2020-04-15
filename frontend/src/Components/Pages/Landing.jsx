@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import AppTitlePage from '../Support Files/AppTitlePage';
 import Stories from '../Support Files/Stories';
 
-
-
 function Landing() {
 
     const [randomData, setData] = useState([]);
