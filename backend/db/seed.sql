@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS stories;
+DROP DATABASE IF EXISTS humanstories;
 
-CREATE DATABASE stories;
+CREATE DATABASE humanstories;
 
-\c stories;
+\c humanstories;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,

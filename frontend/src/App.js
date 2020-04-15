@@ -8,6 +8,7 @@ import Signup from './Components/Pages/Signup';
 import Travel from './Components/Pages/Travel';
 import Trending from './Components/Pages/Trending';
 import UserProfile from './Components/Pages/UserProfile';
+import Explore from './Components/Pages/Explore'
 
 // supporting jsx files
 // import Nav from './Components/Support Files/Nav'
@@ -30,6 +31,7 @@ const App = () => {
           <Route path='/travel' component={Travel} />
           <Route path='/trending' component={Trending} />
           <Route path='/userprofile' component={UserProfile} />
+          <Route path='/explore' component={Explore} />
 
         </Switch>
       </div>
