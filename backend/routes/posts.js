@@ -91,4 +91,4 @@ router.patch('/:id', async (req, res) => {
 
 })
 
-module.exports = {router: router};
+module.exports = router;
