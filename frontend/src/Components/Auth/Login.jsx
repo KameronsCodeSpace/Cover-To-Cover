@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import GoogleIcon from '../../img/GoogleIcon.png';
 import FacebookIcon from '../../img/facebookIcon.png';
@@ -8,14 +8,14 @@ import background from '../../img/bg-shape.svg';
 import { useHistory } from 'react-router-dom';
 import { Button } from "../Support Files/Button"
 
-function Login() {
+const Login = () => {
     const history = useHistory();
 
-    function onLogin() {
+    const onLogin = () => {
         history.push('/explore')
     }
 
-    function onRegister() {
+    const onRegister = () => {
         history.push('/registration')
     }
 
@@ -69,9 +69,9 @@ function Login() {
                         <div className={'text2 or'}>OR</div>
                     </div>
                     <div className={'socialMediaBox'}>
-                        <div className={'icAuth google'}> <img src={GoogleIcon}></img></div>
-                        <div className={'icAuth facebook'}><img src={FacebookIcon}></img></div>
-                        <div className={'icAuth twitter'}><img src={TwitterIcon}></img></div>
+                        <div className={'icAuth google'}> <img alt='google' src={GoogleIcon}></img></div>
+                        <div className={'icAuth facebook'}><img alt='facebook' src={FacebookIcon}></img></div>
+                        <div className={'icAuth twitter'}><img alt='twitter' src={TwitterIcon}></img></div>
                     </div>
                 </div>
             </div>

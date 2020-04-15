@@ -1,9 +1,17 @@
+:root {
+  --primary: #FE4A73;
+  --login: #3f64a8;
+  --sight: #800080;
+  --white: #fdfdfd;
+  --dark: #181717;
+}
+
 main {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 100vh;
-  width: 100wh;
+  width: 100vw;
 }
 
 #bg {
@@ -15,13 +23,13 @@ main {
 
 h1 {
   font-size: 6em;
-  color: #E9F2F1;
+  color: var(--white);
   line-height: 0.8em;
   text-align: left;
 }
 
 h1 span {
-  color: #FE4A73;
+  color: var(--primary);
 }
 
 hr {
@@ -30,7 +38,7 @@ hr {
 }
 
 p {
-  color: #E9F2F1;
+  color: var(--white);
 }
 
 .quotes {
@@ -61,7 +69,7 @@ p {
 } */
 
 .floater {
-  background: #FE4A73;
+  background: var(--primary);
   position: absolute;
   width: 170px;
   border-radius: 0 130px 130px 0;
@@ -91,7 +99,7 @@ p {
 
 .story {
   text-align: right;
-  color: #E9F2F1;
+  color: var(--white);
   margin-top: 10px;
 }
 
@@ -117,7 +125,7 @@ p {
 .bgColor {
   width: 100%;
   height: 100%;
-  background-color: #FE4A73;
+  background-color: var(--primary);
   border-top-left-radius: 90px;
 }
 
@@ -138,7 +146,7 @@ p {
 .imageTextTop {
   font-size: 28px;
   position: absolute;
-  color: #ffffff;
+  color: var(--white);
   font-weight: bold;
   top: 200px;
   left: 20px;
@@ -147,7 +155,7 @@ p {
 .imageTextBottom {
   font-size: 28px;
   position: absolute;
-  color: #ffffff;
+  color: var(--white);
   top: 250px;
   left: 20px;
 }
@@ -156,8 +164,8 @@ p {
   width: 398px;
   height: 478px;
   float: right;
-  background-color: white;
-  border: 1px solid white;
+  background-color: var(--white);
+  border: 1px solid var(--white);
 }
 
 .box {
@@ -171,13 +179,13 @@ p {
   text-align: center;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #37353f;
+  color: var(--dark);
 }
 
 .inputSBox {
   width: 300px;
   height: 42px;
-  border-bottom: 2px solid #d8d8d8;
+  border-bottom: 2px solid var(--white);
   margin-bottom: 10px;
 }
 
@@ -216,14 +224,14 @@ p {
 .text1 {
   float: right;
   font-size: 14px;
-  color: #FE4A73;
+  color: var(--primary);
   cursor: pointer;
 }
 
 .btnAuth {
   width: 300px;
   height: 47px;
-  color: #ffffff;
+  color: var(--white);
   background-color: rgb(18, 161, 78);
   text-align: center;
   line-height: 47px;
@@ -239,7 +247,7 @@ p {
 }
 
 .line {
-  border-bottom: 2px solid #d8d8d8;
+  border-bottom: 2px solid var(--white);
   position: absolute;
   top: 22px;
   width: 100%;
@@ -256,7 +264,7 @@ p {
   left: 140px;
   width: 25px;
   height: 16px;
-  background-color: #ffffff;
+  background-color: var(--white);
   text-align: center;
 }
 
@@ -302,32 +310,86 @@ p {
   }
 }
 
-/* .icAuth.google {
-  background-image: url("/frontend/src/img/GoogleIcon.png")
-}
-.icAuth.facebook {
-  background-image: url("/frontend/src/img/facebookIcon.png")
-}
-.icAuth.twitter {
-  background-image: url("/frontend/src/img/twitterIcon.png")
-} */
+/* Nav bar */
 
-/* nav {
+nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
   min-height: 10vh;
-  background: rgb(93, 72, 212);
-  color: white;
+  background: var(--primary);
+  color: var(--white);
 }
 
 .nav-links {
-  width: 30%;
+  width: 40%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   list-style: none;
-} */
+}
+
+.search-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbox {
+  position: relative;
+  display: block;
+  width: 100%;
+  transition: 0.4s linear;
+  overflow: hidden;
+}
+
+  .searchbox__input {
+    display: block;
+    appearance: none;
+    width: 100%;
+    max-width: 21px;
+    border: none;
+    outline: none;
+    border-radius: 50px;  
+
+
+    background-color: var(--sight);
+    padding: 6px;
+    color: var(--sight);
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.4s linear;
+  }
+
+  .searchbox__input::placeholder {
+      color: var(--sight);
+  }
+
+  .searchbox__icon {
+    position: absolute;
+    right: calc(33px / 2);
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+  }
+
+  path{
+   fill: var(--primary);
+   transition: 0.4s linear;
+  }
+
+  .searchbox__input:focus-within {
+    background-color: var(--white);
+    padding-right: 35px;
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.4);
+    max-width: 150px;
+  }
+
+/* Explor Page CSS */
+
 /* 
 .img-links {
   list-style: none;
