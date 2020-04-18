@@ -1,75 +1,203 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../db/db');
+const usersQueries = require("../queries/users");
+const db = require("../db/db");
+const {loginRequired} = require("../auth/helpers")
+
 
 /* Route to GET all users listing. */
-router.get ('/',async(req, res, next) => {
+router.get("/", loginRequired, async (req, res, next) => {
+   console.log('session req', req.session)
   try {
-    const requestQuery = `SELECT * FROM users`
-    const allUsers = await db.any (requestQuery)
-    console.log(allUsers)
+  const requestQuery = `SELECT * FROM users`
+  let allUsers = await db.any(requestQuery);
+  console.log("users", allUsers);
+  
     res.json({
       payload: allUsers,
-      message: `Users request was successfully received`
-    })
+      message: `Users request was successfully received`,
+      error: false
+    });
   } catch (error) {
-    res.status(404)
+    res.status(500);
     res.json({
-      message: `Unable to retrieve users`
-    })
-    console.log('err', error)
+      message: `Unable to retrieve users`,
+      error: true
+    });
+    console.log("error", error);
   }
 });
 
 // Route to GET users by ID.
-router.get('/:id', async(req, res, next)=> {
+router.get("/:id", async (req, res, next) => {
+  
   const params = req.params.id
-  console.log('params', params)
-   const requestQuery = `SELECT * FROM users WHERE id=$1`
   try {
-    const singleUsers = await db.one(requestQuery, params)
-    console.log(singleUsers)
+    const user = await usersQueries.getUserById(params);
     res.json({
-      payload: singleUsers,
-      message: `User was successfully retrieved`
-    })
+      payload: user,
+      message: `User was successfully retrieved`,
+      error: false
+    });
   } catch (error) {
-    res.status(404)
+    res.status(500);
     res.json({
-      message: `Unable to retrieve user`
-    })
-    console.log('err', error)
+      message: `Unable to retrieve user`,
+      error: true
+    });
+    console.log("err", error);
   }
 });
 
-//POST Route to add a new user 
-router.post('/', async(req, res, next) => {
-  try{
-    const insertQuery = `INSERT INTO users(username, password, region, info, email, avatar)
-                            VALUES($1, $2, $3, $4, $5, $6)`
-    await db.none(insertQuery, [req.body.username, req.body.password, req.body.region, req.body.info, req.body.email, req.body.avatar ])
-
-    let data = {
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      region: req.body.region,
-      info: req.body.info,
-      avatar: req.body.avatar
-    }
-
+router.get("/user/:username", async (req, res, next) => {
+  const username = req.params.username
+  try {
+    const user = await usersQueries.getByUsername(username);
+  
     res.json({
-      payload:data,
-      message: `Successfully registered new user`
-    })
-
+      payload: user,
+      message: `User was successfully retrieved`,
+      error: false
+    });
   } catch (error) {
-    res.status(404)
+    res.status(500);
     res.json({
-      message: `Unable to retrieve user`
-    })
-    console.log('err', error)
+      message: `Unable to retrieve user`,
+      error: true
+    });
+    console.log("err", error);
   }
-})
+});
+
+
+//PATCH to update a a user
+router.patch("/:id", async (req, res, next) => {
+ 
+  const id = req.params.id; 
+  const username = req.body.username;
+  const password = req.body.password;
+  const region = req.body.region;
+  const info = req.body.info;
+  const email = req.body.email;
+  const avatar = req.body.email;
+
+  
+ if (username) {
+  try {
+    const update = await usersQueries.updateUsername(id, username)
+    res.json({
+      payload: update,
+      message: `The username was successfully updated`
+    });
+  } catch (error) {
+    res.status(500);
+    res.json({
+      
+      message: `Unable to update username`
+    });
+    console.log('error', error)
+  }
+ }
+ if (password) {
+   try {
+      const update = await usersQueries.updatePassword(id, password)
+      console.log('params', id)
+      res.json({
+        payload: update,
+        message: `The password was successfully updated`
+      });
+    } catch (error) {
+      res.status(500);
+      res.json({
+        message: `Unable to update password`
+      });
+      console.log('error', error)
+    }
+  }
+  if (region) {
+   try {
+      const update = await usersQueries.updateRegion(id, region)
+      console.log('params', id)
+      res.json({
+        payload: update,
+        message: `The region was successfully updated`
+     });
+    } catch (error) {
+      res.status(500);
+      res.json({
+        message: `Unable to update region`
+      });
+      console.log('error', error)
+    }
+  }
+  if (email) {
+    try {
+      const update = await usersQueries.updateEmail(id, email)
+      console.log('params', id)
+      res.json({
+        payload: update,
+        message: `The email was successfully updated`
+      });
+    } catch (error) {
+      res.status(500);
+      res.json({
+        message: `Unable to update email`
+      });
+      console.log('error', error)
+    }
+  }
+  if (info) {
+    try {
+      const update = await usersQueries.updateInfo(id, info)
+      console.log('params', id)
+      res.json({
+        payload: update,
+        message: `The info was successfully updated`
+      });
+    } catch (error) {
+      res.status(500);
+      res.json({
+        message: `Unable to update info`
+      });
+      console.log('error', error)
+    }
+  }
+  if (avatar) {
+    try {
+      const update = await usersQueries.updateAvatar(id, avatar)
+      console.log('params', id)
+      res.json({
+        payload: update,
+        message: `The avatar was successfully updated`
+      });
+    } catch (error) {
+      res.status(500);
+      res.json({
+        message: `Unable to update avatar`
+      });
+      console.log('error', error)
+    }
+  }
+
+});
+
+//DELETE Route to delete a user
+router.delete("/:id", async (req, res) => {
+  let params = req.params.id;
+
+  try {
+    const deletedUser = await usersQueries.deleteUser(params)
+    res.json({
+      payload: deletedUser,
+      message: ` Successfully removed user`
+    });
+  } catch (error) {
+    res.status(500);
+    res.json({
+      message: `Unable to remove user!`
+    });
+    console.log("err", error);
+  }
+});
 
 module.exports = router;
