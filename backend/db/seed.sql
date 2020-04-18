@@ -4,8 +4,8 @@ CREATE DATABASE humanstories;
 \c humanstories;
 -- this database seed will be changed alot but this should be a good start
 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS posts;
+-- DROP TABLE IF EXISTS users;
+-- DROP TABLE IF EXISTS posts;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -21,10 +21,11 @@ CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     file_src VARCHAR,
     caption VARCHAR,
-    p_username INT NOT NULL REFERENCES users(id),
+    p_username INT NOT NULL REFERENCES users(id)
 );
 
 CREATE TABLE likes(
+    id SERIAL PRIMARY KEY,
     post_id INT,
     liker_name VARCHAR
 );
@@ -50,21 +51,22 @@ CREATE TABLE post_tag (
 INSERT INTO  users (username, password, region, info, email, avatar) 
 VALUES
    --1
-   ('Tester1', 'testing', 'United States', 'I like puppies', 'tester1@us.com','http://localhost:3100/avatar_links/avatar1.jpeg'),
+--PASSWORD in plain text is 'testing10' for all the users.
+   ('Tester1', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'United States', 'I like puppies', 'tester1@us.com','http://localhost:3100/avatar_links/avatar1.jpeg'),
    --2
-   ('Tester2', 'testing', 'Angola', 'I like kitties', 'tester2@ang.com', 'http://localhost:3100/avatar_links/avatar2.png'),
+   ('Tester2', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Angola', 'I like kitties', 'tester2@ang.com', 'http://localhost:3100/avatar_links/avatar2.png'),
    --3
-   ('Tester3', 'testing', 'Guiana', 'I like turtles', 'tester3@gu.com', 'http://localhost:3100/avatar_links/avatar3.png'),
+   ('Tester3', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Guiana', 'I like turtles', 'tester3@gu.com', 'http://localhost:3100/avatar_links/avatar3.png'),
    --4
-   ('Tester4', 'testing', 'Peru', 'I like cars', 'tester4@per.com', 'http://localhost:3100/avatar_links/avatar4.jpeg'),
+   ('Tester4', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Peru', 'I like cars', 'tester4@per.com', 'http://localhost:3100/avatar_links/avatar4.jpeg'),
    --5
-   ('Tester5', 'testing', 'Uganda', 'I like flowers', 'tester5@ug.com', 'http://localhost:3100/avatar_links/avatar5.jpeg'),
+   ('Tester5', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Uganda', 'I like flowers', 'tester5@ug.com', 'http://localhost:3100/avatar_links/avatar5.jpeg'),
    --6
-   ('Tester6', 'testing', 'Trinidad', 'I like power', 'tester6@tr.com', 'http://localhost:3100/avatar_links/avatar6.gif'),
+   ('Tester6', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Trinidad', 'I like power', 'tester6@tr.com', 'http://localhost:3100/avatar_links/avatar6.gif'),
    --7
-   ('Tester7', 'testing', 'Hong Kong', 'I like headphones', 'tester7@hk.com', 'http://localhost:3100/avatar_links/avatar7.jpeg'),
+   ('Tester7', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Hong Kong', 'I like headphones', 'tester7@hk.com', 'http://localhost:3100/avatar_links/avatar7.jpeg'),
    --8
-   ('Tester8', 'testing', 'Russia', 'I like buckets', 'tester8@ru.com', 'http://localhost:3100/avatar_links/avatar8.jpeg');
+   ('Tester8', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Russia', 'I like buckets', 'tester8@ru.com', 'http://localhost:3100/avatar_links/avatar8.jpeg');
 
 -- INSERT INTO  posts (user_id, user_comment, num_likes, tag) 
 -- VALUES
