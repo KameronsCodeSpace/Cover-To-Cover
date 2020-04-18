@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+var postRouter = require('./routes/posts');
+
 
 
 const app = express();
@@ -39,6 +41,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 
+
+app.use('/blog', postRouter);
 
 // app.use("*", (req, res) => {
 //     res.sendFile(path.join(__dirname + "/../backend/public/index.html"));
