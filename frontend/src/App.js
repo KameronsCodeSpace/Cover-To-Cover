@@ -3,15 +3,16 @@ import './App.css';
 
 // main pages
 import Landing from './Components/Pages/Landing';
-import Login from './Components/Pages/Login';
-import Signup from './Components/Pages/Signup';
+import Login from './Components/Auth/Login';
+import Registration from './Components/Auth/Registration';
 import Travel from './Components/Pages/Travel';
 import Trending from './Components/Pages/Trending';
 import UserProfile from './Components/Pages/UserProfile';
 import Explore from './Components/Pages/Explore'
+import Explore from './Components/Pages/Explore';
 
 // supporting jsx files
-// import Nav from './Components/Support Files/Nav'
+import Nav from './Components/Support Files/Nav'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -27,11 +28,23 @@ const App = () => {
 
           <Route exact path='/' component={Landing} />
           <Route path='/login' component={Login} />
-          <Route path='/signup' component={Signup} />
-          <Route path='/travel' component={Travel} />
-          <Route path='/trending' component={Trending} />
-          <Route path='/userprofile' component={UserProfile} />
-          <Route path='/explore' component={Explore} />
+          <Route path='/registration' component={Registration} />
+          <Route path='/explore'>
+            <Nav />
+            <Explore />
+          </Route>
+          <Route path='/travel'>
+            <Nav />
+            <Travel />
+          </Route>
+          <Route path='/trending'>
+            <Nav />
+            <Trending />
+          </Route>
+          <Route path='/userprofile'>
+            <Nav />
+            <UserProfile />
+          </Route>
 
         </Switch>
       </div>
