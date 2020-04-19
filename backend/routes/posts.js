@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/db');
+const usersQueries = require("../queries/posts");
+const {loginRequired} = require("../auth/helpers")
+
 
 router.get('/all', async (req, res) => {
    try {
        let posts = await db.any(`SELECT * FROM posts`);
+       console.log('posts', posts)
        res.json({
            payload: posts,
            message: `success. retrieved all posts`
@@ -35,19 +39,19 @@ router.get('/:id', async (req, res) => {
    }
 })
 
-router.post('/new', async (req, res) => {
+router.post('/new', loginRequired, async (req, res) => {
 //   console.log(req.body);
   try {
-      let insertQuery = `
-      INSERT INTO posts(file_src, caption, p_username)
-      VALUES($1, $2, $3)  
-      ` 
-      
-      await db.none(insertQuery, [req.body.file_src, req.body.caption, req.body.p_username]);
-      res.json({
-          payload: req.body,
+      let data = {
+          image: req.body.file_src,
+          poster: req.body.p_username,
+          caption: req.body.caption
+        }
+     const newFeed = await usersQueries.createNewPost(data)
+        res.json({
+          payload: newFeed,
           message: `Post was sent!`
-      })
+        })
   } catch (error) {
       res.json({
           message: `There was an error!`
@@ -56,11 +60,12 @@ router.post('/new', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', loginRequired, async (req, res) => {
     let id = req.params.id
     try {
-        let deletePost = await db.none(`DELETE FROM posts WHERE id = ${id}`)
+        let removedPost = await usersQueries.deletedPost(id)
         res.json({
+            payload: removedPost,
             message: `Post ${id} was deleted`
         })
     } catch (error){
@@ -71,15 +76,15 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', loginRequired, async (req, res) => {
     let caption = req.body.caption;
     let id = Number(req.params.id);
-    // console.log(newCaption, id)
+    // console.log(caption, id)
     try{
-        let patchPost = `UPDATE posts SET caption = $1 WHERE id = $2`
-        await db.none(patchPost, [caption, id])
+       const updatedFeed = await usersQueries.updatePost(caption, id)
+    //    console.log('updated feed', )
         res.json({
-            payload: req.body,
+            payload: updatedFeed,
             message: "Caption was changed"
         })
     } catch (error) {

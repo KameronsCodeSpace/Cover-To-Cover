@@ -1,0 +1,75 @@
+:root {
+    --primary: #FE4A73;
+    --login: #3f64a8;
+    --sight: #800080;
+    --white: #fdfdfd;
+    --dark: #181717;
+}
+
+.btn {
+    font-family: "Nirmala UI";
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background: var(--primary);
+    color: var(--white);
+}
+
+/* Button Colors and Styles */
+.btn--landing--solid {
+    background-color: var(--white);
+    color: var(--primary);
+    border: none;    
+}
+
+.btn--login--solid {
+    background-color: var(--login);
+    color: var(--white);
+    border: none;    
+}
+
+.btn--sight--solid {
+    background-color: var(--sight);
+    color: var(--white);
+    border: none;    
+}
+
+/* Button Sizes */
+
+.btn--medium {
+    padding: 10px 20px;
+    font-size: 18px; 
+}
+
+.btn--large {
+    padding: 15px 30px;
+    font-size: 20px; 
+    width: 100%;
+}
+
+.btn--tall {
+    font-size: 2.5em;
+    font-weight: bold;
+    border-radius: 15px;
+    width: 50px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+/* Login Button ----- Remove login from App.css and finish putting all buttons here */
+
+/* .btnAuth {
+    width: 300px;
+    height: 47px;
+    color: #ffffff;
+    background-color: rgb(18, 161, 78);
+    text-align: center;
+    line-height: 47px;
+    border-radius: 4px;
+    cursor: pointer;
+  } */
