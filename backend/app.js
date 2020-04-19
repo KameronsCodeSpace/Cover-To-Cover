@@ -18,6 +18,7 @@ const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
 
 
+
 const app = express();
 
 // view engine setup
@@ -48,6 +49,8 @@ app.use('/comments', commentsRouter);
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
 
+
+app.use('/blog', postRouter);
 
 // app.use("*", (req, res) => {
 //     res.sendFile(path.join(__dirname + "/../backend/public/index.html"));
