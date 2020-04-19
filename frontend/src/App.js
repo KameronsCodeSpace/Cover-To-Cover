@@ -8,7 +8,6 @@ import Registration from './Components/Auth/Registration';
 import Travel from './Components/Pages/Travel';
 import Trending from './Components/Pages/Trending';
 import UserProfile from './Components/Pages/UserProfile';
-import Explore from './Components/Pages/Explore'
 import Explore from './Components/Pages/Explore';
 
 // supporting jsx files

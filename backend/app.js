@@ -16,8 +16,7 @@ const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
 const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
-
-
+const postRouter = require('./routes/posts');
 
 const app = express();
 
@@ -48,8 +47,6 @@ app.use('/blog', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
-
-
 app.use('/blog', postRouter);
 
 // app.use("*", (req, res) => {
