@@ -3,8 +3,8 @@ import "./button.css"
 
 const STYLES = [
     "btn--landing--solid",
-    "btn--login--outline",
-    "btn--sight--outline",
+    "btn--login--solid",
+    "btn--sight--solid",
 ];
 
 const SIZES = ["btn--medium", "btn--large", "btn--tall"];

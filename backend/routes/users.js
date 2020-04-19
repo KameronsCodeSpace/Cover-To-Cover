@@ -71,7 +71,7 @@ router.get("/user/:username", async (req, res, next) => {
 
 
 //PATCH to update a a user
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", loginRequired, async (req, res, next) => {
  
   const id = req.params.id; 
   const username = req.body.username;
@@ -182,7 +182,7 @@ router.patch("/:id", async (req, res, next) => {
 });
 
 //DELETE Route to delete a user
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", loginRequired, async (req, res) => {
   let params = req.params.id;
 
   try {

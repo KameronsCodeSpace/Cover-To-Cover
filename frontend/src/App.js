@@ -11,7 +11,7 @@ import UserProfile from './Components/Pages/UserProfile';
 import Explore from './Components/Pages/Explore';
 
 // supporting jsx files
-// import Nav from './Components/Support Files/Nav'
+import Nav from './Components/Support Files/Nav'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -28,10 +28,22 @@ const App = () => {
           <Route exact path='/' component={Landing} />
           <Route path='/login' component={Login} />
           <Route path='/registration' component={Registration} />
-          <Route path='/explore' component={Explore} />
-          <Route path='/travel' component={Travel} />
-          <Route path='/trending' component={Trending} />
-          <Route path='/userprofile' component={UserProfile} />
+          <Route path='/explore'>
+            <Nav />
+            <Explore />
+          </Route>
+          <Route path='/travel'>
+            <Nav />
+            <Travel />
+          </Route>
+          <Route path='/trending'>
+            <Nav />
+            <Trending />
+          </Route>
+          <Route path='/userprofile'>
+            <Nav />
+            <UserProfile />
+          </Route>
 
         </Switch>
       </div>

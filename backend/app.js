@@ -8,9 +8,14 @@ const session = require('express-session');
 const passport = require('./auth/passport');
 const bodyParser = require('body-parser');
 
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
+const likesRouter = require('./routes/likes');
+const tagsRouter = require('./routes/tags');
 
 
 const app = express();
@@ -38,6 +43,10 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/blog', postsRouter);
+app.use('/comments', commentsRouter);
+app.use('/likes', likesRouter);
+app.use('/tags', tagsRouter);
 
 
 // app.use("*", (req, res) => {
