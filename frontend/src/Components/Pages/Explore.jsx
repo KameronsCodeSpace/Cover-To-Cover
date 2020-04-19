@@ -11,7 +11,7 @@ class Explore extends React.Component {
 
     async componentDidMount() {
         try {
-            let blogs = await axios.get(`http://localhost:3100/blog/all`);
+            let blogs = await axios.get('/blog/all');
             this.setState({
                 data: blogs.data.payload
             });
@@ -31,8 +31,8 @@ class Explore extends React.Component {
                 data.map(element => {
                     return (
                         <div className='blog'>
-                            <p>{data.payload.p_username}</p>
-                            <p>{data.payload.caption}</p>
+                            <p>{data.p_username}</p>
+                            <p>{data.caption}</p>
                         </div>
                     );
                 })
