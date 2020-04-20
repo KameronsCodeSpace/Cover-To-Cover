@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import { ProtectedRoute } from './Components/Authentication/ProtectedRoute'
 
 // main pages
 import Landing from './Components/Pages/Landing';
-import Login from './Components/Auth/Login';
-import Registration from './Components/Auth/Registration';
+import Login from './Components/Authentication/Login';
+import Registration from './Components/Authentication/Registration';
 import Travel from './Components/Pages/Travel';
 import Trending from './Components/Pages/Trending';
 import UserProfile from './Components/Pages/UserProfile';
@@ -28,23 +29,25 @@ const App = () => {
           <Route exact path='/' component={Landing} />
           <Route path='/login' component={Login} />
           <Route path='/registration' component={Registration} />
-          <Route path='/explore'>
+          
+          {/* Auth Routes below */}
+          <ProtectedRoute path='/explore'>
             <Nav />
             <Explore />
-          </Route>
-          <Route path='/travel'>
+          </ProtectedRoute>
+          <ProtectedRoute path='/travel'>
             <Nav />
             <Travel />
-          </Route>
-          <Route path='/trending'>
+          </ProtectedRoute>
+          <ProtectedRoute path='/trending'>
             <Nav />
             <Trending />
-          </Route>
-          <Route path='/userprofile'>
+          </ProtectedRoute>
+          <ProtectedRoute path='/userprofile'>
             <Nav />
             <UserProfile />
-          </Route>
-
+          </ProtectedRoute>
+          <Route path='*' component={() => "404 NOT FOUND"} />
         </Switch>
       </div>
     </Router>

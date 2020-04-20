@@ -1,11 +1,23 @@
 import React from 'react';
+import Auth from '../Authentication/Auth'
+
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { Button } from "../Support Files/Button"
+
 
 //I expect us to modifty this alot in the future but I always liked having this to start
-function Nav() {
+const Nav = () => {
+    const history = useHistory();
 
     const navStyle = {
         color: 'white'
+    }
+
+    const authLogout = () => {
+        Auth.logout(() => {
+            history.push('/')
+        })
     }
 
     return (
@@ -20,14 +32,20 @@ function Nav() {
                 </div>
             </div>
             <ul className='nav-links'>
-                <Link style={navStyle} to="/"><strong><li>Home</li></strong></Link>
-                <Link style={navStyle} to='/login'><strong><li>Login</li></strong></Link>
-                <Link style={navStyle} to='/signup'><strong><li>Signup</li></strong></Link>
+                {/* <Link style={navStyle} to="/"><strong><li>Home</li></strong></Link> */}
+                {/* <Link style={navStyle} to='/login'><strong><li>Login</li></strong></Link> */}
+                {/* <Link style={navStyle} to='/signup'><strong><li>Signup</li></strong></Link> */}
                 <Link style={navStyle} to='/Travel'><strong><li>Travel</li></strong></Link>
                 <Link style={navStyle} to='/Trending'><strong><li>Trending</li></strong></Link>
                 <Link style={navStyle} to='/userprofile'><strong><li>User Profile</li></strong></Link>
 
             </ul>
+            <div className='btn-holder'>
+                <Button onClick={authLogout}
+                    type="button"
+                    buttonStyle="btn--login--solid"
+                    buttonSize="btn--medium">Log Out</Button>
+            </div>
         </nav>
     );
 }
