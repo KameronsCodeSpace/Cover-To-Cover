@@ -32,8 +32,8 @@ class Explore extends React.Component {
                 data.map(element => {
                     return (
                         <div className='blog'>
-                            <p>{data.p_username}</p>
-                            <p>{data.caption}</p>
+                            <p>{element.p_username}</p>
+                            <p>{element.caption}</p>
                         </div>
                     );
                 })

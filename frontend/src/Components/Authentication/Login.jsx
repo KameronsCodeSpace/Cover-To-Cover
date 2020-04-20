@@ -1,4 +1,5 @@
 import React from 'react';
+import Auth from "./Auth"
 
 import GoogleIcon from '../../img/GoogleIcon.png';
 import FacebookIcon from '../../img/facebookIcon.png';
@@ -12,7 +13,9 @@ const Login = () => {
     const history = useHistory();
 
     const onLogin = () => {
-        history.push('/explore')
+        Auth.login(() => {
+            history.push('/explore')
+        })
     }
 
     const onRegister = () => {
