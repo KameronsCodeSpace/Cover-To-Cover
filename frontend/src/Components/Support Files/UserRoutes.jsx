@@ -8,12 +8,12 @@ import AuthApi from '../Authentication/AuthApi'
 import Landing from '../Pages/Landing';
 import Login from '../Authentication/Login';
 import Registration from '../Authentication/Registration';
-import Explore from '../Pages/Explore';
-import Travel from '../Pages/Travel';
-import Trending from '../Pages/Trending';
-import UserProfile from '../Pages/UserProfile';
+import Dashboard from '../ProtectedPages/Dashboard';
+import Travel from '../ProtectedPages/Travel';
+import Trending from '../ProtectedPages/Trending';
+import UserProfile from '../ProtectedPages/UserProfile';
 
-const Routes = () => {
+const UserRoutes = () => {
 const Auth = useContext(AuthApi)
     return (
         <Switch>
@@ -21,8 +21,8 @@ const Auth = useContext(AuthApi)
             <Route exact path='/login' component={Login} />
             <Route exact path='/registration' component={Registration} />
 
-            {/* Auth Routes below */}
-            <ProtectedRoute path='/explore' auth={Auth.auth} component={Explore} />
+            {/* Auth UserRoutes below */}
+            <ProtectedRoute path='/dashboard' auth={Auth.auth} component={Dashboard} />
             <ProtectedRoute path='/travel' auth={Auth.auth} component={Travel} />
             <ProtectedRoute path='/trending' auth={Auth.auth} component={Trending} />
             <ProtectedRoute path='/userprofile' auth={Auth.auth} component={UserProfile} />
@@ -38,4 +38,4 @@ const Auth = useContext(AuthApi)
         </Switch>
     )
 }
-export default Routes;
+export default UserRoutes;

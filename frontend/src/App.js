@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import AuthApi from './Components/Authentication/AuthApi'
-import Routes from './Components/Support Files/Routes'
+import UserRoutes from './Components/Support Files/UserRoutes'
+import VistorRoutes from './Components/Support Files/VistorRoutes'
 import Cookies from 'js-cookie'
 
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-//Setting up a basic nav bar on each page. We can modify this structure later to
 //Works better with Authtication and Redux
 const App = () => {
   const [auth, setAuth] = useState(false);
@@ -27,7 +27,15 @@ const App = () => {
     <AuthApi.Provider value={{ auth, setAuth }}>
       <Router>
         <div className="App">
-          <Routes />
+          <Route
+            render = {() => auth? (
+              <UserRoutes />
+              ):
+            (
+              <VistorRoutes />
+              )
+            }
+        />
         </div>
       </Router>
     </AuthApi.Provider>

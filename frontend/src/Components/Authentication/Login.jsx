@@ -17,7 +17,7 @@ const Login = () => {
     const onLogin = () => {
         Auth.setAuth(true);
         Cookies.set('user', 'loginTrue', { expires: 1 });
-        history.push('/explore');
+        history.push('/dashboard');
     }
 
     const onRegister = () => {

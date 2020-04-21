@@ -4,11 +4,9 @@ import Cookies from 'js-cookie'
 
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
-import { Button } from "../Support Files/Button"
+import { Button } from "./Button"
 
-
-//I expect us to modifty this alot in the future but I always liked having this to start
-const Nav = () => {
+const VistorNav = () => {
     const history = useHistory();
     const Auth = useContext(AuthApi)
 
@@ -33,14 +31,13 @@ const Nav = () => {
                     </svg>
                 </div>
             </div>
-            <p>Post Icon</p>
             <ul className='nav-links'>
-                {/* <Link style={navStyle} to="/"><strong><li>Home</li></strong></Link> */}
-                {/* <Link style={navStyle} to='/login'><strong><li>Login</li></strong></Link> */}
-                {/* <Link style={navStyle} to='/signup'><strong><li>Signup</li></strong></Link> */}
-                <Link style={navStyle} to='/Travel'><strong><li>Travel</li></strong></Link>
-                <Link style={navStyle} to='/Trending'><strong><li>Trending</li></strong></Link>
-                <Link style={navStyle} to='/userprofile'><strong><li>User Profile</li></strong></Link>
+                <Link style={navStyle} to="/"><strong><li>Home</li></strong></Link>
+                <Link style={navStyle} to='/login'><strong><li>Login</li></strong></Link>
+                <Link style={navStyle} to='/signup'><strong><li>Signup</li></strong></Link>
+                {/* <Link style={navStyle} to='/Travel'><strong><li>Travel</li></strong></Link> */}
+                {/* <Link style={navStyle} to='/Trending'><strong><li>Trending</li></strong></Link> */}
+                {/* <Link style={navStyle} to='/userprofile'><strong><li>User Profile</li></strong></Link> */}
 
             </ul>
             <div className='btn-holder'>
@@ -53,4 +50,4 @@ const Nav = () => {
     );
 }
 
-export default Nav;
+export default VistorNav;
