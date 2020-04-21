@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
 
+import Nav from '../Support Files/Nav'
+
 class Explore extends React.Component {
     constructor() {
         super();
         this.state = {
-            data:[]
+            data: []
         }
     }
 
@@ -15,7 +17,7 @@ class Explore extends React.Component {
             this.setState({
                 data: blogs.data.payload
             });
-        console.log("state:", this.state);
+            console.log("state:", this.state);
         } catch (err) {
             console.log("ERROR:", err);
         }
@@ -29,15 +31,16 @@ class Explore extends React.Component {
         return (
             <div id="stories_explore">
                 {
-                data.map(element => {
-                    return (
-                        <div className='blog'>
-                            <p>{element.p_username}</p>
-                            <p>{element.caption}</p>
-                        </div>
-                    );
-                })
-            }
+                    data.map(element => {
+                        return (
+                            <div className='blog'>
+                                <Nav />
+                                <p>{element.p_username}</p>
+                                <p>{element.caption}</p>
+                            </div>
+                        );
+                    })
+                }
             </div>
         );
     }

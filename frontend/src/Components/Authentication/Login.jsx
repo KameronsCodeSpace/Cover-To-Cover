@@ -1,5 +1,5 @@
-import React from 'react';
-// import Auth from "./Auth"
+import React, { useContext } from 'react';
+import AuthApi from './AuthApi';
 
 import GoogleIcon from '../../img/GoogleIcon.png';
 import FacebookIcon from '../../img/facebookIcon.png';
@@ -11,11 +11,11 @@ import { Button } from "../Support Files/Button"
 
 const Login = () => {
     const history = useHistory();
+    const Auth = useContext(AuthApi)
 
     const onLogin = () => {
-        // Auth.login(() => {
-            history.push('/explore')
-        // })
+        Auth.setAuth(true);
+        history.push('/explore')
     }
 
     const onRegister = () => {
