@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import AuthApi from '../Authentication/AuthApi';
 import Cookies from 'js-cookie'
 
@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
 import { Button } from "../Support Files/Button"
 
-
-//I expect us to modifty this alot in the future but I always liked having this to start
 const Nav = () => {
     const history = useHistory();
     const Auth = useContext(AuthApi)

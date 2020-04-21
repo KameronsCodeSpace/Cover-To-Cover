@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 
-import VistorNav from '../Support Files/VistorNav'
+import ProtectedNav from '../ProtectedPages/ProtectedNav'
 
-class Explore extends React.Component {
+class Dashboard extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -34,7 +34,7 @@ class Explore extends React.Component {
                     data.map(element => {
                         return (
                             <div className='blog'>
-                                <VistorNav />
+                                <ProtectedNav />
                                 <p>{element.p_username}</p>
                                 <p>{element.caption}</p>
                             </div>
@@ -45,4 +45,4 @@ class Explore extends React.Component {
         );
     }
 }
-export default Explore;
+export default Dashboard;
