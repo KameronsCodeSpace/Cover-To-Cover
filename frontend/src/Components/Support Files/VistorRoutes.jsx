@@ -6,8 +6,8 @@ import Landing from '../Pages/Landing';
 import Login from '../Authentication/Login';
 import Registration from '../Authentication/Registration';
 import Explore from '../Pages/Explore';
-import Travel from '../Pages/Travel';
-import Trending from '../Pages/Trending';
+import Travel from '../ProtectedPages/Travel';
+import Trending from '../ProtectedPages/Trending';
 
 const VistorRoutes = () => {
     return (

@@ -9,8 +9,8 @@ import Landing from '../Pages/Landing';
 import Login from '../Authentication/Login';
 import Registration from '../Authentication/Registration';
 import Dashboard from '../ProtectedPages/Dashboard';
-import Travel from '../Pages/Travel';
-import Trending from '../Pages/Trending';
+import Travel from '../ProtectedPages/Travel';
+import Trending from '../ProtectedPages/Trending';
 import UserProfile from '../ProtectedPages/UserProfile';
 
 const UserRoutes = () => {
