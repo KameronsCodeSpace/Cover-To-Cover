@@ -8,10 +8,10 @@ import AuthApi from '../Authentication/AuthApi'
 import Landing from '../Pages/Landing';
 import Login from '../Authentication/Login';
 import Registration from '../Authentication/Registration';
-// import Travel from '../Pages/Travel';
-// import Trending from '../Pages/Trending';
-// import UserProfile from '../Pages/UserProfile';
 import Explore from '../Pages/Explore';
+import Travel from '../Pages/Travel';
+import Trending from '../Pages/Trending';
+import UserProfile from '../Pages/UserProfile';
 
 const Routes = () => {
 const Auth = useContext(AuthApi)
@@ -23,6 +23,9 @@ const Auth = useContext(AuthApi)
 
             {/* Auth Routes below */}
             <ProtectedRoute path='/explore' auth={Auth.auth} component={Explore} />
+            <ProtectedRoute path='/travel' auth={Auth.auth} component={Travel} />
+            <ProtectedRoute path='/trending' auth={Auth.auth} component={Trending} />
+            <ProtectedRoute path='/userprofile' auth={Auth.auth} component={UserProfile} />
 
             {/* <ProtectedRoute path='/travel' component={Travel}>
             </ProtectedRoute>

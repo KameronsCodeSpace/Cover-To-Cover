@@ -1,5 +1,6 @@
-import React from 'react';
-import Auth from '../Authentication/Auth'
+import React, { useContext} from 'react';
+import AuthApi from '../Authentication/AuthApi';
+import Cookies from 'js-cookie'
 
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
@@ -9,15 +10,16 @@ import { Button } from "../Support Files/Button"
 //I expect us to modifty this alot in the future but I always liked having this to start
 const Nav = () => {
     const history = useHistory();
+    const Auth = useContext(AuthApi)
 
     const navStyle = {
         color: 'white'
     }
 
     const authLogout = () => {
-        Auth.logout(() => {
-            history.push('/')
-        })
+        Auth.setAuth(false);
+        Cookies.remove('user');
+        history.push('/');
     }
 
     return (
@@ -31,6 +33,7 @@ const Nav = () => {
                     </svg>
                 </div>
             </div>
+            <p>Post Icon</p>
             <ul className='nav-links'>
                 {/* <Link style={navStyle} to="/"><strong><li>Home</li></strong></Link> */}
                 {/* <Link style={navStyle} to='/login'><strong><li>Login</li></strong></Link> */}
@@ -44,7 +47,7 @@ const Nav = () => {
                 <Button onClick={authLogout}
                     type="button"
                     buttonStyle="btn--login--solid"
-                    buttonSize="btn--medium">Log Out</Button>
+                    buttonSize="btn--medium">Logout</Button>
             </div>
         </nav>
     );

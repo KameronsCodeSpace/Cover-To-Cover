@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import AuthApi from './AuthApi';
+import Cookies from 'js-cookie';
 
 import GoogleIcon from '../../img/GoogleIcon.png';
 import FacebookIcon from '../../img/facebookIcon.png';
@@ -15,7 +16,8 @@ const Login = () => {
 
     const onLogin = () => {
         Auth.setAuth(true);
-        history.push('/explore')
+        Cookies.set('user', 'loginTrue', { expires: 1 });
+        history.push('/explore');
     }
 
     const onRegister = () => {
