@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const posts = require("./posts.js");
 const db = require('../db/db');
+const usersQueries = require("../queries/comments");
+const {loginRequired} = require("../auth/helpers")
 
-router.get('/:id',  async (req,res)=>{
-    let id = req.params.id;
+router.get('/blog/:c_post_id', loginRequired, async (req,res)=>{
+    let id = req.params.c_post_id;
     try {
-        let comments = await db.any(`SELECT * FROM comments WHERE c_post_id = ${id}`)
+       const comment = await usersQueries.getCommentsOnPostsById(id)
         res.json({
-            payload: comments,
+            payload: comment,
             message: 'Success. Retrieved all the comments.'
         })
     } catch (error) {
@@ -20,14 +21,19 @@ router.get('/:id',  async (req,res)=>{
     }
 })
 
-router.post('/:id', async (req, res) => {
-    let id = req.params.id;
+router.post('/new', async (req, res) => {
+    let id = req.params.c_post_id;
     try {
-        let newComment = db.none(`INSERT INTO comments (comment, c_post_id, commentors_name) 
-        VALUES ($1, $2, $3)`, [req.body.comment, req.body.c_post_id, req.body.commentors_name])
+        let data = {
+          comment: req.body.comment,
+          c_post_id: req.body.c_post_id,
+          commentors_name: req.body.commentors_name
+        }
+        const newComment = await usersQueries.addCommentOnAPost(data)
+
         res.json({
-            payload: req.body,
-            message: `succes! added a new comment to post ${id}`
+            payload: newComment,
+            message: `success! added a new comment to post ${id}`
         })
     } catch (error) {
         console.log(error)
@@ -36,5 +42,6 @@ router.post('/:id', async (req, res) => {
         })
     }
 })
+
 
 module.exports = router;
