@@ -41,3 +41,4 @@ yarn-error.log*
 /.changelog
 .npm/
 dist
+public/avatar_links/

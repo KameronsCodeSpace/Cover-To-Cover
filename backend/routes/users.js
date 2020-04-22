@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const usersQueries = require("../queries/users");
 const db = require("../db/db");
-const {loginRequired} = require("../auth/helpers")
+const {loginRequired} = require("../auth/helpers");
 
 
 /* Route to GET all users listing. */

@@ -21,7 +21,7 @@ router.get('/blog/:c_post_id', loginRequired, async (req,res)=>{
     }
 })
 
-router.post('/new', async (req, res) => {
+router.post('/new', loginRequired, async (req, res) => {
     let id = req.params.c_post_id;
     try {
         let data = {
