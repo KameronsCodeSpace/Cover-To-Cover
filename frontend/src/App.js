@@ -1,53 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-// main pages
-import Landing from './Components/Pages/Landing';
-import Login from './Components/Auth/Login';
-import Registration from './Components/Auth/Registration';
-import Travel from './Components/Pages/Travel';
-import Trending from './Components/Pages/Trending';
-import UserProfile from './Components/Pages/UserProfile';
-import Explore from './Components/Pages/Explore';
+import AuthApi from './Components/Authentication/AuthApi'
+import UserRoutes from './Components/Support Files/UserRoutes'
+import VistorRoutes from './Components/Support Files/VistorRoutes'
+import Cookies from 'js-cookie'
 
-// supporting jsx files
-import Nav from './Components/Support Files/Nav'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-
-//Setting up a basic nav bar on each page. We can modify this structure later to
 //Works better with Authtication and Redux
 const App = () => {
+  const [auth, setAuth] = useState(false);
+
+  const readCookie = () => {
+    const user = Cookies.get("user");
+    if (user) {
+      setAuth(true);
+    }
+  }
+
+  useEffect(() => {
+    readCookie();
+  }, [])
 
   return (
-    <Router>
-      <div className="App">
-        {/* <Nav /> */}
-        <Switch>
-
-          <Route exact path='/' component={Landing} />
-          <Route path='/login' component={Login} />
-          <Route path='/registration' component={Registration} />
-          <Route path='/explore'>
-            <Nav />
-            <Explore />
-          </Route>
-          <Route path='/travel'>
-            <Nav />
-            <Travel />
-          </Route>
-          <Route path='/trending'>
-            <Nav />
-            <Trending />
-          </Route>
-          <Route path='/userprofile'>
-            <Nav />
-            <UserProfile />
-          </Route>
-
-        </Switch>
-      </div>
-    </Router>
+    <AuthApi.Provider value={{ auth, setAuth }}>
+      <Router>
+        <div className="App">
+          <Route
+            render = {() => auth? (
+              <UserRoutes />
+              ):
+            (
+              <VistorRoutes />
+              )
+            }
+        />
+        </div>
+      </Router>
+    </AuthApi.Provider>
   )
 }
 
