@@ -16,8 +16,7 @@ const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
 const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
-
-
+const postRouter = require('./routes/posts');
 
 const app = express();
 

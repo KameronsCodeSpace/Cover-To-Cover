@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthApi from './AuthApi';
+import Cookies from 'js-cookie';
 
 import background from '../../img/bg-shape.svg';
 import { useHistory } from 'react-router-dom';
@@ -6,9 +8,12 @@ import { Button } from "../Support Files/Button"
 
 const Registration = () => {
     const history = useHistory();
+    const Auth = useContext(AuthApi)
 
     const onSignup = () => {
-        history.push('/explore')
+        Auth.setAuth(true);
+        Cookies.set('user', 'loginTrue', { expires: 1 });
+        history.push('/dashboard')
     }
 
     return (
