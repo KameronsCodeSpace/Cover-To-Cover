@@ -35,6 +35,7 @@ class Explore extends React.Component {
                         return (
                             <div className='blog'>
                                 <VistorNav />
+                                <p>{element.id}</p>
                                 <p>{element.p_username}</p>
                                 <p>{element.caption}</p>
                             </div>
