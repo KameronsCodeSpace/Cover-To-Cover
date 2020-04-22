@@ -33,7 +33,7 @@ class VistorNav extends Component {
                 <ul className='nav-links'>
                     <Link style={navStyle} to="/"><strong><li>Home</li></strong></Link>
                     <Link style={navStyle} to='/login'><strong><li>Login</li></strong></Link>
-                    <Link style={navStyle} to='/signup'><strong><li>Signup</li></strong></Link>
+                    <Link style={navStyle} to='/registration'><strong><li>Signup</li></strong></Link>
                     {/* <Link style={navStyle} to='/Travel'><strong><li>Travel</li></strong></Link> */}
                     {/* <Link style={navStyle} to='/Trending'><strong><li>Trending</li></strong></Link> */}
                     {/* <Link style={navStyle} to='/userprofile'><strong><li>User Profile</li></strong></Link> */}
