@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+import { Provider } from 'react-redux';
+import store from './store'
+
 import AuthApi from './Components/Authentication/AuthApi'
 import UserRoutes from './Components/Support Files/UserRoutes'
 import VistorRoutes from './Components/Support Files/VistorRoutes'
@@ -24,21 +27,23 @@ const App = () => {
   }, [])
 
   return (
-    <AuthApi.Provider value={{ auth, setAuth }}>
-      <Router>
-        <div className="App">
-          <Route
-            render = {() => auth? (
-              <UserRoutes />
-              ):
-            (
-              <VistorRoutes />
-              )
-            }
-        />
-        </div>
-      </Router>
-    </AuthApi.Provider>
+    <Provider store={store}>
+      <AuthApi.Provider value={{ auth, setAuth }}>
+        <Router>
+          <div className="App">
+            <Route
+              render={() => auth ? (
+                <UserRoutes />
+              ) :
+                (
+                  <VistorRoutes />
+                )
+              }
+            />
+          </div>
+        </Router>
+      </AuthApi.Provider>
+    </Provider>
   )
 }
 
