@@ -7,7 +7,11 @@ const logger = require('morgan');
 const session = require('express-session');
 const passport = require('./auth/passport');
 const bodyParser = require('body-parser');
+const multer = require('multer')
 
+const upload = multer({
+    dest: "./public/avatar_links"
+})
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
