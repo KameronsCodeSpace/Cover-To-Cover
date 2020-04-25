@@ -30,11 +30,12 @@ class Dashboard extends React.Component {
         console.log("render method data:", data);
         return (
             <div id="stories_explore">
+                <ProtectedNav />
+
                 {
                     data.map(element => {
                         return (
                             <div className='blog'>
-                                <ProtectedNav />
                                 <p>{element.p_username}</p>
                                 <p>{element.caption}</p>
                             </div>

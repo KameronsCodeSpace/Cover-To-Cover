@@ -30,11 +30,13 @@ class Explore extends React.Component {
         console.log("render method data:", data);
         return (
             <div id="stories_explore">
+                <VistorNav />
+
                 {
+
                     data.map(element => {
                         return (
                             <div className='blog'>
-                                <VistorNav />
                                 <p>{element.id}</p>
                                 <p>{element.p_username}</p>
                                 <p>{element.caption}</p>
