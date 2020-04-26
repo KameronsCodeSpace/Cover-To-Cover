@@ -15,9 +15,18 @@ const Login = () => {
     const Auth = useContext(AuthApi)
 
     const onLogin = () => {
-        Auth.setAuth(true);
-        Cookies.set('user', 'loginTrue', { expires: 1 });
-        history.push('/dashboard');
+        // Auth.setAuth(true);
+        // Cookies.set('user', 'loginTrue', { expires: 1 });
+        // history.push('/dashboard');
+    }
+
+    const handleChange = (e) => {
+        console.log(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("WORKSING")
     }
 
     const onRegister = () => {
@@ -36,35 +45,39 @@ const Login = () => {
             <div className={'rightBox'}>
                 <div className={'box'}>
                     <div className={'titleAuth'}>Log Into Cover to Cover</div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Username'} />
-                    </div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'password'} placeholder={'Password'} />
-                    </div>
-                    <div className={'contentBox'}>
-                        <div className={'checkboxBox'}>
-                            <input type={'checkbox'} className={'checkbox'} />
-                            <label className={'checkboxLabel'}>Remember</label>
+                    <form onSubmit={handleSubmit}>
+                        <div className={'inputSBox'}>
+                            <input className={'inputS'} type={'text'} placeholder={'Username'} onChange={handleChange} />
                         </div>
-                        <div className={'text1'}>Forgot Password?</div>
-                    </div>
+                        <div className={'inputSBox'}>
+                            <input className={'inputS'} type={'password'} placeholder={'Password'} onChange={handleChange} />
+                        </div>
+                        <div className={'contentBox'}>
+                            <div className={'checkboxBox'}>
+                                <input type={'checkbox'} className={'checkbox'} />
+                                <label className={'checkboxLabel'}>Remember</label>
+                            </div>
+                            <div className={'text1'}>Forgot Password?</div>
+                        </div>
 
-                    {/* <div className={'btnAuth'}>Login</div> */}
-                    <div className='buttons'>
-                        <div className='btn-holder'>
-                            <Button onClick={onLogin}
-                                type="button"
-                                buttonStyle="btn--login--solid"
-                                buttonSize="btn--large">Login</Button>
+                        {/* <div className={'btnAuth'}>Login</div> */}
+                        <div className='buttons'>
+                            <div className='btn-holder'>
+                                <Button
+                                    buttonStyle="btn--login--solid"
+                                    buttonSize="btn--large">Login</Button>
+                            </div>
+
+                            <div className='btn-holder'>
+                                <Button 
+                                    onClick={onRegister}
+                                    type="button"
+                                    buttonStyle="btn--login--solid"
+                                    buttonSize="btn--large">Register</Button>
+                            </div>
                         </div>
-                        <div className='btn-holder'>
-                            <Button onClick={onRegister}
-                                type="button"
-                                buttonStyle="btn--login--solid"
-                                buttonSize="btn--large">Register</Button>
-                        </div>
-                    </div>
+                        {/* <button>Login</button> */}
+                    </form>
 
                     {/* <br /> */}
                     {/* <div className={'btnAuth'}>Registration</div> */}

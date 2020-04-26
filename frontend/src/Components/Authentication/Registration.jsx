@@ -11,9 +11,22 @@ const Registration = () => {
     const Auth = useContext(AuthApi)
 
     const onSignup = () => {
-        Auth.setAuth(true);
-        Cookies.set('user', 'loginTrue', { expires: 1 });
-        history.push('/dashboard')
+        // Auth.setAuth(true);
+        // Cookies.set('user', 'loginTrue', { expires: 1 });
+        // history.push('/dashboard')
+    }
+
+    const handleChange = (e) => {
+        console.log(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("WORKSING")
+    }
+
+    const backToLogin = () => {
+        history.push('/login')
     }
 
     return (
@@ -28,33 +41,42 @@ const Registration = () => {
             <div className={'rightBox'}>
                 <div className={'box'}>
                     <div className={'titleAuth'}>Registration</div>
+                    <form onSubmit={handleSubmit}>
                     <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Username'} />
+                        <input className={'inputS'} type={'text'} placeholder={'Username'} onChange={handleChange} />
                     </div>
                     <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'password'} placeholder={'Password'} />
+                        <input className={'inputS'} type={'password'} placeholder={'Password'} onChange={handleChange} />
                     </div>
                     <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Region'} />
+                        <input className={'inputS'} type={'text'} placeholder={'Region'} onChange={handleChange} />
                     </div>
                     <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Info'} />
+                        <input className={'inputS'} type={'text'} placeholder={'Info'} onChange={handleChange} />
                     </div>
                     <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Email'} />
+                        <input className={'inputS'} type={'text'} placeholder={'Email'} onChange={handleChange} />
                     </div>
                     <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Avatar'} />
+                        <input className={'inputS'} type={'text'} placeholder={'Avatar'} onChange={handleChange} />
                     </div>
 
                     <div className='buttons'>
                         <div className='btn-holder'>
-                            <Button onClick={onSignup}
-                                type="button"
+                            <Button 
                                 buttonStyle="btn--login--solid"
                                 buttonSize="btn--large">Sign Up</Button>
                         </div>
+                        <div className='btn-holder'>
+                                <Button 
+                                    onClick={backToLogin}
+                                    type="button"
+                                    buttonStyle="btn--login--solid"
+                                    buttonSize="btn--large">Return</Button>
+                            </div>
                     </div>
+
+                    </form>
                 </div>
             </div>
         </div>
