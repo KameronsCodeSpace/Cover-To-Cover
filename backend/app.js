@@ -34,7 +34,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser("NOT_A_GOOD_SECRET"));
 app.use(express.static(path.join(__dirname, '../backend/public')));
 
-
 app.use(session({
     secret: "NOT_A_GOOD_SECRET",
     resave: false,

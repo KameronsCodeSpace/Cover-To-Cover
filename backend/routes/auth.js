@@ -5,35 +5,46 @@ const usersQueries = require("../queries/users");
 const passport = require('../auth/passport');
 const multer = require('multer');
 
-const storage = multer.diskStorage({
-  destination:  (req, file, cb) => {
-    cb(null, './public/avatar_links')
-  },
-  filename:  (req, file, cb) => {
-    let name = Date.now() + "_" + file.originalname
-    cb(null, name)
-  }
-})
-const upload = multer({
-    storage: storage
-})
+// const storage = multer.diskStorage({
+//   destination:  (req, file, cb) => {
+//     cb(null, './public/avatar_links')
+//   },
+//   filename:  (req, file, cb) => {
+//     let name = Date.now() + "_" + file.originalname
+//     cb(null, name)
+//   }
+// })
+// const upload = multer({
+//     storage: storage
+// })
 
 //POST Route to add a new user
-router.post("/signup/", upload.single('avatar'), async (req, res, next) => {
-  let userPic = req.file.path
-  console.log('user pic', userPic)
-  console.log('req.file', req.file)
+// upload.single('avatar'),
+router.post("/signup", async (req, res, next) => {
+  headers={"content-type": "application/json"}
+  // let userPic = req.file.path
+  // console.log('user pic', userPic)
+  // console.log('req.file', req.file)
   console.log('req.body', req.body)
+  const { username, email, password, region } = req.body;
+
+  console.log('REQ Wont Work?', username )
+
+  // Validation
+  if(!username || !email || !password || !region) {
+    return res.status(400).json({ msg: 'Please enter all fields' });
+  }
+
   try {
-    let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
-    const passwordDigest = await authHelpers.hashPassword(req.body.password)
+    // let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
+    const passwordDigest = await authHelpers.hashPassword(password)
      let data = {
-      username: req.body.username,
-      email: req.body.email,
+      username: username,
+      email: email,
       password: passwordDigest,
-      region: req.body.region,
-      info: req.body.info,
-      avatar: imgURL
+      region: region,
+      // info: req.body.info,
+      // avatar: imgURL
     };
     const newUser = await usersQueries.registerNewUser(data)
     res.json({
