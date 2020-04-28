@@ -36,6 +36,7 @@ export default function (state = initialState, action) {
             }
         case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
+            // set token on this line later
             return {
                 ...state,
                 ...action.payload,
