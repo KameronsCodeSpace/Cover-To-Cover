@@ -1,14 +1,13 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 import { Provider } from 'react-redux';
 import store from './store'
 import { loadUser } from './Actions/authActions'
 
-import AuthApi from './Components/Authentication/AuthApi'
 import UserRoutes from './Components/Support Files/UserRoutes'
 import VistorRoutes from './Components/Support Files/VistorRoutes'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
@@ -17,41 +16,41 @@ class App extends Component {
 
   componentDidMount() {
     store.dispatch(loadUser());
+    console.log('UserInfo', store.getState(loadUser())['auth'].isAuthenticated);
   }
 
   render() {
 
-  // const [auth, setAuth] = useState(false);
+    // const readCookie = () => {
+    // const user = Cookies.get("user");
+    // if (user) {
+    //   setAuth(true);
+    // }
+    // }
 
-  // const readCookie = () => {
-  //   const user = Cookies.get("user");
-  //   if (user) {
-  //     setAuth(true);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   readCookie();
-  // }, [])
+    // useEffect(() => {
+    //   readCookie();
+    // }, [])
     return (
       <Provider store={store}>
-        {/* <AuthApi.Provider value={{ auth, setAuth }}> */}
-          <Router>
-            <div className="App">
-            <VistorRoutes />
+        <Router>
+          <div className="App">
+          {/* <UserRoutes /> */}
 
-              {/* <Route
-                render={() => auth ? (
-                  <UserRoutes />
-                ) :
-                  (
-                    <VistorRoutes />
-                  )
-                }
-              /> */}
-            </div>
-          </Router>
-        {/* </AuthApi.Provider> */}
+            <Route
+            // Use this line to tell when the user is logged in or not and set it up once you can move between components
+              // render={() => store.getState(loadUser())['auth'].isAuthenticated ? (
+              render={() => true ? (
+
+                <UserRoutes />
+              ) :
+                (
+                  <VistorRoutes />
+                )
+              }
+            />
+          </div>
+        </Router>
       </Provider>
     )
   }
