@@ -69,7 +69,7 @@ router.post("/login", authHelpers.loginValidation, (req, res, next) => {
       res.status(401);
       return res.json({
         payload: null,
-        message: 'Invalid User Information',
+        msg: 'Invalid User Information',
         err: true
       })
     }
