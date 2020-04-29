@@ -1,49 +1,51 @@
-import React from "react";
-import axios from "axios";
+//Phasing this file out soon. Explore and Dashboard will be one file.
 
-import ProtectedNav from '../ProtectedPages/ProtectedNav'
+// import React from "react";
+// import axios from "axios";
 
-class Dashboard extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            data: []
-        }
-    }
+// import ProtectedNav from '../ProtectedPages/ProtectedNav'
 
-    async componentDidMount() {
-        try {
-            let blogs = await axios.get('/blog/all');
-            this.setState({
-                data: blogs.data.payload
-            });
-            console.log("state:", this.state);
-        } catch (err) {
-            console.log("ERROR:", err);
-        }
+// class Dashboard extends React.Component {
+//     constructor() {
+//         super();
+//         this.state = {
+//             data: []
+//         }
+//     }
+
+//     async componentDidMount() {
+//         try {
+//             let blogs = await axios.get('/blog/all');
+//             this.setState({
+//                 data: blogs.data.payload
+//             });
+//             console.log("state:", this.state);
+//         } catch (err) {
+//             console.log("ERROR:", err);
+//         }
 
 
-    }
+//     }
 
-    render() {
-        const { data } = this.state;
-        console.log("render method data:", data);
-        return (
-            <div id="stories_explore">
-                <ProtectedNav />
+//     render() {
+//         const { data } = this.state;
+//         console.log("render method data:", data);
+//         return (
+//             <div id="stories_explore">
+//                 <ProtectedNav />
 
-                {
-                    data.map(element => {
-                        return (
-                            <div className='blog'>
-                                <p>{element.p_username}</p>
-                                <p>{element.caption}</p>
-                            </div>
-                        );
-                    })
-                }
-            </div>
-        );
-    }
-}
-export default Dashboard;
+//                 {
+//                     data.map(element => {
+//                         return (
+//                             <div className='blog'>
+//                                 <p>{element.p_username}</p>
+//                                 <p>{element.caption}</p>
+//                             </div>
+//                         );
+//                     })
+//                 }
+//             </div>
+//         );
+//     }
+// }
+// export default Dashboard;

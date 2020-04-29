@@ -5,11 +5,24 @@ import { Provider } from 'react-redux';
 import store from './store'
 import { loadUser } from './Actions/authActions'
 
-import UserRoutes from './Components/Support Files/UserRoutes'
-import VistorRoutes from './Components/Support Files/VistorRoutes'
+// main vistor pages
+import Landing from './Components/Pages/Landing';
+import Login from './Components/Authentication/Login';
+import Registration from './Components/Authentication/Registration';
+
+// Pages with user only features
+import Explore from './Components/Pages/Explore'
+import Travel from './Components/ProtectedPages/Travel';
+import Trending from './Components/ProtectedPages/Trending';
+import UserProfile from './Components/ProtectedPages/UserProfile';
+
+import { ProtectedRoute } from '../src/Components/Authentication/ProtectedRoute';
+
+// import UserRoutes from './Components/Support Files/UserRoutes'
+// import VistorRoutes from './Components/Support Files/VistorRoutes'
 // import Cookies from 'js-cookie'
 
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Switch, Route } from 'react-router-dom'
 
 //Works better with Authtication and Redux
 class App extends Component {
@@ -33,24 +46,33 @@ class App extends Component {
     // }, [])
     return (
       <Provider store={store}>
-        <Router>
-          <div className="App">
-          {/* <UserRoutes /> */}
+        {/* <Router> */}
+        <div className="App">
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/registration' component={Registration} />
+            <Route path='/explore' component={Explore} />
 
-            <Route
-            // Use this line to tell when the user is logged in or not and set it up once you can move between components
+            {/* Auth UserRoutes below */}
+            <ProtectedRoute path='/travel' component={Travel} />
+            <ProtectedRoute path='/trending' component={Trending} />
+            <ProtectedRoute path='/userprofile' component={UserProfile} />
+
+          </Switch>
+          {/* <Route
+              // Use this line to tell when the user is logged in or not and set it up once you can move between components
               // render={() => store.getState(loadUser())['auth'].isAuthenticated ? (
               render={() => true ? (
-
-                <UserRoutes />
+                <VistorRoutes />
               ) :
                 (
-                  <VistorRoutes />
+                  <UserRoutes />
                 )
               }
-            />
-          </div>
-        </Router>
+            /> */}
+        </div>
+        {/* </Router> */}
       </Provider>
     )
   }
