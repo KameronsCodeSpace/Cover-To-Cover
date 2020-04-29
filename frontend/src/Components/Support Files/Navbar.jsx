@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import AuthApi from '../Authentication/AuthApi';
 import Cookies from 'js-cookie'
 
 import { Link, withRouter } from 'react-router-dom'
-import { Button } from "../Support Files/Button"
+import { Button } from "./Button"
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
@@ -11,7 +11,7 @@ import { getSearches } from '../../Actions/SearchActions'
 import { logout } from '../../Actions/authActions';
 
 
-class ProtectedNav extends Component {
+class Navbar extends Component {
 
     redirectToHome = () => {
         // const history = useHistory();
@@ -20,6 +20,10 @@ class ProtectedNav extends Component {
     }
 
     static contextType = AuthApi
+
+    static propTypes = {
+        auth: PropTypes.object.isRequired
+    }
 
     componentDidMount() {
         const Auth = this.context
@@ -34,11 +38,42 @@ class ProtectedNav extends Component {
 
     //need to add redux to auth next
     render() {
-        const { history } = this.props;
+        const { history, isAuthenticated, user } = this.props;
 
         const navStyle = {
             color: 'white'
         }
+
+        const authLinks = (
+            <Fragment>
+                <span className=''>
+                    <strong>{user ? `Welcome ${user.name}` : 'Nothin'}</strong>
+                </span>
+                <p>Post Icon</p>
+                <ul className='nav-links'>
+                    <Link style={navStyle} to='/dashboard'><strong><li>Dashboard</li></strong></Link>
+                    <Link style={navStyle} to='/travel'><strong><li>Travel</li></strong></Link>
+                    <Link style={navStyle} to='/trending'><strong><li>Trending</li></strong></Link>
+                    <Link style={navStyle} to='/userprofile'><strong><li>User Profile</li></strong></Link>
+                </ul>
+                <div className='btn-holder'>
+                    <Button onClick={this.props.logout}
+                        type="button"
+                        buttonStyle="btn--login--solid"
+                        buttonSize="btn--medium">Logout</Button>
+                </div>
+            </Fragment>
+        );
+
+        const vistorLinks = (
+            <Fragment>
+                <ul className='nav-links'>
+                    <Link style={navStyle} to='/login'><strong><li>Login</li></strong></Link>
+                    <Link style={navStyle} to='/registration'><strong><li>Signup</li></strong></Link>
+                </ul>
+            </Fragment>
+        );
+
 
         // const authLogout = () => {
         //     this.updateAuth()
@@ -58,21 +93,7 @@ class ProtectedNav extends Component {
                             </svg>
                         </div>
                     </div>
-                    <p>Post Icon</p>
-                    <ul className='nav-links'>
-                        {/* <Link style={navStyle} to="/"><strong><li>Home</li></strong></Link> */}
-                        <Link style={navStyle} to='/dashboard'><strong><li>Dashboard</li></strong></Link>
-                        <Link style={navStyle} to='/travel'><strong><li>Travel</li></strong></Link>
-                        <Link style={navStyle} to='/trending'><strong><li>Trending</li></strong></Link>
-                        <Link style={navStyle} to='/userprofile'><strong><li>User Profile</li></strong></Link>
-
-                    </ul>
-                    <div className='btn-holder'>
-                        <Button onClick={this.props.logout}
-                            type="button"
-                            buttonStyle="btn--login--solid"
-                            buttonSize="btn--medium">Logout</Button>
-                    </div>
+                    {isAuthenticated ? authLinks : vistorLinks}
                 </nav>
                 :
                 <div>Oh, we did not get pathname!</div>
@@ -80,16 +101,16 @@ class ProtectedNav extends Component {
     }
 }
 
-ProtectedNav.propTypes = {
+Navbar.propTypes = {
     getSearches: PropTypes.func.isRequired,
     search: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     search: state.search
 })
 export default withRouter(connect(
     mapStateToProps,
     { getSearches, logout }
-)(ProtectedNav));
+)(Navbar));

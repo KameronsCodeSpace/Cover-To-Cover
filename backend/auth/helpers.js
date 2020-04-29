@@ -20,17 +20,38 @@ const comparePasswords = (candidatePassword, passwordDigest) => {
 };
 
 const loginRequired = (req, res, next) => {
- 
+
   if (req.user) return next()
   res.status(401).json({
     payload: null,
     msg: "Please login to access this route",
     err: true
   })
+};
+
+const loginValidation = (req, res, next) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ msg: 'Please enter all fields' });
+  }
+  next();
+}
+
+const registrationValidation = (req, res, next) => {
+  const { username, email, password, region } = req.body;
+
+  // Validation
+  if (!username || !email || !password || !region) {
+    return res.status(400).json({ msg: 'Please enter all fields' });
+  }
+  next();
 }
 
 module.exports = {
   hashPassword,
-  comparePasswords, 
-  loginRequired
+  comparePasswords,
+  loginRequired,
+  loginValidation,
+  registrationValidation
 };

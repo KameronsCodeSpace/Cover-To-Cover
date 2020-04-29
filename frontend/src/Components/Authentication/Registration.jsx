@@ -1,65 +1,136 @@
-import React, { useContext } from 'react';
-import AuthApi from './AuthApi';
-import Cookies from 'js-cookie';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { register } from '../../Actions/authActions'
+import { clearErrors } from '../../Actions/errorActions'
 
 import background from '../../img/bg-shape.svg';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { Button } from "../Support Files/Button"
 
-const Registration = () => {
-    const history = useHistory();
-    const Auth = useContext(AuthApi)
+class Registration extends Component {
+    state = {
+        username: '',
+        email: '',
+        password: '',
+        region: '',
+        msg: null
+    };
 
-    const onSignup = () => {
-        Auth.setAuth(true);
-        Cookies.set('user', 'loginTrue', { expires: 1 });
-        history.push('/dashboard')
+    static propTypes = {
+        isAuthenticated: PropTypes.bool,
+        error: PropTypes.object.isRequired,
+        register: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
+    };
+
+    componentDidUpdate(prevProps) {
+        const { error } = this.props
+        if (error !== prevProps.error) {
+            // Check for register error
+            if (error.id === 'REGISTER_FAIL') {
+                this.setState({ msg: error.msg.msg });
+            } else {
+                this.setState({ msg: null });
+            }
+        }
+
+        // if(isAuthenticated) {
+
+        // }
     }
 
-    return (
-        <div className={'authBox'}>
-            <img src={background} alt='Background Shape' id='bg' />
-            <div className={'leftBox'}>
-                <div className={'bgColor'} />
-                <div className={'imageAuth'} />
-                <div className={'imageTextTop'}>Join The Adventure</div>
-                <div className={'imageTextBottom'}>Share your experience</div>
-            </div>
-            <div className={'rightBox'}>
-                <div className={'box'}>
-                    <div className={'titleAuth'}>Registration</div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Username'} />
-                    </div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'password'} placeholder={'Password'} />
-                    </div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Region'} />
-                    </div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Info'} />
-                    </div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Email'} />
-                    </div>
-                    <div className={'inputSBox'}>
-                        <input className={'inputS'} type={'text'} placeholder={'Avatar'} />
-                    </div>
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
 
-                    <div className='buttons'>
-                        <div className='btn-holder'>
-                            <Button onClick={onSignup}
-                                type="button"
-                                buttonStyle="btn--login--solid"
-                                buttonSize="btn--large">Sign Up</Button>
-                        </div>
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        const { username, email, password, region } = this.state;
+
+        // Create user object
+        const newUser = {
+            username,
+            email,
+            password,
+            region
+        };
+
+        // Attempt to register
+        this.props.register(newUser);
+    }
+
+    backToLogin = () => {
+        // Add backend catch error responces for duplicate usernames
+        this.props.clearErrors()
+        // history.push('/login')
+    }
+
+    render() {
+        return (
+            <div className={'authBox'}>
+                <img src={background} alt='Background Shape' id='bg' />
+                <div className={'leftBox'}>
+                    <div className={'bgColor'} />
+                    <div className={'imageAuth'} />
+                    <div className={'imageTextTop'}>Join The Adventure</div>
+                    <div className={'imageTextBottom'}>Share your experience</div>
+                </div>
+                <div className={'rightBox'}>
+                    <div className={'box'}>
+                        <div className={'titleAuth'}>Registration</div>
+                        {this.state.msg ? (<div>{this.state.msg}</div>
+                        ) : null}
+                        <form onSubmit={this.handleSubmit}>
+                            <div className={'inputSBox'}>
+                                <input className={'inputS'} type={'text'} name='username' id='username' placeholder={'Username'} onChange={this.handleChange} />
+                            </div>
+                            <div className={'inputSBox'}>
+                                <input className={'inputS'} type={'password'} name='password' id='password' placeholder={'Password'} onChange={this.handleChange} />
+                            </div>
+                            <div className={'inputSBox'}>
+                                <input className={'inputS'} type={'email'} name='email' id='email' placeholder={'Email'} onChange={this.handleChange} />
+                            </div>
+                            <div className={'inputSBox'}>
+                                <input className={'inputS'} type={'text'} name='region' id='region' placeholder={'Region'} onChange={this.handleChange} />
+                            </div>
+                            {/* <div className={'inputSBox'}>
+                                <input className={'inputS'} type={'text'} name='info' id='info' placeholder={'Info'} onChange={this.handleChange} />
+                            </div> */}
+                            {/* <div className={'inputSBox'}>
+                                <input className={'inputS'} type={'text'} name='avatar' id='avatar' placeholder={'Avatar'} onChange={this.handleChange} />
+                            </div> */}
+
+                            <div className='buttons'>
+                                <div className='btn-holder'>
+                                    <Button
+                                        buttonStyle="btn--login--solid"
+                                        buttonSize="btn--large">Sign Up</Button>
+                                </div>
+                                <div className='btn-holder'>
+                                    <Button
+                                        onClick={this.backToLogin}
+                                        type="button"
+                                        buttonStyle="btn--login--solid"
+                                        buttonSize="btn--large">Return</Button>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+})
 
-export default Registration;
+export default connect(
+    mapStateToProps,
+    { register, clearErrors }
+)(Registration);

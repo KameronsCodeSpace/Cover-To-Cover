@@ -51,6 +51,7 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/user/:username", async (req, res, next) => {
   const username = req.params.username
+  console.log('What Name is this', username)
   try {
     const user = await usersQueries.getByUsername(username);
   

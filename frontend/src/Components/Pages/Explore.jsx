@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import VistorNav from '../Support Files/VistorNav'
+import Navbar from '../Support Files/Navbar'
 
 class Explore extends React.Component {
     constructor() {
@@ -30,7 +30,7 @@ class Explore extends React.Component {
         console.log("render method data:", data);
         return (
             <div id="stories_explore">
-                <VistorNav />
+                <Navbar />
 
                 {
 
