@@ -25,6 +25,7 @@ router.post("/signup", authHelpers.registrationValidation, async (req, res, next
   // let userPic = req.file.path
   // console.log('user pic', userPic)
   // console.log('req.file', req.file)
+  const { username, email, password, region } = req.body;
 
   try {
     // let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
@@ -65,6 +66,7 @@ router.post("/login", authHelpers.loginValidation, (req, res, next) => {
     }
 
     if (!user) {
+      res.status(401);
       return res.json({
         payload: null,
         message: 'Invalid User Information',
@@ -72,8 +74,9 @@ router.post("/login", authHelpers.loginValidation, (req, res, next) => {
       })
     }
 
-    req.logIn(user, err => {
-      if(err) return next(err);
+    req.login(user, err => {
+      if (err) return next(err);
+      res.status(200);
       res.json({
         payload: req.user,
         message: 'User has successfully logged in',

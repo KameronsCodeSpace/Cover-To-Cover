@@ -45,7 +45,6 @@ const registrationValidation = (req, res, next) => {
   if (!username || !email || !password || !region) {
     return res.status(400).json({ msg: 'Please enter all fields' });
   }
-
   next();
 }
 
