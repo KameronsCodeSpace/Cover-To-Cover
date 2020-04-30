@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { login } from '../../Actions/authActions'
 import { clearErrors } from '../../Actions/errorActions'
-// import Cookies from 'js-cookie';
+import { withRouter } from 'react-router-dom';
+import { Button } from "../Support Files/Button"
 
+import background from '../../img/bg-shape.svg';
 import GoogleIcon from '../../img/GoogleIcon.png';
 import FacebookIcon from '../../img/facebookIcon.png';
 import TwitterIcon from '../../img/TwitterIcon.png';
 
-import background from '../../img/bg-shape.svg';
-// import { useHistory } from 'react-router-dom';
-import { Button } from "../Support Files/Button"
 
 class Login extends Component {
     state = {
@@ -28,7 +28,7 @@ class Login extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { error } = this.props
+        const { isAuthenticated, history, error } = this.props
         if (error !== prevProps.error) {
             // Check for login error
             if (error.id === 'LOGIN_FAIL') {
@@ -39,19 +39,11 @@ class Login extends Component {
             }
         }
 
-        // if(isAuthenticated) {
-
-        // }
+        // Login
+        if (isAuthenticated) {
+            history.push('/explore')
+        }
     }
-
-    // const history = useHistory();
-    // const Auth = useContext(AuthApi)
-
-    // const onLogin = () => {
-    // Auth.setAuth(true);
-    // Cookies.set('user', 'loginTrue', { expires: 1 });
-    // history.push('/dashboard');
-    // }
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
@@ -72,15 +64,14 @@ class Login extends Component {
         this.props.login(user);
     }
 
-    backToLogin = () => {
-        // Add backend catch error responces for duplicate usernames
-        this.props.clearErrors()
-        // history.push('/login')
-    }
+    toRegistration = () => {
+        const { history } = this.props;
 
-    //  onRegister = () => {
-    //     history.push('/registration')
-    // }
+        if (history) {
+            this.props.clearErrors()
+            history.push('/registration')
+        }
+    }
 
     render() {
         return (
@@ -112,7 +103,6 @@ class Login extends Component {
                                 <div className={'text1'}>Forgot Password?</div>
                             </div>
 
-                            {/* <div className={'btnAuth'}>Login</div> */}
                             <div className='buttons'>
                                 <div className='btn-holder'>
                                     <Button
@@ -121,17 +111,13 @@ class Login extends Component {
                                 </div>
                                 <div className='btn-holder'>
                                     <Button
-                                        onClick={this.onRegister}
+                                        onClick={this.toRegistration}
                                         type="button"
                                         buttonStyle="btn--login--solid"
                                         buttonSize="btn--large">Register</Button>
                                 </div>
                             </div>
-                            {/* <button>Login</button> */}
                         </form>
-
-                        {/* <br /> */}
-                        {/* <div className={'btnAuth'}>Registration</div> */}
 
                         <div className={'borderBox'}>
                             <div className={'line'} />
@@ -154,7 +140,7 @@ const mapStateToProps = state => ({
     error: state.error
 })
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     { login, clearErrors }
-)(Login);
+)(Login));

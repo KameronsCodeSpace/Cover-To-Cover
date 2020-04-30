@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { register } from '../../Actions/authActions'
 import { clearErrors } from '../../Actions/errorActions'
 
 import background from '../../img/bg-shape.svg';
-// import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Button } from "../Support Files/Button"
 
 class Registration extends Component {
@@ -25,7 +26,7 @@ class Registration extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { error } = this.props
+        const { isAuthenticated, history, error } = this.props
         if (error !== prevProps.error) {
             // Check for register error
             if (error.id === 'REGISTER_FAIL') {
@@ -35,9 +36,10 @@ class Registration extends Component {
             }
         }
 
-        // if(isAuthenticated) {
-
-        // }
+        // Complete Registration and Login
+        if (isAuthenticated) {
+            history.push('/explore')
+        }
     }
 
     handleChange = (e) => {
@@ -62,9 +64,12 @@ class Registration extends Component {
     }
 
     backToLogin = () => {
-        // Add backend catch error responces for duplicate usernames
-        this.props.clearErrors()
-        // history.push('/login')
+        const { history } = this.props;
+
+        if (history) {
+            this.props.clearErrors()
+            history.push('/login')
+        }
     }
 
     render() {
@@ -130,7 +135,7 @@ const mapStateToProps = state => ({
     error: state.error
 })
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     { register, clearErrors }
-)(Registration);
+)(Registration));
