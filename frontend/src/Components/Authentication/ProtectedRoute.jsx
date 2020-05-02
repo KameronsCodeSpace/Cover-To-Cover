@@ -15,7 +15,7 @@ class ProtectedRoute extends Component {
         console.log('Protected Auth is', isAuthenticated)
 
         return (
-            
+
             <Route
                 {...rest}
                 render={() => isAuthenticated ? (
@@ -25,7 +25,7 @@ class ProtectedRoute extends Component {
                         <Redirect to="/login" />
                     )
                 }
-                
+
             />
         )
     }
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
 
 export default withRouter(connect(
     mapStateToProps
-) (ProtectedRoute));
+)(ProtectedRoute));

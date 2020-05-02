@@ -40,7 +40,7 @@ class Explore extends React.Component {
                             <div className='blog-post'>
                                 <div className="blog-box">
                                     <div className="blog-img">
-                                    <img src={staticPostImg} alt='img' />
+                                        <img src={staticPostImg} alt='img' />
                                     </div>
                                     <div className="blog-content">
                                         {/* <p>{element.id}</p> */}
