@@ -1,13 +1,13 @@
 const db = require("../db/db");
 
-//QUERY to GET all the users 
-// const getAllUsers = async () => {
-//   const requestQuery = `SELECT id, username, avatar, region FROM users`
-//   let allUsers = await db.any(requestQuery);
-//   console.log("users", allUsers);
-//   return allUsers;
+// QUERY to GET all the users 
+const getAllUsers = async () => {
+  const requestQuery = `SELECT id, username, avatar, region FROM users`
+  let allUsers = await db.any(requestQuery);
+  console.log("users", allUsers);
+  return allUsers;
 
-// };
+};
 
 const getByUsername = async (username) => {
     const requestQuery = `SELECT * FROM users WHERE username = $1`
