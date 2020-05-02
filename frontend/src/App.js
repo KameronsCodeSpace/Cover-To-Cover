@@ -16,7 +16,7 @@ import Travel from './Components/ProtectedPages/Travel';
 import Trending from './Components/ProtectedPages/Trending';
 import UserProfile from './Components/ProtectedPages/UserProfile';
 
-import { ProtectedRoute } from '../src/Components/Authentication/ProtectedRoute';
+import ProtectedRoute from '../src/Components/Authentication/ProtectedRoute';
 
 // import UserRoutes from './Components/Support Files/UserRoutes'
 // import VistorRoutes from './Components/Support Files/VistorRoutes'
