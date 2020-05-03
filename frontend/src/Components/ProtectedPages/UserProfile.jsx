@@ -1,6 +1,6 @@
 import React from 'react';
 // import axios from 'axios';
-import ProtectedNav from './ProtectedNav'
+import Navbar from '../Support Files/Navbar'
 import { connect }  from 'react-redux';
 
 
@@ -11,7 +11,7 @@ const UserProfile = (state) => {
     return (
         
         <div>
-            <ProtectedNav />
+            <Navbar />
             <h1>UserProfile Page</h1>
             <h2>{state.username}</h2>
             <img src= {state.avatar}/>
