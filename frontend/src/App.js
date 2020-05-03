@@ -15,7 +15,6 @@ import Explore from './Components/Pages/Explore'
 import Travel from './Components/ProtectedPages/Travel';
 import Trending from './Components/ProtectedPages/Trending';
 import UserProfile from './Components/ProtectedPages/UserProfile';
-
 import ProtectedRoute from '../src/Components/Authentication/ProtectedRoute';
 
 // import UserRoutes from './Components/Support Files/UserRoutes'
@@ -71,6 +70,7 @@ class App extends Component {
                 )
               }
             /> */}
+            
         </div>
         {/* </Router> */}
       </Provider>

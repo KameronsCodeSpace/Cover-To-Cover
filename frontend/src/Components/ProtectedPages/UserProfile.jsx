@@ -1,14 +1,36 @@
 import React from 'react';
+// import axios from 'axios';
+import ProtectedNav from './ProtectedNav'
+import { connect }  from 'react-redux';
 
-import Navbar from '../Support Files/Navbar'
 
-function UserProfile() {
+const UserProfile = (state) => {
+    console.log('state????:', state)
+
+    console.log('avatar', state.avatar)
     return (
+        
         <div>
-            <Navbar />
+            <ProtectedNav />
             <h1>UserProfile Page</h1>
+            <h2>{state.username}</h2>
+            <img src= {state.avatar}/>
+            <div> Region: {state.region}</div>
+            <div>Info: {state.info}</div>
+            
+            
         </div>
     );
 }
 
-export default UserProfile;
+const mapStateToProps = (state) => {
+    console.log('check state:', state)
+    // profile: state
+    return state.auth.payload
+}
+
+const mapDispatchToProps = (dispatch) => {
+
+}
+
+export default (connect(mapStateToProps, mapDispatchToProps) (UserProfile));
