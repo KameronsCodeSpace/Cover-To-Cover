@@ -6,7 +6,9 @@ function Travel() {
     return (
         <div>
             <Navbar />
-            <h1>Travel Page</h1>
+            <div className="inner-pages">
+                <h1>Travel Page</h1>
+            </div>
         </div>
     );
 }

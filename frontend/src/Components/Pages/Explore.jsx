@@ -32,26 +32,28 @@ class Explore extends React.Component {
         return (
             <div>
                 <Navbar />
+                <div className="inner-pages">
 
-                {
+                    {
 
-                    data.map(element => {
-                        return (
-                            <div className='blog-post'>
-                                <div className="blog-box">
-                                    <div className="blog-img">
-                                        <img src={staticPostImg} alt='img' />
-                                    </div>
-                                    <div className="blog-content">
-                                        {/* <p>{element.id}</p> */}
-                                        <h3>{element.p_username}</h3>
-                                        <p>{element.caption}</p>
+                        data.map(element => {
+                            return (
+                                <div className='blog-post'>
+                                    <div className="blog-box">
+                                        <div className="blog-img">
+                                            <img src={staticPostImg} alt='img' />
+                                        </div>
+                                        <div className="blog-content">
+                                            {/* <p>{element.id}</p> */}
+                                            <h3>{element.p_username}</h3>
+                                            <p>{element.caption}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })
-                }
+                            );
+                        })
+                    }
+                </div>
             </div>
         );
     }
