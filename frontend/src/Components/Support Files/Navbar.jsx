@@ -154,7 +154,7 @@ class Navbar extends Component {
         const vistorLinks = (
             <Fragment>
                 <ul className='nav-links'>
-                    <li className='nav-item'>
+                    <li className='nav-item-vistor'>
                         <Link className='nav-link' to='/explore'>
                             <svg
                                 aria-hidden="true"
@@ -183,7 +183,7 @@ class Navbar extends Component {
                         </Link>
                     </li>
 
-                    <li className='nav-item'>
+                    <li className='nav-item-vistor'>
                         <Link className='nav-link' to='/login'>
                             <svg
                                 aria-hidden="true"
@@ -212,7 +212,7 @@ class Navbar extends Component {
                         </Link>
                     </li>
 
-                    <li className='nav-item'>
+                    <li className='nav-item-vistor'>
                         <Link className='nav-link' to='/registration'>
                             <svg
                                 aria-hidden="true"

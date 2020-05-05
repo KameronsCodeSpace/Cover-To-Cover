@@ -363,6 +363,11 @@ p {
   width: 100%;
 }
 
+.nav-item-vistor {
+  width: 100%;
+}
+
+/* Only for authenticated users */
 .nav-item:last-child {
   position: absolute;
   bottom: 0;
