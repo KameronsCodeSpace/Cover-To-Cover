@@ -1,6 +1,6 @@
 import React from 'react';
-// import axios from 'axios';
 import ProtectedNav from './ProtectedNav'
+import User from '../Support Files/User';
 import { connect }  from 'react-redux';
 
 
@@ -13,8 +13,9 @@ const UserProfile = (state) => {
         <div>
             <ProtectedNav />
             <h1>UserProfile Page</h1>
+            <User/>
             <h2>{state.username}</h2>
-            <img src= {state.avatar}/>
+            {/* <img src= {state.avatar}/> */}
             <div> Region: {state.region}</div>
             <div>Info: {state.info}</div>
             
@@ -30,7 +31,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-
+    return {
+        onsubmit: event =>  dispatch(this.handleFormSubmit(event)),
+    }
+   
 }
 
 export default (connect(mapStateToProps, mapDispatchToProps) (UserProfile));

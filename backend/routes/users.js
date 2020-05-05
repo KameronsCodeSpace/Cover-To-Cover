@@ -4,6 +4,9 @@ const usersQueries = require("../queries/users");
 const db = require("../db/db");
 const {loginRequired} = require("../auth/helpers");
 
+const multer = require('multer');
+
+
 
 /* Route to GET all users listing. */
 router.get("/", loginRequired, async (req, res, next) => {
@@ -51,8 +54,10 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/user/:username", async (req, res, next) => {
   const username = req.params.username
+
   console.log('What Name is this', username)
   try {
+   
     const user = await usersQueries.getByUsername(username);
   
     res.json({
@@ -61,14 +66,49 @@ router.get("/user/:username", async (req, res, next) => {
       error: false
     });
   } catch (error) {
+    console.log('error', error)
     res.status(500);
     res.json({
       message: `Unable to retrieve user`,
       error: true
     });
-    console.log("err", error);
+  
   }
 });
+
+// router.post('/upload', async(req, res, next) => {
+//   
+//   try {
+//       let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
+//       const userAvatar = await usersQueries.uploadAvatar(imgURL)
+//       if (!req.file) {
+//         console.log('req.file:', req.file)
+//         console.log("No file received");
+//         return res.send({
+//         success: false
+//       });
+
+//       } else {
+//         console.log('file received');
+//         res.json({
+//           payload: userAvatar,
+//           msg: `Avatar successfully uploaded` 
+//         })
+//         return res.send({
+//           success: true
+//         })
+//       }
+//   } catch (error) {
+//     console.log('error', error)
+//     res.status(500);
+//     res.json({
+//       message: `Unable to upload avatar`,
+//       error: true
+//     })
+//   }
+
+  
+// });
 
 
 //PATCH to update a a user
@@ -165,6 +205,7 @@ router.patch("/:id", loginRequired, async (req, res, next) => {
   }
   if (avatar) {
     try {
+      
       const update = await usersQueries.updateAvatar(id, avatar)
       console.log('params', id)
       res.json({

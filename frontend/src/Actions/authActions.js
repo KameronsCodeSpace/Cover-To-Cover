@@ -10,6 +10,7 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
+    UPLOAD_AVATAR
 } from "../Actions/types";
 
 export const loadUser = () => (dispatch, getState) => {
@@ -69,6 +70,10 @@ export const login = (user) => dispatch => {
             });
         });
 };
+
+export const avatar = (user) => {
+    
+}
 
 // Logout User
 export const logout = () => {

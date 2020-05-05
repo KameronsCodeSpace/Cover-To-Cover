@@ -41,7 +41,7 @@ class Login extends Component {
 
         // Login
         if (isAuthenticated) {
-            history.push('/explore')
+            history.push('/userprofile')
         }
     }
 

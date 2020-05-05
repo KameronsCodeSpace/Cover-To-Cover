@@ -1,13 +1,13 @@
 const db = require("../db/db");
 
 // QUERY to GET all the users 
-const getAllUsers = async () => {
-  const requestQuery = `SELECT id, username, avatar, region FROM users`
-  let allUsers = await db.any(requestQuery);
-  console.log("users", allUsers);
-  return allUsers;
+// const getAllUsers = async () => {
+//   const requestQuery = `SELECT id, username, avatar, region FROM users`
+//   let allUsers = await db.any(requestQuery);
+//   console.log("users", allUsers);
+//   return allUsers;
 
-};
+// };
 
 const getByUsername = async (username) => {
     const requestQuery = `SELECT * FROM users WHERE username = $1`
@@ -16,12 +16,14 @@ const getByUsername = async (username) => {
         console.log('user!!!!', username)
         return user
     } catch (err) {
+        console.log('error', err)
         if (err.message === 'No data returned from the query.') {
             return null
         } else {
             console.log('Error', err)
             throw err;
         }
+        
     }
 }
 
@@ -47,6 +49,7 @@ const registerNewUser = async (user) => {
     ]);
     return newUser;
 }
+
 
 //QUERY to PATCH a user's username
 const updateUsername = async (id, username) => {
