@@ -2,6 +2,7 @@ import React from 'react';
 // import axios from 'axios';
 import Navbar from '../Support Files/Navbar'
 import { connect } from 'react-redux';
+import Post from '../Support Files/posts'
 
 
 const UserProfile = (state) => {
@@ -12,7 +13,10 @@ const UserProfile = (state) => {
 
         <div>
             <Navbar />
+            
             <div className="inner-pages">
+                 <Post />
+                 <br></br>
                 <h1>UserProfile Page</h1>
                 <h2>{state.username}</h2>
                 <img src={state.avatar} />
