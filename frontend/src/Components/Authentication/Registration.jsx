@@ -38,7 +38,7 @@ class Registration extends Component {
 
         // Complete Registration and Login
         if (isAuthenticated) {
-            history.push('/explore')
+            history.push('/userprofile')
         }
     }
 

@@ -76,43 +76,11 @@ router.get("/user/:username", async (req, res, next) => {
   }
 });
 
-// router.post('/upload', async(req, res, next) => {
-//   
-//   try {
-//       let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
-//       const userAvatar = await usersQueries.uploadAvatar(imgURL)
-//       if (!req.file) {
-//         console.log('req.file:', req.file)
-//         console.log("No file received");
-//         return res.send({
-//         success: false
-//       });
 
-//       } else {
-//         console.log('file received');
-//         res.json({
-//           payload: userAvatar,
-//           msg: `Avatar successfully uploaded` 
-//         })
-//         return res.send({
-//           success: true
-//         })
-//       }
-//   } catch (error) {
-//     console.log('error', error)
-//     res.status(500);
-//     res.json({
-//       message: `Unable to upload avatar`,
-//       error: true
-//     })
-//   }
-
-  
-// });
 
 
 //PATCH to update a a user
-router.patch("/:id", loginRequired, async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
  
   const id = req.params.id; 
   const username = req.body.username;
@@ -120,7 +88,7 @@ router.patch("/:id", loginRequired, async (req, res, next) => {
   const region = req.body.region;
   const info = req.body.info;
   const email = req.body.email;
-  const avatar = req.body.email;
+  const avatar = req.body.avatar;
 
   
  if (username) {

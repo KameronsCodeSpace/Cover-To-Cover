@@ -6,7 +6,9 @@ function Trending() {
     return (
         <div>
             <Navbar />
-            <h1>Trending Page</h1>
+            <div className="inner-pages">
+                <h1>Trending Page</h1>
+            </div>
         </div>
     );
 }

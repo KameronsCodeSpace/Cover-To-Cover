@@ -28,13 +28,14 @@ const app = express();
 
 const storage = multer.diskStorage({
   destination:  (req, file, cb) => {
-    cb(null, './public/avatar_links')
+    cb(null, './public/avatar_links/')
   },
   filename:  (req, file, cb) => {
     let name = Date.now() + "_" + file.originalname
     cb(null, name)
   }
 })
+
 const upload = multer({
     storage: storage
 })
@@ -72,10 +73,23 @@ app.post('/upload', upload.single('avatar'), (req, res,next) => {
     console.log('req.body:', req.body)
     let userPic = req.file.path
     let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
-    res.json({
+    if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false
+    });
+
+  } else {
+     res.json({
         imgURL: imgURL,
         msg: `File has been uploaded`
     })
+    console.log('file received');
+    return res.send({
+      success: true
+    })
+  }
+   
 })
 
 // app.use("*", (req, res) => {

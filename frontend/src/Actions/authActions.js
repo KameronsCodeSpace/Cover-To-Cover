@@ -10,7 +10,7 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    UPLOAD_AVATAR
+    // UPLOAD_AVATAR
 } from "../Actions/types";
 
 export const loadUser = () => (dispatch, getState) => {
@@ -59,7 +59,7 @@ export const login = (user) => dispatch => {
     axios.post('/auth/login', user)
         .then(res => dispatch({
             type: LOGIN_SUCCESS,
-            payload: res.data,
+            payload: res.data
         }))
         .catch(err => {
             dispatch(
@@ -71,9 +71,8 @@ export const login = (user) => dispatch => {
         });
 };
 
-export const avatar = (user) => {
-    
-}
+
+
 
 // Logout User
 export const logout = () => {
