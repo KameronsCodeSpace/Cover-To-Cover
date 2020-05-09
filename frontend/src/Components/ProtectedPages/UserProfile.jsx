@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from '../Support Files/Navbar'
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Post from '../Support Files/posts'
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class UserProfile extends React.Component {
         console.log('check file:', e.target.files[0])
         // console.dir(e.target)
     }
+    
 
     handleFormSubmit = async(e) => {
         e.preventDefault()
@@ -74,6 +76,7 @@ class UserProfile extends React.Component {
                     <div> Region:{this.props.region}</div>
                     <div>Info: {this.props.info}</div>
                 </div>
+                <Post/>
             </div>
         );
     }
@@ -82,7 +85,7 @@ class UserProfile extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     console.log('check state:', state)
-    console.log('own')
+
     
     return state.auth.payload
 }
