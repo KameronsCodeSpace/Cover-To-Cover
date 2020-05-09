@@ -23,8 +23,6 @@ class Explore extends React.Component {
         } catch (err) {
             console.log("ERROR:", err);
         }
-
-
     }
 
     searchChange = (e) => {
@@ -34,8 +32,12 @@ class Explore extends React.Component {
     render() {
         const filteredData = this.state.data.filter(
             (element) => {
+<<<<<<< HEAD
                 return element.caption.toLowerCase().indexOf(this.state.
                         searchBar.toLowerCase()) !== -1;
+=======
+                return element.caption.toLowerCase().indexOf(this.state.searchBar.toLowerCase()) !== -1;
+>>>>>>> 01b5fb68d28b71350b17da8c732d65ad84d72be6
             }
         )
 

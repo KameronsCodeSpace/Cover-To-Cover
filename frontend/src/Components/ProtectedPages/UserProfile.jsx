@@ -3,7 +3,8 @@ import React from 'react';
 import Navbar from '../Support Files/Navbar'
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Post from '../Support Files/posts'
+import Post from '../Support Files/posts';
+import ActivityBar from '../Support Files/ActivityBar';
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -58,7 +59,7 @@ class UserProfile extends React.Component {
     render() {
         const {avatar} = this.state
         return (
-            <div>
+            <div className='user-profile'>
                 <Navbar/>
                 <div className="inner-pages">
                     {/* <h1>UserProfile Page</h1> */}
@@ -73,10 +74,12 @@ class UserProfile extends React.Component {
                         <input type='submit' value='upload'/>
                     </form>
                     <img src={avatar} alt='avatar' width='200px'/>
-                    <div> Region:{this.props.region}</div>
-                    <div>Info: {this.props.info}</div>
+                    <ActivityBar props={this.props}/>
+                    <div className='region'>Region:{this.props.region}</div>
+                    {/* <div>Info: {this.props.info}</div> */}
+                    <Post/>
                 </div>
-                <Post/>
+                
             </div>
         );
     }
@@ -90,8 +93,10 @@ const mapStateToProps = (state, ownProps) => {
     return state.auth.payload
 }
 
-const mapDispatchToProps = (dispatch) => {
-    // return  this.state.avatar 
+const mapDispatchToProps = (avatar, dispatch) => {
+    // dispatch({
+    //    profile: avatar
+    // })
 
    
 }
