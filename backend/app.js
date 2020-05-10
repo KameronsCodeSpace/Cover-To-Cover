@@ -9,9 +9,19 @@ const passport = require('./auth/passport');
 const bodyParser = require('body-parser');
 const multer = require('multer')
 
-const upload = multer({
-    dest: "./public/avatar_links"
-})
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "./public/images")
+    },
+    filename: (req, file, cb) => {
+      let name = Date.now() + "-" + file.originalname
+      cb(null, name)
+    }
+  })
+ 
+ const upload = multer ({
+    storage: storage
+ })
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -50,5 +60,16 @@ app.use('/blog', postsRouter);
 app.use('/comments', commentsRouter);
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
+
+app.post('/upload', upload.single ("image"), (req,res,next) => {
+
+    
+    let file = "http://localhost:3100/" + req.file.path.replace('public/', '')
+    res.json({
+        file: file,
+        message: "file uploaded"
+ })
+ })
+ 
 
 module.exports = app;
