@@ -60,7 +60,7 @@ export const login = (user) => dispatch => {
     
         .then(res => dispatch({
             type: LOGIN_SUCCESS,
-            payload: res.data
+            payload:  res.data
         }))
         
         .catch(err => {

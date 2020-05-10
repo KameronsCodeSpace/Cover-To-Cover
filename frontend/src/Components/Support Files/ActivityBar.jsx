@@ -15,7 +15,8 @@ class ActivityBar extends React.Component {
     handleInfo = (e) => {
         this.setState({
             displayInfo: true,
-            displayPosts:false
+            displayPosts:false,
+            info: this.props.info
         })
     }
 
@@ -23,14 +24,14 @@ class ActivityBar extends React.Component {
         this.setState({
             displayPosts: true, 
             displayInfo: false, 
-            posts: this.props.info
+            posts: this.props.posts
         })
     }
 
     render() {
         return(
             <div className='activity-bar'>
-                <a href='About' onClick={this.handleInfo}>Info</a>
+               
                 <a href='posts' onClick={this.handlePosts}>Posts</a>
             </div>
         )

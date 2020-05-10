@@ -13,15 +13,29 @@ class UserProfile extends React.Component {
         this.state = {
             avatar: '',
            imgFile: null,
-           newAvatar: false
+           newAvatar: false,
+           feeds: [],
+           displayPosts: false
         }
     }
 
-    // async componentDidUpdate (prevProps) {
-    //     if (this.props.avatar !== prevProps.avatar) {
-    //        this.handleFormSubmit(this.state.im)
-    //     }
-    // }
+    
+  async componentDidMount() {
+    const id = this.props.id
+    console.log('user', id)
+   try {
+      let url = `http://localhost:3100/users/${id}`
+      const userPost = await axios.get(url)
+      console.log('user post', userPost.data.payload)
+      this.setState({
+        feeds: userPost.data.payload,
+        displayPosts: true
+      })
+      
+    } catch (error) {
+      
+    }
+  }
 
       handleFileInput = (e) => {
 
@@ -57,7 +71,7 @@ class UserProfile extends React.Component {
 
  
     render() {
-        const {avatar} = this.state
+        const {avatar, feeds} = this.state
         return (
             <div className='user-profile'>
                 <Navbar/>
@@ -73,10 +87,21 @@ class UserProfile extends React.Component {
                         <button onClick= {() => this.fileInput.click()}>Choose picture</button>
                         <input type='submit' value='upload'/>
                     </form>
-                    <img src={avatar} alt='avatar' width='200px'/>
+                    <img src={avatar} alt='' width='200px'/>
                     <ActivityBar props={this.props}/>
                     <div className='region'>Region:{this.props.region}</div>
-                    {/* <div>Info: {this.props.info}</div> */}
+                    <div>Info: {this.props.info}</div>
+                    <div >
+                        {feeds.map((feed,i) => {
+
+                            return(
+                                <div key={i}>
+                                    <div> Post:{feed.caption} </div>
+                                    <p>{feed.p_username}</p>
+                                </div>
+                            )
+                        })} 
+                    </div>
                     <Post/>
                 </div>
                 
@@ -88,9 +113,7 @@ class UserProfile extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     console.log('check state:', state)
-
-    
-    return state.auth.payload
+return state.auth.payload
 }
 
 const mapDispatchToProps = (avatar, dispatch) => {

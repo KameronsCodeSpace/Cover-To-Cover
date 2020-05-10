@@ -58,6 +58,7 @@ router.post("/login", authHelpers.loginValidation, (req, res, next) => {
     req.login(user, err => {
       if (err) return next(err);
       res.status(200);
+      console.log('req.user', req.user)
       res.json({
         payload: req.user,
         message: 'User has successfully logged in',

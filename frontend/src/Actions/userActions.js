@@ -1,6 +1,6 @@
 import { UPLOAD_AVATAR} from './types';
 
-export const  UPLOAD_AVATAR = () => (dispatch){
+export const  UPLOAD_AVATAR = () => (dispatch)  =>{
   dispatch({
         type: UPLOAD_AVATAR,
     })

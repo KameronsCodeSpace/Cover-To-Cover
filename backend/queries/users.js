@@ -29,8 +29,11 @@ const getByUsername = async (username) => {
 
 //QUERY to GET user by id 
 const getUserById = async (params) => {
-    const requestQuery = `SELECT * FROM users WHERE id = $1`
-    const user = await db.one(requestQuery, [params])
+    const requestQuery = `SELECT username, avatar, region, info,caption, p_username
+                            FROM users 
+                                INNER JOIN posts ON users.username = posts.p_username
+                                 WHERE users.id = $1`
+    const user = await db.any(requestQuery, [params])
     return user
 }
 
