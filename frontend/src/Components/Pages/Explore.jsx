@@ -41,12 +41,15 @@ class Explore extends React.Component {
             <div>
                 <Navbar />
                 <div className="inner-pages">
-                    <input type="text"
-                        name="searchBar"
-                        id="searchBar"
-                        placeholder="Search"
-                        onChange={this.searchChange}
-                    />
+                    <div className='search-bar'>
+                        <input type="text"
+                            name="searchBar"
+                            id="searchBar"
+                            placeholder="Search"
+                            onChange={this.searchChange}
+                        />
+                        {/* <button>Search</button> */}
+                    </div>
                     <div className='blog-post'>
 
                         {
