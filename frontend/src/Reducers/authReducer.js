@@ -35,6 +35,14 @@ export default function (state = initialState, action) {
                 user: action.payload
             }
         case LOGIN_SUCCESS:
+            console.log('action payload:', action.payload)
+            return {
+                ...state,
+                ...action.payload,
+                isAuthenticated: true,
+                isLoading: false,
+                user: action.payload
+            }
         case REGISTER_SUCCESS:
             // set token on this line later
             return {

@@ -9,10 +9,19 @@ const session = require('express-session');
 const passport = require('./auth/passport');
 const bodyParser = require('body-parser');
 const multer = require('multer')
+const users = require('./queries/users');
 
-// const upload = multer({
-//     dest: "./public/avatar_links"
-// })
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, "./public/images")
+//     },
+//     filename: (req, file, cb) => {
+//       let name = Date.now() + "-" + file.originalname
+//       cb(null, name)
+//     }
+//   })
+ 
+
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -36,9 +45,10 @@ const storage = multer.diskStorage({
   }
 })
 
-const upload = multer({
+ const upload = multer ({
     storage: storage
-})
+ })
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -68,10 +78,11 @@ app.use('/comments', commentsRouter); 765
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
 
-app.post('/upload', upload.single('avatar'), (req, res,next) => {
+app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     console.log('req.file:', req.file)
     console.log('req.body:', req.body)
     let userPic = req.file.path
+    console.log('user pic', userPic)
     let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
     if (!req.file) {
     console.log("No file received");
@@ -80,15 +91,16 @@ app.post('/upload', upload.single('avatar'), (req, res,next) => {
     });
 
   } else {
+    await users.updateAvatar(req.body.id, imgURL)
      res.json({
         imgURL: imgURL,
         msg: `File has been uploaded`
-    })
-    console.log('file received');
-    return res.send({
-      success: true
-    })
-  }
+      })
+      console.log('file received');
+      // return res.send({
+      //   success: true
+      // })
+    }
    
 })
 
@@ -110,5 +122,15 @@ app.post('/upload', upload.single('avatar'), (req, res,next) => {
 //   res.status(err.status || 500);
 //   res.render('error');
 // });
+// app.post('/upload', upload.single ("image"), (req,res,next) => {
+
+    
+//     let file = "http://localhost:3100/" + req.file.path.replace('public/', '')
+//     res.json({
+//         file: file,
+//         message: "file uploaded"
+//  })
+//  })
+ 
 
 module.exports = app;

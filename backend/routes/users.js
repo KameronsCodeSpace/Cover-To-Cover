@@ -191,6 +191,24 @@ router.patch("/:id", async (req, res, next) => {
 
 });
 
+router.put("/upload/:id", async(req, res, next) => {
+  const id = req.params.id; 
+  const avatar = req.body.avatar;
+  try {
+    const change = await usersQueries.changeAvatar(id, avatar)
+    res.json({
+      payload: change,
+      message: `The Avatar was changed`
+    })
+  } catch (error) {
+     res.status(500);
+      res.json({
+        message: `Unable to change the avatar`
+      });
+      console.log('error', error)
+  }
+})
+
 //DELETE Route to delete a user
 router.delete("/:id", loginRequired, async (req, res) => {
   let params = req.params.id;

@@ -62,19 +62,7 @@ class User extends React.Component {
 //         }
 //     }
 
-    //  getAvatar = async(avatar) => {
-    //      console.log('avatar', avatar)
-    //     try {
-    //         // const url = `http://localhost:3100/avatar_links/${avatar}`
-    //         const response = await axios.get(avatar)
-    //         console.log(response.status.config.url)
-    //         this.setState({
-    //            imgURL: avatar 
-    //         })
-    //     } catch (error) {
-    //         console.log('error', error)
-    //     }
-    // }
+    /
 
    
     render() {

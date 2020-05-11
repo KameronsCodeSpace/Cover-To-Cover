@@ -29,9 +29,10 @@ const getByUsername = async (username) => {
 
 //QUERY to GET user by id 
 const getUserById = async (params) => {
-    const requestQuery = `SELECT username, avatar, region, info,caption, p_username
+    const requestQuery = `SELECT username, avatar, region, info,caption, p_username, comment
                             FROM users 
                                 INNER JOIN posts ON users.username = posts.p_username
+                                FULL JOIN comments ON posts.id = comments.c_post_id
                                  WHERE users.id = $1`
     const user = await db.any(requestQuery, [params])
     return user
@@ -125,6 +126,17 @@ const updateAvatar = async (id, avatar) => {
     return update;
 }
 
+const changeAvatar = async(id, avatar) => {
+    const updateQuery = `UPDATE users 
+                        SET avatar=$2 
+                        WHERE id=$1 
+                        RETURNING *`
+                         ;
+    const change = await db.one(updateQuery, [id, avatar]);
+    console.log('update', change);
+    return change;
+}
+
 const deleteUser = async (params) => {
     const deleteQuery = `DELETE FROM users WHERE id = $1 RETURNING *`;
     const deletedUser = await db.oneOrNone(deleteQuery, [params]);
@@ -143,5 +155,6 @@ module.exports = {
     updateRegion,
     updateInfo,
     updateAvatar,
+    changeAvatar,
     deleteUser
 };

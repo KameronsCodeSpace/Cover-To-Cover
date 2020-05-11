@@ -8,6 +8,7 @@ class Post extends React.Component {
       cap: '',
       file: 'image',
       username:'Tester1'      
+      // file: null,
     }
   }
 
@@ -19,9 +20,20 @@ class Post extends React.Component {
       e.target.value })
     }
 
+  handleFileInput = async (e) => {
+    this.setState({
+      file: e.target.files[0],
+    })
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
     const { cap , file , username} = this.state;
+    // const { cap, file } = this.state;
+    const { currentUser } = this.props;
+    const data = new FormData();
+    data.append('image', this.state.file);
+
     try {
       const post = await axios.post(`/blog/new`, { file_src: file, caption: cap, p_username: username })
       console.log(post)

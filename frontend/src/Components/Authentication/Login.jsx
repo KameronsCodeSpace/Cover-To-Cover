@@ -62,6 +62,7 @@ class Login extends Component {
 
         // Attempt to login
         this.props.login(user);
+        window.localStorage.setItem('password', password)
     }
 
     toRegistration = () => {
