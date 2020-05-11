@@ -10,13 +10,14 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
+    // UPLOAD_AVATAR
 } from "../Actions/types";
 
-export const loadUser = () => (dispatch, getState) => {
+export const loadUser = (id) => (dispatch, getState) => {
     //User loading
     dispatch({ type: USER_LOADING });
 
-    axios.get('/users/:username')
+    axios.get(`/users/${id}`)
         .then(res => dispatch({
             type: USER_LOADED,
             payload: res.data
@@ -55,11 +56,14 @@ export const register = (user) => dispatch => {
 
 // Login User
 export const login = (user) => dispatch => {
+    console.log('user', user)
     axios.post('/auth/login', user)
-        .then(res => dispatch({
+    
+        .then(res => {console.log(res.data); dispatch({
             type: LOGIN_SUCCESS,
-            payload: res.data,
-        }))
+            payload:  res.data
+        })})
+        
         .catch(err => {
             dispatch(
                 returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
@@ -69,6 +73,9 @@ export const login = (user) => dispatch => {
             });
         });
 };
+
+
+
 
 // Logout User
 export const logout = () => {

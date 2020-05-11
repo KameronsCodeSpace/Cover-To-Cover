@@ -4,6 +4,9 @@ const usersQueries = require("../queries/users");
 const db = require("../db/db");
 const {loginRequired} = require("../auth/helpers");
 
+const multer = require('multer');
+
+
 
 /* Route to GET all users listing. */
 router.get("/", loginRequired, async (req, res, next) => {
@@ -51,8 +54,10 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/user/:username", async (req, res, next) => {
   const username = req.params.username
+
   console.log('What Name is this', username)
   try {
+   
     const user = await usersQueries.getByUsername(username);
   
     res.json({
@@ -61,18 +66,21 @@ router.get("/user/:username", async (req, res, next) => {
       error: false
     });
   } catch (error) {
+    console.log('error', error)
     res.status(500);
     res.json({
       message: `Unable to retrieve user`,
       error: true
     });
-    console.log("err", error);
+  
   }
 });
 
 
+
+
 //PATCH to update a a user
-router.patch("/:id", loginRequired, async (req, res, next) => {
+router.patch("/:id", async (req, res, next) => {
  
   const id = req.params.id; 
   const username = req.body.username;
@@ -80,7 +88,7 @@ router.patch("/:id", loginRequired, async (req, res, next) => {
   const region = req.body.region;
   const info = req.body.info;
   const email = req.body.email;
-  const avatar = req.body.email;
+  const avatar = req.body.avatar;
 
   
  if (username) {
@@ -165,6 +173,7 @@ router.patch("/:id", loginRequired, async (req, res, next) => {
   }
   if (avatar) {
     try {
+      
       const update = await usersQueries.updateAvatar(id, avatar)
       console.log('params', id)
       res.json({
@@ -181,6 +190,24 @@ router.patch("/:id", loginRequired, async (req, res, next) => {
   }
 
 });
+
+router.put("/upload/:id", async(req, res, next) => {
+  const id = req.params.id; 
+  const avatar = req.body.avatar;
+  try {
+    const change = await usersQueries.changeAvatar(id, avatar)
+    res.json({
+      payload: change,
+      message: `The Avatar was changed`
+    })
+  } catch (error) {
+     res.status(500);
+      res.json({
+        message: `Unable to change the avatar`
+      });
+      console.log('error', error)
+  }
+})
 
 //DELETE Route to delete a user
 router.delete("/:id", loginRequired, async (req, res) => {

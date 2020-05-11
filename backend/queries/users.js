@@ -1,13 +1,13 @@
 const db = require("../db/db");
 
 // QUERY to GET all the users 
-const getAllUsers = async () => {
-  const requestQuery = `SELECT id, username, avatar, region FROM users`
-  let allUsers = await db.any(requestQuery);
-  console.log("users", allUsers);
-  return allUsers;
+// const getAllUsers = async () => {
+//   const requestQuery = `SELECT id, username, avatar, region FROM users`
+//   let allUsers = await db.any(requestQuery);
+//   console.log("users", allUsers);
+//   return allUsers;
 
-};
+// };
 
 const getByUsername = async (username) => {
     const requestQuery = `SELECT * FROM users WHERE username = $1`
@@ -16,19 +16,25 @@ const getByUsername = async (username) => {
         console.log('user!!!!', username)
         return user
     } catch (err) {
+        console.log('error', err)
         if (err.message === 'No data returned from the query.') {
             return null
         } else {
             console.log('Error', err)
             throw err;
         }
+        
     }
 }
 
 //QUERY to GET user by id 
 const getUserById = async (params) => {
-    const requestQuery = `SELECT * FROM users WHERE id = $1`
-    const user = await db.one(requestQuery, [params])
+    const requestQuery = `SELECT username, avatar, region, info,caption, p_username, comment
+                            FROM users 
+                                INNER JOIN posts ON users.username = posts.p_username
+                                FULL JOIN comments ON posts.id = comments.c_post_id
+                                 WHERE users.id = $1`
+    const user = await db.any(requestQuery, [params])
     return user
 }
 
@@ -47,6 +53,7 @@ const registerNewUser = async (user) => {
     ]);
     return newUser;
 }
+
 
 //QUERY to PATCH a user's username
 const updateUsername = async (id, username) => {
@@ -119,6 +126,17 @@ const updateAvatar = async (id, avatar) => {
     return update;
 }
 
+const changeAvatar = async(id, avatar) => {
+    const updateQuery = `UPDATE users 
+                        SET avatar=$2 
+                        WHERE id=$1 
+                        RETURNING *`
+                         ;
+    const change = await db.one(updateQuery, [id, avatar]);
+    console.log('update', change);
+    return change;
+}
+
 const deleteUser = async (params) => {
     const deleteQuery = `DELETE FROM users WHERE id = $1 RETURNING *`;
     const deletedUser = await db.oneOrNone(deleteQuery, [params]);
@@ -137,5 +155,6 @@ module.exports = {
     updateRegion,
     updateInfo,
     updateAvatar,
+    changeAvatar,
     deleteUser
 };
