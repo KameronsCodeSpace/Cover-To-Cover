@@ -13,15 +13,6 @@ class User extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //  this.handleFormSubmit()
-
-    // }
-
-    // componentDidUpdate() {
-    //     this.getAvatar()
-    // }
-
     handleFileInput = (e) => {
 
         this.setState({
@@ -62,9 +53,6 @@ class User extends React.Component {
 //         }
 //     }
 
-    /
-
-   
     render() {
         const {imgURL} = this.state
         return(
