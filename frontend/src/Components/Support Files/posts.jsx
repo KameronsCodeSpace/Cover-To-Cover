@@ -7,7 +7,7 @@ class Post extends React.Component {
     this.state = {
       cap: '',
       file: 'image',
-      username:'Tester1'      
+      username: 'Tester1'
       // file: null,
     }
   }
@@ -15,10 +15,11 @@ class Post extends React.Component {
   //Handle for files
 
   handleInput = (e) => {
-    this.setState ({ 
-      [e.target.name]: 
-      e.target.value })
-    }
+    this.setState({
+      [e.target.name]:
+        e.target.value
+    })
+  }
 
   handleFileInput = async (e) => {
     this.setState({
@@ -28,7 +29,7 @@ class Post extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { cap , file , username} = this.state;
+    const { cap, file, username } = this.state;
     // const { cap, file } = this.state;
     const { currentUser } = this.props;
     const data = new FormData();
@@ -50,11 +51,12 @@ class Post extends React.Component {
         <p>Create a post</p>
         <form onSubmit={this.handleSubmit}>
 
-          <input id="captionInput" type='text' name='cap' placeholder = 'Start a discussion' onChange={this.handleInput} />
+          {/* <input id="captionInput" type='text' name='cap' placeholder = 'Start a discussion' onChange={this.handleInput} /> */}
 
           {/* input for file */}
-
-          <input id="UploadButton"  type='submit' value='Post'/>
+          <textarea id="captionInput" rows="10" cols="150" name='cap' placeholder='Start a discussion' onChange={this.handleInput} />
+          <br />
+          <input id="UploadButton" type='submit' value='Post' />
         </form>
       </div>
     )
