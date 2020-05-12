@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class Post extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       cap: '',
-      file: 'image',
-      username: 'Tester1'
+      file: 'image'
       // file: null,
     }
   }
@@ -29,14 +29,15 @@ class Post extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { cap, file, username } = this.state;
-    // const { cap, file } = this.state;
+    const { cap, file } = this.state;
     const { currentUser } = this.props;
+    console.log('User', currentUser)
+
     const data = new FormData();
     data.append('image', this.state.file);
 
     try {
-      const post = await axios.post(`/blog/new`, { file_src: file, caption: cap, p_username: username })
+      const post = await axios.post(`/blog/new`, { file_src: file, caption: cap, p_username: currentUser })
       console.log(post)
     } catch (err) {
       console.log(err)
@@ -47,14 +48,14 @@ class Post extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='user-post-form'>
         <p>Create a post</p>
         <form onSubmit={this.handleSubmit}>
 
-          {/* <input id="captionInput" type='text' name='cap' placeholder = 'Start a discussion' onChange={this.handleInput} /> */}
+          {/* <input id="captionInput" className='large-form' type='text' name='cap' placeholder = 'Start a discussion' onChange={this.handleInput} /> */}
 
           {/* input for file */}
-          <textarea id="captionInput" rows="10" cols="150" name='cap' placeholder='Start a discussion' onChange={this.handleInput} />
+          <textarea id="captionInput" name='cap' placeholder='Start a discussion' onChange={this.handleInput} />
           <br />
           <input id="UploadButton" type='submit' value='Post' />
         </form>
@@ -64,4 +65,8 @@ class Post extends React.Component {
   }
 }
 
-export default Post;
+const mapStateToProps = (state) => ({
+  currentUser: state.auth.payload.username
+})
+
+export default connect(mapStateToProps)(Post);
