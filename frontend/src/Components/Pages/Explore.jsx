@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom'
 
 import Navbar from '../Support Files/Navbar'
 import staticPostImg from '../../img/theTower.jpeg';
@@ -28,6 +29,11 @@ class Explore extends React.Component {
     searchChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
+
+    // showStory = (element) => {
+    //     console.log('pasted', element);
+    //     <Link to='/explore'> </Link>;
+    // }
 
     render() {
         const filteredData = this.state.data.filter(
@@ -59,11 +65,20 @@ class Explore extends React.Component {
                                         <div className="blog-img">
                                             <img src={staticPostImg} alt='img' />
                                         </div>
-                                        <div className="blog-content">
-                                            {/* <p>{element.id}</p> */}
-                                            <h3>{element.p_username}</h3>
-                                            <p>{element.caption}</p>
-                                        </div>
+                                        {/* <a onClick={this.showStory.bind(this, element)}> */}
+                                        <Link to={{
+                                            pathname: '/storypage',
+                                            state: {
+                                                storyProps: element
+                                            }
+                                        }}>
+                                            <div className="blog-content">
+                                                {/* <p>{element.id}</p> */}
+                                                <h3>{element.p_username}</h3>
+                                                <p>{element.caption}</p>
+                                            </div>
+                                        </Link>
+                                        {/* </a> */}
                                     </div>
                                 );
                             })
