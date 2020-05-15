@@ -9,6 +9,7 @@ import { loadUser } from './Actions/authActions'
 import Landing from './Components/Pages/Landing';
 import Login from './Components/Authentication/Login';
 import Registration from './Components/Authentication/Registration';
+import StoryPage from './Components/Pages/StoryPage'
 
 // Pages with user only features
 import Explore from './Components/Pages/Explore'
@@ -52,6 +53,7 @@ class App extends Component {
             <Route exact path='/login' component={Login} />
             <Route exact path='/registration' component={Registration} />
             <Route path='/explore' component={Explore} />
+            <Route path='/storypage' component={StoryPage} />
 
             {/* Auth UserRoutes below */}
             <ProtectedRoute path='/travel' component={Travel} />
