@@ -46,6 +46,12 @@ h1 {
   text-align: left;
 }
 
+.inner-pages h1,
+.inner-pages p {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 h1 span {
   color: var(--primary);
 }

@@ -16,6 +16,7 @@ class StoryPage extends React.Component {
             <div>
                 <Navbar />
                 <div className="inner-pages">
+                    {/* <img src={storyProps.avatar} alt='img' /> */}
                     <h1>{storyProps.p_username}</h1>
                     <p>{storyProps.caption}</p>
                 </div>
