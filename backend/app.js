@@ -10,7 +10,6 @@ const passport = require('./auth/passport');
 const bodyParser = require('body-parser');
 const multer = require('multer')
 const users = require('./queries/users');
-
 // const storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
 //       cb(null, "./public/images")
@@ -20,9 +19,6 @@ const users = require('./queries/users');
 //       cb(null, name)
 //     }
 //   })
- 
-
-
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
@@ -31,10 +27,7 @@ const commentsRouter = require('./routes/comments');
 const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
 // const postRouter = require('./routes/posts');
-
 const app = express();
-
-
 const storage = multer.diskStorage({
   destination:  (req, file, cb) => {
     cb(null, './public/avatar_links/')
@@ -44,32 +37,28 @@ const storage = multer.diskStorage({
     cb(null, name)
   }
 })
-
  const upload = multer ({
     storage: storage
  })
-
-
+ const upstream = multer ({
+   storage: storage
+ })
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("NOT_A_GOOD_SECRET"));
 app.use(express.static(path.join(__dirname, '../backend/public')));
-
 app.use(session({
     secret: "NOT_A_GOOD_SECRET",
     resave: false,
     saveUninitialized: true
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
@@ -77,7 +66,6 @@ app.use('/blog', postsRouter);
 app.use('/comments', commentsRouter); 765
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
-
 app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     console.log('req.file:', req.file)
     console.log('req.body:', req.body)
@@ -89,7 +77,6 @@ app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     return res.send({
       success: false
     });
-
   } else {
     await users.updateAvatar(req.body.id, imgURL)
      res.json({
@@ -103,34 +90,13 @@ app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     }
    
 })
-
-// app.use("*", (req, res) => {
-//     res.sendFile(path.join(__dirname + "/../backend/public/index.html"));
-//   });
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
-// app.post('/upload', upload.single ("image"), (req,res,next) => {
-
+app.post('/upstream', upstream.single ("image"), (req,res,next) => {
     
-//     let file = "http://localhost:3100/" + req.file.path.replace('public/', '')
-//     res.json({
-//         file: file,
-//         message: "file uploaded"
-//  })
-//  })
+    let fileURL = "http://localhost:3100/" + req.file.path.replace('public/', '')
+    res.json({
+        fileURL: fileURL,
+        message: "file uploaded"
+ })
+ })
  
-
 module.exports = app;
