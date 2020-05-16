@@ -6,7 +6,7 @@ class Post extends React.Component {
     super(props)
     this.state = {
       cap: '',
-      file: null
+      image: null
       // file: null,
     }
   }
@@ -19,20 +19,21 @@ class Post extends React.Component {
   }
   handleFileInput = async (e) => {
     this.setState({
-      file: e.target.files[0],
+      image: e.target.files[0],
     })
   }
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { cap, file } = this.state;
+    const { cap } = this.state;
     const { currentUser } = this.props;
-    console.log('User', currentUser)
+    // console.log('User', currentUser)
     const data = new FormData();
-    data.append('file', this.state.file);
+    data.append('image', this.state.image);
     try {
       const res = await axios.post ('/upstream', data) 
       const post = await axios.post(`/blog/new`, { file_src: res.data.fileURL, caption: cap, p_username: currentUser })
-      console.log(post)
+      console.log(res.data.fileURL)
+      // console.log(post)
     } catch (err) {
       console.log(err)
     }
