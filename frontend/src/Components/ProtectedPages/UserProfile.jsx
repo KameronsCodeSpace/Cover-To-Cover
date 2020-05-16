@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Post from '../Support Files/posts';
 import { login } from '../../Actions/authActions';
-import staticPostImg from '../../img/theTower.jpeg';
+import staticPostImg from '../../img/Unknown_location.png';
+import questionAvatar from '../../img/QuestionAvatar.png'
 
 import Info from '../Support Files/Info';
 // import ActivityBar from '../Support Files/ActivityBar';
@@ -42,6 +43,10 @@ class UserProfile extends React.Component {
             console.log('ERROR', error)
         }
     }
+
+    addDefaultSrc(ev){
+        ev.target.src = questionAvatar
+      }
 
     handleFileInput = (e) => {
 
@@ -103,7 +108,9 @@ class UserProfile extends React.Component {
                                 <div className='region'>Region:{this.props.region}</div>
                             </li>
 
-                            <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' width='200px' /></li>
+                            <li><img className='avatar-picture' onError={this.addDefaultSrc} src={avatar} alt='img' /></li>
+
+                            {/* <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' /></li> */}
                             <li><h2>{this.props.username}</h2></li>
 
                             {/* <ActivityBar props={this.props}/> */}
