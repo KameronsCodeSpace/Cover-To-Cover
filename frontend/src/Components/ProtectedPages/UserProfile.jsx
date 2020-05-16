@@ -103,7 +103,7 @@ class UserProfile extends React.Component {
                                 <div className='region'>Region:{this.props.region}</div>
                             </li>
 
-                            <li><img src={avatar || this.props.avatar} alt='' width='200px' /></li>
+                            <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' width='200px' /></li>
                             <li><h2>{this.props.username}</h2></li>
 
                             {/* <ActivityBar props={this.props}/> */}
