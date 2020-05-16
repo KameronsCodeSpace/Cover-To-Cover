@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from 'react-router-dom'
 
 import Navbar from '../Support Files/Navbar'
-import staticPostImg from '../../img/theTower.jpeg';
+import staticPostImg from '../../img/Unknown_location.png';
 
 class Explore extends React.Component {
     constructor() {
@@ -29,6 +29,10 @@ class Explore extends React.Component {
     searchChange = (e) => {
         this.setState({ [e.target.name]: e.target.value })
     }
+
+    addDefaultSrc(ev){
+        ev.target.src = staticPostImg
+      }
 
     // showStory = (element) => {
     //     console.log('pasted', element);
@@ -63,7 +67,7 @@ class Explore extends React.Component {
                                 return (
                                     <div className="blog-box">
                                         <div className="blog-img">
-                                            <img src={staticPostImg} alt='img' />
+                                        <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
                                         </div>
                                         {/* <a onClick={this.showStory.bind(this, element)}> */}
                                         <Link to={{
