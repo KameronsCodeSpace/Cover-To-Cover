@@ -19,20 +19,16 @@ class UserProfile extends React.Component {
             imgFile: null,
             newAvatar: false,
             feeds: [],
-            //    displayPosts: false
+            click: false
         }
     }
 
     //getting all posts from the user
     async componentDidMount() {
         const id = this.props.id
-        console.log('user', id)
         try {
             let url = `http://localhost:3100/users/${id}`
             const userPost = await axios.get(url)
-
-            console.log('user post', userPost.data.payload)
-
             this.setState({
                 feeds: userPost.data.payload,
                 // displayPosts: true
@@ -44,12 +40,9 @@ class UserProfile extends React.Component {
     }
 
     handleFileInput = (e) => {
-
         this.setState({
             imgFile: e.target.files[0]
         })
-        console.log('check file:', e.target.files[0])
-        // console.dir(e.target)
     }
 
     handleFormSubmit = async (e) => {
@@ -58,16 +51,12 @@ class UserProfile extends React.Component {
         data.append('avatar', this.state.imgFile)
         data.append('id', this.props.id)
 
-
-        console.log('data!:', this.state.imgFile)
         try {
             const response = await axios.post('http://localhost:3100/upload', data)
-            console.log('submit:', response.data)
             this.props.login({
                 username: this.props.username,
                 password: window.localStorage.getItem('password')
             })
-            console.log('change', response)
             this.setState({
                 avatar: response.data.imgURL,
             })
@@ -76,70 +65,87 @@ class UserProfile extends React.Component {
         }
     }
 
+    handleClick = () => {
+         console.log('click')
+        this.setState({
+            click: true
+        })
+    }
 
     render() {
-        const { avatar, feeds } = this.state
-        return (
-            <div className='user-profile'>
-                <Navbar />
-                <div className="inner-pages">
-                    {/* <h1>UserProfile Page</h1> */}
-                    <div className='user-header'>
-                        <ul>
+        const { avatar, feeds, click} = this.state
+        if (click === false) {
+            return (
+                <div className='user-profile'>
+                    <Navbar />
+                    <div className="inner-pages">
+                        {/* <h1>UserProfile Page</h1> */}
+                        <div className='user-header'>
+                            <ul>
 
-                            <li className='user-left'>
-                                <form onSubmit={this.handleFormSubmit}>
-                                    <input type='file'
-                                        onChange={this.handleFileInput}
-                                        style={{ display: 'none' }}
-                                        ref={fileInput => this.fileInput = fileInput}
-                                    />
-                                    <button onClick={() => this.fileInput.click()}>Choose picture</button>
-                                    <input type='submit' value='Upload' />
-                                </form>
-                            </li>
+                                <li className='user-left'>
+                                    <form onSubmit={this.handleFormSubmit}>
+                                        <input type='file'
+                                            onChange={this.handleFileInput}
+                                            style={{ display: 'none' }}
+                                            ref={fileInput => this.fileInput = fileInput}
+                                        />
+                                        <button onClick={() => this.fileInput.click()}>Choose picture</button>
+                                        <input type='submit' value='Upload' />
+                                    </form>
+                                </li>
 
-                            <li className='user-right'>
-                                <div className='region'>Region:{this.props.region}</div>
-                            </li>
+                                <li className='user-right'>
+                                    <div className='region'>Region:{this.props.region}</div>
+                                </li>
 
-                            <li><img src={avatar || this.props.avatar} alt='' width='200px' /></li>
-                            <li><h2>{this.props.username}</h2></li>
+                                <li><img src={avatar || this.props.avatar} alt='' width='200px' /></li>
+                                <li><h2>{this.props.username}</h2></li>
 
-                            {/* <ActivityBar props={this.props}/> */}
-                        </ul>
-                    </div>
+                                {/* <ActivityBar props={this.props}/> */}
+                            </ul>
+                        </div>
+                    
+            
+                        <div className='user-info'>
+                            {this.props.info}
+                    
+                            <button onClick={this.handleClick}>Edit</button>
+                                
+                        </div>
+                        <br></br>
+                            {feeds.map((feed, i) => {
 
-                    <div className='user-info'>
-                         {this.props.info}
-                        {/* <Info /> */}
-                    </div>
-                    <br></br>
-                        {feeds.map((feed, i) => {
+                                return (
 
-                            return (
-
-                                <div key={i} className="blog-box">
-                                    <div className="blog-img">
-                                        <img src={staticPostImg} alt='img' />
+                                    <div key={i} className="blog-box">
+                                        <div className="blog-img">
+                                            <img src={staticPostImg} alt='img' />
+                                        </div>
+                                        <div className="blog-content">
+                                            {/* <p>{element.id}</p> */}
+                                            <h3>{feed.p_username}</h3>
+                                            <p>{feed.caption}</p>
+                                        </div>
                                     </div>
-                                    <div className="blog-content">
-                                        {/* <p>{element.id}</p> */}
-                                        <h3>{feed.p_username}</h3>
-                                        <p>{feed.caption}</p>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    <br></br>
-                    <div className='user-posts'>
-                    <Post />
+                                )
+                            })}
+                        <br></br>
+                        <div className='user-posts'>
+                            <Post />
+                        </div>
+
                     </div>
 
                 </div>
-
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <Info props={this.props}/> 
+                </div>
+            )
+        }
     }
 
 }
