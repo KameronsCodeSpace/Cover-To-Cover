@@ -44,9 +44,9 @@ class UserProfile extends React.Component {
         }
     }
 
-    addDefaultSrc(ev){
+    addDefaultSrc(ev) {
         ev.target.src = questionAvatar
-      }
+    }
 
     handleFileInput = (e) => {
 
@@ -91,7 +91,8 @@ class UserProfile extends React.Component {
                     {/* <h1>UserProfile Page</h1> */}
                     <div className='user-header'>
                         <ul>
-
+                        <li className='user-center'>
+                            </li>
                             <li className='user-left'>
                                 <form onSubmit={this.handleFormSubmit}>
                                     <input type='file'
@@ -108,20 +109,26 @@ class UserProfile extends React.Component {
                                 <div className='region'>Region:{this.props.region}</div>
                             </li>
 
-                            <li><img className='avatar-picture' onError={this.addDefaultSrc} src={avatar} alt='img' /></li>
+                            <li>
+                            <h2>{this.props.username}</h2>
+                                <img className='avatar-picture' onError={this.addDefaultSrc} src={avatar} alt='img' />
+                            </li>
 
                             {/* <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' /></li> */}
-                            <li><h2>{this.props.username}</h2></li>
+
 
                             {/* <ActivityBar props={this.props}/> */}
                         </ul>
                     </div>
-
+                    <br />
                     <div className='user-info'>
-                         {this.props.info}
+                        <p>Growing up in the town of Nibelheim after her mother died early in her life, Tifa Lockhart worked as a tour guide before the villain Sephiroth discovered his "mother" hidden in the town and went berserk, bringing the town to ashes, resulting in Tifa's father getting slain as well. After recovering from her injuries, Tifa became a member of AVALANCHE, an anti-Shinra resistance group, as well as the owner and tender of her own bar in Midgar, 7th Heaven. Since then, Tifa has become good friends with Cloud and his party, and has aided them on his missions often.</p>
+                        {/* {this.props.info} */}
                         {/* <Info /> */}
                     </div>
                     <br></br>
+                    <div className='blog-post'>
+
                         {feeds.map((feed, i) => {
 
                             return (
@@ -138,9 +145,10 @@ class UserProfile extends React.Component {
                                 </div>
                             )
                         })}
+                    </div>
                     <br></br>
                     <div className='user-posts'>
-                    <Post />
+                        <Post />
                     </div>
 
                 </div>
