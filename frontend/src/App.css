@@ -84,8 +84,8 @@ p {
 }
 
 .avatar-picture {
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 120px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -682,9 +682,14 @@ p {
 .user-header li {
   display: inline;
   padding: 10px;
-  padding-top: 120px;
+  padding-top: 60px;
 
   /* font-size: 16px; */
+}
+
+.user-center {
+  width: 50%;
+  float: right;
 }
 
 .user-left {
@@ -698,8 +703,8 @@ p {
 }
 
 .user-info {
-  background-color: var(--nav-text-primary);
-  height: 400px;
+  background-color: #b4a8a8;
+  height: 200px;
 }
 
 .user-posts {
@@ -715,4 +720,8 @@ p {
   outline: none;
   font-size: 18px;
   margin-top: 6px;
+}
+
+.dropdown-container {
+  background-color: var(--primary)
 }

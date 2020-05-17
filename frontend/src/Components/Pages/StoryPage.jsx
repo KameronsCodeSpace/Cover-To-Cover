@@ -2,6 +2,7 @@ import React from 'react';
 import axios from "axios";
 
 import Navbar from '../Support Files/Navbar'
+import questionAvatar from '../../img/QuestionAvatar.png'
 
 //will need props value of current story clicked on
 //Show username and avatar of story creater
@@ -30,6 +31,10 @@ class StoryPage extends React.Component {
         }
     }
 
+    addDefaultSrc(ev) {
+        ev.target.src = questionAvatar
+    }
+
     render() {
         const { userData } = this.state
         const { storyProps } = this.props.location.state
@@ -42,7 +47,7 @@ class StoryPage extends React.Component {
                 <Navbar />
                 <div className='inner-pages'>
                     <div className='blog-container'>
-                        <img className='avatar-picture' src={userData.avatar} alt='img' />
+                        <img className='avatar-picture' onError={this.addDefaultSrc}  src={userData.avatar} alt='img' />
                         <h1>{storyProps.p_username}</h1>
                         <p>{storyProps.caption}</p>
                     </div>
