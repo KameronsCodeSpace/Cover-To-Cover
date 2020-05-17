@@ -111,7 +111,7 @@ class UserProfile extends React.Component {
 
                             <li>
                             <h2>{this.props.username}</h2>
-                                <img className='avatar-picture' onError={this.addDefaultSrc} src={avatar} alt='img' />
+                                <img className='avatar-picture' onError={this.addDefaultSrc} src={avatar || this.props.avatar} alt='img' />
                             </li>
 
                             {/* <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' /></li> */}
