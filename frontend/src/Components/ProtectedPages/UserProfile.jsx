@@ -73,62 +73,58 @@ class UserProfile extends React.Component {
     }
 
     render() {
-        const { avatar, feeds, click} = this.state
-        if (click === false) {
-            return (
-                <div className='user-profile'>
-                    <Navbar />
-                    <div className="inner-pages">
-                        {/* <h1>UserProfile Page</h1> */}
-                        <div className='user-header'>
-                            <ul>
+        const { avatar, feeds } = this.state
+        return (
+            <div className='user-profile'>
+                <Navbar />
+                <div className="inner-pages">
+                    {/* <h1>UserProfile Page</h1> */}
+                    <div className='user-header'>
+                        <ul>
 
-                                <li className='user-left'>
-                                    <form onSubmit={this.handleFormSubmit}>
-                                        <input type='file'
-                                            onChange={this.handleFileInput}
-                                            style={{ display: 'none' }}
-                                            ref={fileInput => this.fileInput = fileInput}
-                                        />
-                                        <button onClick={() => this.fileInput.click()}>Choose picture</button>
-                                        <input type='submit' value='Upload' />
-                                    </form>
-                                </li>
+                            <li className='user-left'>
+                                <form onSubmit={this.handleFormSubmit}>
+                                    <input type='file'
+                                        onChange={this.handleFileInput}
+                                        style={{ display: 'none' }}
+                                        ref={fileInput => this.fileInput = fileInput}
+                                    />
+                                    <button onClick={() => this.fileInput.click()}>Choose picture</button>
+                                    <input type='submit' value='Upload' />
+                                </form>
+                            </li>
 
-                                <li className='user-right'>
-                                    <div className='region'>Region:{this.props.region}</div>
-                                </li>
+                            <li className='user-right'>
+                                <div className='region'>Region:{this.props.region}</div>
+                            </li>
 
-                                <li><img src={avatar || this.props.avatar} alt='' width='200px' /></li>
-                                <li><h2>{this.props.username}</h2></li>
+                            <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' width='200px' /></li>
+                            <li><h2>{this.props.username}</h2></li>
 
-                                {/* <ActivityBar props={this.props}/> */}
-                            </ul>
-                        </div>
-                    
-            
-                        <div className='user-info'>
-                            {this.props.info}
-                    
-                            <button onClick={this.handleClick}>Edit</button>
-                                
-                        </div>
-                        <br></br>
-                            {feeds.map((feed, i) => {
+                            {/* <ActivityBar props={this.props}/> */}
+                        </ul>
+                    </div>
 
-                                return (
+                    <div className='user-info'>
+                         {this.props.info}
+                        {/* <Info /> */}
+                    </div>
+                    <br></br>
+                        {feeds.map((feed, i) => {
 
-                                    <div key={i} className="blog-box">
-                                        <div className="blog-img">
-                                            <img src={staticPostImg} alt='img' />
-                                        </div>
-                                        <div className="blog-content">
-                                            {/* <p>{element.id}</p> */}
-                                            <h3>{feed.p_username}</h3>
-                                            <p>{feed.caption}</p>
-                                        </div>
+                            return (
+
+                                <div key={i} className="blog-box">
+                                    <div className="blog-img">
+                                        <img src={staticPostImg} alt='img' />
                                     </div>
-                                )
+                                    <div className="blog-content">
+                                        {/* <p>{element.id}</p> */}
+                                        <h3>{feed.p_username}</h3>
+                                        <p>{feed.caption}</p>
+                                    </div>
+                                </div>
+                            )
                             })}
                         <br></br>
                         <div className='user-posts'>
@@ -139,13 +135,13 @@ class UserProfile extends React.Component {
 
                 </div>
             );
-        } else {
-            return (
-                <div>
-                    <Info props={this.props}/> 
-                </div>
-            )
-        }
+        // } else {
+        //     return (
+        //         <div>
+        //             <Info props={this.props}/> 
+        //         </div>
+        //     )
+        // }
     }
 
 }

@@ -46,10 +46,24 @@ h1 {
   text-align: left;
 }
 
-.inner-pages h1,
-.inner-pages p {
+.blog-container  {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  
+}
+
+.blog-container h1 {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 65px;
+  /* font-size: 100px; */
+}
+
+.blog-container p {
+  font-size: 20px;
+  margin-bottom: 35px;
+
 }
 
 h1 span {
@@ -67,6 +81,16 @@ p {
 
 .quotes {
   margin-top: 60px;
+}
+
+.avatar-picture {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  border-radius: 50%;
 }
 
 .bottom {
@@ -663,11 +687,6 @@ p {
   /* font-size: 16px; */
 }
 
-.user-header img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
 .user-left {
   width: 33%;
   float: left;
