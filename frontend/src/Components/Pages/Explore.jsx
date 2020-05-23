@@ -50,7 +50,7 @@ class Explore extends React.Component {
         return (
             <div>
                 <Navbar />
-                
+
                 <div className="inner-pages">
                     {/* <div className='search-bar'>
                         <input type="text"
@@ -66,7 +66,7 @@ class Explore extends React.Component {
                             filteredData.map(element => {
                                 return (
                                     <div className="masonry-blocks">
-                                            <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
+                                        <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
                                         {/* <a onClick={this.showStory.bind(this, element)}> */}
                                         <Link to={{
                                             pathname: '/storypage',
@@ -74,9 +74,9 @@ class Explore extends React.Component {
                                                 storyProps: element
                                             }
                                         }}>
+                                            <h3>{element.p_username}</h3>
                                             <div className="block-content">
                                                 {/* <p>{element.id}</p> */}
-                                                <h3>{element.p_username}</h3>
                                                 <p>{element.caption}</p>
                                             </div>
                                         </Link>
