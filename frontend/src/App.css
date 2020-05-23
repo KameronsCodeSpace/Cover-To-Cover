@@ -29,7 +29,7 @@ main {
 /* For the navbar */
 .inner-pages {
   /* margin-left: 5rem; */
-  padding: 1rem;
+  padding: 20px;
 }
 
 #bg {
@@ -617,6 +617,50 @@ p {
 } */
 
 /* Explore Page CSS */
+
+.masonry-holder {
+  column-count: 4;
+  column-gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.masonry-blocks {
+  display: inline-block;
+  background: rgb(117, 65, 6);
+  padding: 20px;
+  margin: 0 0 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.masonry-blocks img {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .masonry-holder{
+    column-count: 1;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .masonry-holder{
+    column-count: 2;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .masonry-holder{
+    column-count: 3;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .masonry-holder{
+    column-count: 4;
+  }
+}
 
 .blog-post {
   /* width: 1000px;
