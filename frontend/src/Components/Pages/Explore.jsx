@@ -50,9 +50,7 @@ class Explore extends React.Component {
         return (
             <div>
                 <Navbar />
-                
-                <div className="inner-pages">
-                    {/* <div className='search-bar'>
+                {/* <div className='search-bar'>
                         <input type="text"
                             name="searchBar"
                             id="searchBar"
@@ -61,50 +59,49 @@ class Explore extends React.Component {
                         />
                     </div> */}
 
-                    <div className='masonry-holder'>
-                        {
-                            filteredData.map(element => {
-                                return (
-                                    <div className="masonry-blocks">
-                                            <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
-                                        {/* <a onClick={this.showStory.bind(this, element)}> */}
-                                        <Link to={{
-                                            pathname: '/storypage',
-                                            state: {
-                                                storyProps: element
-                                            }
-                                        }}>
-                                            <div className="block-content">
-                                                {/* <p>{element.id}</p> */}
-                                                <h3>{element.p_username}</h3>
-                                                <p>{element.caption}</p>
-                                            </div>
-                                        </Link>
-                                        {/* </a> */}
-                                    </div>
-                                    // <div className="blog-box">
-                                    //     <div className="blog-img">
-                                    //     <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
-                                    //     </div>
-                                    //     {/* <a onClick={this.showStory.bind(this, element)}> */}
-                                    //     <Link to={{
-                                    //         pathname: '/storypage',
-                                    //         state: {
-                                    //             storyProps: element
-                                    //         }
-                                    //     }}>
-                                    //         <div className="blog-content">
-                                    //             {/* <p>{element.id}</p> */}
-                                    //             <h3>{element.p_username}</h3>
-                                    //             <p>{element.caption}</p>
-                                    //         </div>
-                                    //     </Link>
-                                    //     {/* </a> */}
-                                    // </div>
-                                );
-                            })
-                        }
-                    </div>
+                <div className='masonry-holder'>
+                    {
+                        filteredData.map(element => {
+                            return (
+                                <div className="masonry-blocks">
+                                    <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
+                                    {/* <a onClick={this.showStory.bind(this, element)}> */}
+                                    <Link to={{
+                                        pathname: '/storypage',
+                                        state: {
+                                            storyProps: element
+                                        }
+                                    }}>
+                                        <h3>{element.p_username}</h3>
+                                        <div className="block-content">
+                                            {/* <p>{element.id}</p> */}
+                                            <p>{element.caption}</p>
+                                        </div>
+                                    </Link>
+                                    {/* </a> */}
+                                </div>
+                                // <div className="blog-box">
+                                //     <div className="blog-img">
+                                //     <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
+                                //     </div>
+                                //     {/* <a onClick={this.showStory.bind(this, element)}> */}
+                                //     <Link to={{
+                                //         pathname: '/storypage',
+                                //         state: {
+                                //             storyProps: element
+                                //         }
+                                //     }}>
+                                //         <div className="blog-content">
+                                //             {/* <p>{element.id}</p> */}
+                                //             <h3>{element.p_username}</h3>
+                                //             <p>{element.caption}</p>
+                                //         </div>
+                                //     </Link>
+                                //     {/* </a> */}
+                                // </div>
+                            );
+                        })
+                    }
                 </div>
             </div>
         );
