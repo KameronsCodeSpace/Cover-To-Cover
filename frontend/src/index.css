@@ -5,7 +5,11 @@
 
 body {
   font-family: "Nirmala UI", sans-serif;
+  background: rgb(239, 240, 243);
+  background: -webkit-linear-gradient(to right, rgb(213, 222, 236), rgb(114, 124, 138));
+  background: linear-gradient(to right, rgb(219, 228, 235), rgb(110, 116, 126))
+  /* font-family: "Nirmala UI", sans-serif;
   background: rgb(0, 62, 177);
   background: -webkit-linear-gradient(to right, rgb(160, 183, 217), rgb(0, 71, 177));
-  background: linear-gradient(to right, rgb(160, 194, 217), rgb(0, 71, 177))
+  background: linear-gradient(to right, rgb(160, 194, 217), rgb(0, 71, 177)) */
 }

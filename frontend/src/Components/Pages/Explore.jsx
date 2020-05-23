@@ -30,9 +30,9 @@ class Explore extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
-    addDefaultSrc(ev){
+    addDefaultSrc(ev) {
         ev.target.src = staticPostImg
-      }
+    }
 
     // showStory = (element) => {
     //     console.log('pasted', element);
@@ -50,25 +50,23 @@ class Explore extends React.Component {
         return (
             <div>
                 <Navbar />
+                
                 <div className="inner-pages">
-                    <div className='search-bar'>
+                    {/* <div className='search-bar'>
                         <input type="text"
                             name="searchBar"
                             id="searchBar"
                             placeholder="Search"
                             onChange={this.searchChange}
                         />
-                        {/* <button>Search</button> */}
-                    </div>
-                    <div className='blog-post'>
+                    </div> */}
 
+                    <div className='masonry-holder'>
                         {
                             filteredData.map(element => {
                                 return (
-                                    <div className="blog-box">
-                                        <div className="blog-img">
-                                        <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
-                                        </div>
+                                    <div className="masonry-blocks">
+                                            <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
                                         {/* <a onClick={this.showStory.bind(this, element)}> */}
                                         <Link to={{
                                             pathname: '/storypage',
@@ -76,7 +74,7 @@ class Explore extends React.Component {
                                                 storyProps: element
                                             }
                                         }}>
-                                            <div className="blog-content">
+                                            <div className="block-content">
                                                 {/* <p>{element.id}</p> */}
                                                 <h3>{element.p_username}</h3>
                                                 <p>{element.caption}</p>
@@ -84,6 +82,25 @@ class Explore extends React.Component {
                                         </Link>
                                         {/* </a> */}
                                     </div>
+                                    // <div className="blog-box">
+                                    //     <div className="blog-img">
+                                    //     <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
+                                    //     </div>
+                                    //     {/* <a onClick={this.showStory.bind(this, element)}> */}
+                                    //     <Link to={{
+                                    //         pathname: '/storypage',
+                                    //         state: {
+                                    //             storyProps: element
+                                    //         }
+                                    //     }}>
+                                    //         <div className="blog-content">
+                                    //             {/* <p>{element.id}</p> */}
+                                    //             <h3>{element.p_username}</h3>
+                                    //             <p>{element.caption}</p>
+                                    //         </div>
+                                    //     </Link>
+                                    //     {/* </a> */}
+                                    // </div>
                                 );
                             })
                         }
