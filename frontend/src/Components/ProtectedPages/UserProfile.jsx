@@ -92,14 +92,20 @@ class UserProfile extends React.Component {
         console.log('feeds', feeds)
 
         return (
-            <div className='user-profile'>
+            <div>
                 <Navbar />
                 {/* <h1>UserProfile Page</h1> */}
-                <div className='user-header'>
-                    <ul>
-                        <li className='user-center'>
-                        </li>
-                        <li className='user-left'>
+                <div className='user-wrapper'>
+                    <div className='user-box'>
+                        <div className='user-box-img'>
+                            <img className='user-picture' onError={this.addDefaultSrc} src={avatar || this.props.avatar} alt='img' />
+
+                        </div>
+                        <div className='user-box-bio'>
+                            <h1>{this.props.username}</h1>
+                            <p>Region: {this.props.region}</p>
+                            <p>Growing up in the town of Nibelheim after her mother died early in her life, Tifa Lockhart worked as a tour guide before the villain Sephiroth discovered his "mother" hidden in the town and went berserk, bringing the town to ashes, resulting in Tifa's father getting slain as well. After recovering from her injuries, Tifa became a member of AVALANCHE, an anti-Shinra resistance group, as well as the owner and tender of her own bar in Midgar, 7th Heaven. Since then, Tifa has become good friends with Cloud and his party, and has aided them on his missions often.</p>
+                            {/* {this.props.info} */}
                             <form onSubmit={this.handleFormSubmit}>
                                 <input type='file'
                                     onChange={this.handleFileInput}
@@ -109,30 +115,11 @@ class UserProfile extends React.Component {
                                 <button onClick={() => this.fileInput.click()}>Choose picture</button>
                                 <input type='submit' value='Upload' />
                             </form>
-                        </li>
-
-                        <li className='user-right'>
-                            <div className='region'>Region:{this.props.region}</div>
-                        </li>
-
-                        <li>
-                            <h2>{this.props.username}</h2>
-                            <img className='avatar-picture' onError={this.addDefaultSrc} src={avatar || this.props.avatar} alt='img' />
-                        </li>
-
-                        {/* <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' /></li> */}
-
-
-                        {/* <ActivityBar props={this.props}/> */}
-                    </ul>
-                </div>
-                <br />
-                <div className='user-info'>
-                    <p>Growing up in the town of Nibelheim after her mother died early in her life, Tifa Lockhart worked as a tour guide before the villain Sephiroth discovered his "mother" hidden in the town and went berserk, bringing the town to ashes, resulting in Tifa's father getting slain as well. After recovering from her injuries, Tifa became a member of AVALANCHE, an anti-Shinra resistance group, as well as the owner and tender of her own bar in Midgar, 7th Heaven. Since then, Tifa has become good friends with Cloud and his party, and has aided them on his missions often.</p>
-                    {/* {this.props.info} */}
-                    {/* <Info /> */}
+                        </div>
+                    </div>
                 </div>
                 <br></br>
+                <h1>Your Stories</h1>
                 <div className='masonry-holder'>
 
                     {feeds.map((feed, i) => {
@@ -176,3 +163,41 @@ const mapStateToProps = (state, ownProps) => {
 // }
 
 export default (connect(mapStateToProps, { login })(UserProfile));
+
+// <div className='user-header'>
+//                     <ul>
+//                         <li className='user-center'>
+//                         </li>
+//                         <li className='user-left'>
+//                             <form onSubmit={this.handleFormSubmit}>
+//                                 <input type='file'
+//                                     onChange={this.handleFileInput}
+//                                     style={{ display: 'none' }}
+//                                     ref={fileInput => this.fileInput = fileInput}
+//                                 />
+//                                 <button onClick={() => this.fileInput.click()}>Choose picture</button>
+//                                 <input type='submit' value='Upload' />
+//                             </form>
+//                         </li>
+
+//                         <li className='user-right'>
+//                             <div className='region'>Region:{this.props.region}</div>
+//                         </li>
+
+//                         <li>
+//                             <h2>{this.props.username}</h2>
+//                             <img className='avatar-picture' onError={this.addDefaultSrc} src={avatar || this.props.avatar} alt='img' />
+//                         </li>
+
+//                         {/* <li><img className='avatar-picture' src={avatar || this.props.avatar} alt='' /></li> */}
+
+
+//                         {/* <ActivityBar props={this.props}/> */}
+//                     </ul>
+//                 </div>
+//                 <br />
+//                 <div className='user-info'>
+//                     <p>Growing up in the town of Nibelheim after her mother died early in her life, Tifa Lockhart worked as a tour guide before the villain Sephiroth discovered his "mother" hidden in the town and went berserk, bringing the town to ashes, resulting in Tifa's father getting slain as well. After recovering from her injuries, Tifa became a member of AVALANCHE, an anti-Shinra resistance group, as well as the owner and tender of her own bar in Midgar, 7th Heaven. Since then, Tifa has become good friends with Cloud and his party, and has aided them on his missions often.</p>
+//                     {/* {this.props.info} */}
+//                     {/* <Info /> */}
+//                 </div>

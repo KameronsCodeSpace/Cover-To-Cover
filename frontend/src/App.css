@@ -710,10 +710,72 @@ p {
 
 /* User Profile Page */
 
-.user-header {
+.user-box {
+  width: 80%;
+  height: 600px;
+  display: flex;
+  margin: 50px 10%;
+  background-color: white;
+  border-radius: 10%;
+  box-shadow: 0 27px 87px rgba(0,0,0,0.37);
+}
+
+.user-box-img, .user-box-bio {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.user-box-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+}
+
+.user-box-bio {
+  padding: 25px;
+}
+
+.user-box-bio h1 {
+  text-transform: uppercase;
+  font-size: 35px;
+  color: #344934;
+  margin-bottom: 25px;
+  text-align: left;
+  
+}
+
+.user-box-bio p {
+  margin-bottom: 15px;
+  color: var(--dark);
+  line-height: 1.5;
+}
+
+/*Story form page */
+
+.user-posts {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.user-post-form form textarea {
+  width: 100%;
+  height: 300px;
+  border: 1px solid var(--dark);
+  background: white;
+  outline: none;
+  font-size: 18px;
+  margin-top: 6px;
+}
+
+.dropdown-container {
+  background-color: var(--primary)
+} 
+
+/* .user-header {
   background-color: var(--primary);
   height: 175px;
-  /* padding-top: 10px; */
 }
 
 .user-header ul {
@@ -746,24 +808,7 @@ p {
   height: 200px;
 }
 
-.user-posts {
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
-
-.user-post-form form textarea {
-  width: 100%;
-  height: 300px;
-  border: 1px solid var(--dark);
-  background: white;
-  outline: none;
-  font-size: 18px;
-  margin-top: 6px;
-}
-
-.dropdown-container {
-  background-color: var(--primary)
-}
+*/
 
 /* Story Card page  */
 
@@ -837,7 +882,6 @@ p {
   margin-bottom: 15px;
   color: var(--dark);
   line-height: 1.5;
-
 }
 
 .story-card-right p::first-letter {
