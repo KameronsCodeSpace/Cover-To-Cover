@@ -634,34 +634,24 @@ p {
   box-sizing: border-box;
 }
 
-.masonry-holder .masonry-blocks .masonry-img img {
-  max-width: 100%
-}
-
 .masonry-blocks {
   position: relative;
   width: 300px;
-  /* background: var(--dark); */
+  border-radius: 10%;
 }
 
-.masonry-blocks .masonry-img {
-  position: absolute;
+.masonry-blocks img {
+  /* position: sticky; */
+  width: 100%;
+  border-radius: 10%;
   top: 0;
   left: 0;
   width: 100%;
-}
-
-.masonry-blocks .masonry-img img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  /* height: 100%; */
   object-fit: cover;
   transition: 0.5s;
 }
 
-.masonry-blocks:hover .masonry-img img {
+.masonry-blocks:hover img {
   opacity: 0;
 }
 
@@ -682,19 +672,14 @@ p {
   color: var(--primary);
 }
 
-.masonry-blocks img {
-  width: 100%;
-}
-
 .masonry-blocks:hover .block-content {
   width: 100%;
   height: 100%;
   bottom: 0;
   left: 0;
   background: var(--white);
+  border-radius: 10%;
 }
-
-
 
 .masonry-blocks h3 {
   position: absolute;
@@ -709,8 +694,8 @@ p {
 }
 
 .masonry-blocks .block-content p {
-  margin: 10px 0 0;
-  padding: 0;
+  margin: 15px 0 0;
+  padding: 5px;
   opacity: 0;
   line-height: 1.2em;
   transition: 0.5s;
@@ -725,10 +710,72 @@ p {
 
 /* User Profile Page */
 
-.user-header {
+.user-box {
+  width: 80%;
+  height: 600px;
+  display: flex;
+  margin: 50px 10%;
+  background-color: white;
+  border-radius: 10%;
+  box-shadow: 0 27px 87px rgba(0,0,0,0.37);
+}
+
+.user-box-img, .user-box-bio {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.user-box-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+}
+
+.user-box-bio {
+  padding: 25px;
+}
+
+.user-box-bio h1 {
+  text-transform: uppercase;
+  font-size: 35px;
+  color: #344934;
+  margin-bottom: 25px;
+  text-align: left;
+  
+}
+
+.user-box-bio p {
+  margin-bottom: 15px;
+  color: var(--dark);
+  line-height: 1.5;
+}
+
+/*Story form page */
+
+.user-posts {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.user-post-form form textarea {
+  width: 100%;
+  height: 300px;
+  border: 1px solid var(--dark);
+  background: white;
+  outline: none;
+  font-size: 18px;
+  margin-top: 6px;
+}
+
+.dropdown-container {
+  background-color: var(--primary)
+} 
+
+/* .user-header {
   background-color: var(--primary);
   height: 175px;
-  /* padding-top: 10px; */
 }
 
 .user-header ul {
@@ -761,24 +808,7 @@ p {
   height: 200px;
 }
 
-.user-posts {
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
-
-.user-post-form form textarea {
-  width: 100%;
-  height: 300px;
-  border: 1px solid var(--dark);
-  background: white;
-  outline: none;
-  font-size: 18px;
-  margin-top: 6px;
-}
-
-.dropdown-container {
-  background-color: var(--primary)
-}
+*/
 
 /* Story Card page  */
 
@@ -836,6 +866,7 @@ p {
 .story-card-right h2 {
   color: var(--dark);
   margin-bottom: 10px;
+  
 }
 
 .story-card-right h1 {
@@ -844,6 +875,7 @@ p {
   color: #344934;
   /* margin-bottom: 25px; */
   text-align: center;
+  
 }
 
 .story-card-right p {
@@ -857,7 +889,7 @@ p {
   color: var(--primary)
 }
 
-.story-card-right .story-navigation {
+.story-navigation {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -866,7 +898,7 @@ p {
   z-index: 1000;
 }
 
-.story-card-right .story-navigation h1 {
+.story-navigation h1 {
   text-transform: uppercase;
   color: #fff;
   background-color: #444444;
@@ -926,11 +958,27 @@ nav .story-navigation a:nth-child(4) {
   .masonry-holder{
     column-count: 1;
   }
+
+  .masonry-blocks .block-content p {
+    padding: 20px;
+  }
+
+  .story-card {
+    width: 500px;
+  }
 }
 
 @media screen and (min-width: 768px) {
   .masonry-holder{
     column-count: 2;
+  }
+
+  .masonry-blocks .block-content p {
+    padding: 15px;
+  }
+
+  .story-card {
+    width: 568px;
   }
 }
 
@@ -938,10 +986,22 @@ nav .story-navigation a:nth-child(4) {
   .masonry-holder{
     column-count: 3;
   }
+
+  .masonry-blocks .block-content p {
+    padding: 10px;
+  }
+
+  .story-card {
+    width: 880px;
+  }
 }
 
 @media screen and (min-width: 1200px) {
   .masonry-holder{
     column-count: 4;
+  }
+
+  .story-card {
+    width: 1000px;
   }
 }

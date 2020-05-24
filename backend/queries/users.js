@@ -29,7 +29,7 @@ const getByUsername = async (username) => {
 
 //QUERY to GET user by id 
 const getUserById = async (params) => {
-    const requestQuery = `SELECT username, avatar, region, info,caption, p_username, comment
+    const requestQuery = `SELECT username, avatar, region, info, file_src, caption, p_username, comment
                             FROM users 
                                 INNER JOIN posts ON users.username = posts.p_username
                                 FULL JOIN comments ON posts.id = comments.c_post_id
