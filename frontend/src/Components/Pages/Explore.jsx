@@ -61,9 +61,9 @@ class Explore extends React.Component {
 
                 <div className='masonry-holder'>
                     {
-                        filteredData.map(element => {
+                        filteredData.map((element, i) => {
                             return (
-                                <div className="masonry-blocks">
+                                <div key={i} className="masonry-blocks">
                                     <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
                                     {/* <a onClick={this.showStory.bind(this, element)}> */}
                                     <Link to={{
@@ -74,7 +74,6 @@ class Explore extends React.Component {
                                     }}>
                                         <h3>{element.p_username}</h3>
                                         <div className="block-content">
-                                            {/* <p>{element.id}</p> */}
                                             <p>{element.caption}</p>
                                         </div>
                                     </Link>
