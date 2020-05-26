@@ -861,6 +861,7 @@ p {
 
 .story-card-right {
   padding: 25px;
+  overflow: hidden;
 }
 
 .story-card-right h2 {
@@ -891,7 +892,7 @@ p {
 
 .story-navigation {
   position: absolute;
-  bottom: 0;
+  bottom: 50px;
   left: 0;
   width: 100%;
   text-align: center;
@@ -902,35 +903,39 @@ p {
   text-transform: uppercase;
   color: #fff;
   background-color: #444444;
-  line-height: 45px;
+  line-height: 40px;
 }
 
 nav .story-navigation a {
   position: absolute;
-  width: 33.33%;
-  height: 20px;
+  width: 33.4%;
+  height: 50px;
   color: #fff;
   font-size: 30px;
-  line-height: 90px;
+  line-height: 50px;
   text-decoration: none;
   transition: 0.5%;
   transform-origin: bottom;
 }
 
+nav .story-navigation svg {
+  height: 90%;
+  padding-top: 5px;
+}
+
 nav .story-navigation i {
-  opacity: 0;
   height: 0;
   transition: 0.5s;
 }
 
 nav .story-navigation a:hover > i {
   transition-delay: 150ms;
-  opacity: 1;
   height: initial;
 }
 
-nav .story-navigation a:hover {
-  height: 90px;
+nav .story-navigation svg:hover {
+  height: 100%;
+  padding-top: 0;
 }
 
 nav .story-navigation a:nth-child(2) {
@@ -966,6 +971,21 @@ nav .story-navigation a:nth-child(4) {
   .story-card {
     width: 500px;
   }
+
+  .story-card-left {
+    height: 114%;
+    display: none;
+  }
+
+  .story-card-right {
+    padding: 25px;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  nav .story-navigation a {
+    font-size: 20px;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -980,6 +1000,10 @@ nav .story-navigation a:nth-child(4) {
   .story-card {
     width: 568px;
   }
+  nav .story-navigation a {
+    font-size: 25px;
+  }
+  
 }
 
 @media screen and (min-width: 1080px) {
@@ -994,6 +1018,8 @@ nav .story-navigation a:nth-child(4) {
   .story-card {
     width: 880px;
   }
+
+  
 }
 
 @media screen and (min-width: 1200px) {
