@@ -21,20 +21,16 @@ class UserProfile extends React.Component {
             imgFile: null,
             newAvatar: false,
             feeds: [],
-            //    displayPosts: false
+            click: false
         }
     }
 
     //getting all posts from the user
     async componentDidMount() {
         const id = this.props.id
-        console.log('user', id)
         try {
             let url = `http://localhost:3100/users/${id}`
             const userPost = await axios.get(url)
-
-            console.log('user post', userPost.data.payload)
-
             this.setState({
                 feeds: userPost.data.payload,
                 // displayPosts: true
@@ -54,12 +50,9 @@ class UserProfile extends React.Component {
     }
 
     handleFileInput = (e) => {
-
         this.setState({
             imgFile: e.target.files[0]
         })
-        console.log('check file:', e.target.files[0])
-        // console.dir(e.target)
     }
 
     handleFormSubmit = async (e) => {
@@ -68,16 +61,12 @@ class UserProfile extends React.Component {
         data.append('avatar', this.state.imgFile)
         data.append('id', this.props.id)
 
-
-        console.log('data!:', this.state.imgFile)
         try {
             const response = await axios.post('http://localhost:3100/upload', data)
-            console.log('submit:', response.data)
             this.props.login({
                 username: this.props.username,
                 password: window.localStorage.getItem('password')
             })
-            console.log('change', response)
             this.setState({
                 avatar: response.data.imgURL,
             })
@@ -86,6 +75,12 @@ class UserProfile extends React.Component {
         }
     }
 
+    handleClick = () => {
+         console.log('click')
+        this.setState({
+            click: true
+        })
+    }
 
     render() {
         const { avatar, feeds } = this.state
@@ -149,6 +144,7 @@ class UserProfile extends React.Component {
 
             </div>
         );
+        
     }
 
 }
@@ -158,9 +154,6 @@ const mapStateToProps = (state, ownProps) => {
     return state.auth.payload
 }
 
-// const mapDispatchToProps = (avatar, dispatch) => {
-
-// }
 
 export default (connect(mapStateToProps, { login })(UserProfile));
 
