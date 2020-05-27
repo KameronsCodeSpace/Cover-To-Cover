@@ -143,7 +143,7 @@ router.patch("/:id", async (req, res, next) => {
     try {
       const update = await usersQueries.updateEmail(id, email)
       console.log('params', id)
-      res.json({
+      res.json({ //new variable instead of res.json final update = this uppdate 
         payload: update,
         message: `The email was successfully updated`
       });

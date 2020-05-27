@@ -17,7 +17,8 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
-        msg: null
+        msg: null,
+        backButton: false
     };
 
     static propTypes = {
@@ -73,10 +74,25 @@ class Login extends Component {
             history.push('/registration')
         }
     }
+    handleBackButton = () => {
+        const { history } = this.props
+        console.log('back to home', history)
+       
+        this.setState({
+            backButton: true,
+        })
+        history.push('/')
+    }
 
     render() {
         return (
             <div className={'authBox'}>
+                <div className='back'>
+                    <Button onClick={this.handleBackButton}
+                            buttonStyle="btn--login--solid"
+                            buttonSize="btn--medium">Back
+                    </Button>
+                </div>
                 <img src={background} alt='Background Shape' id='bg' />
                 <div className={'leftBox'}>
                     <div className={'bgColor'} />
