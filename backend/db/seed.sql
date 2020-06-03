@@ -55,22 +55,55 @@ VALUES
 
    --1
 --PASSWORD in plain text is 'testing10' for all the users.
-   ('Tester1', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'United States', 'I like puppies', 'tester1@us.com','http://localhost:3100/avatar_links/avatar1.jpeg'),
+   ('UnglovedGravity', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'United States', 'I like puppies', 'UnglovedGravity@us.com','https://api.adorable.io/avatars/285/UnglovedGravity.png'),
    --2
-   ('Tester2', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Angola', 'I like kitties', 'tester2@ang.com', 'http://localhost:3100/avatar_links/avatar2.png'),
+   ('DemandingPetowker', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Angola', 'I like kitties', 'DemandingPetowker@ang.com', 'https://api.adorable.io/avatars/285/DemandingPetowker.png'),
    --3
-   ('Tester3', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Guiana', 'I like turtles', 'tester3@gu.com', 'http://localhost:3100/avatar_links/avatar3.png'),
+   ('HamletsTrick', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Guiana', 'I like turtles', 'HamletsTrick@gu.com', 'https://api.adorable.io/avatars/285/HamletsTrick.png'),
    --4
-   ('Tester4', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Peru', 'I like cars', 'tester4@per.com', 'http://localhost:3100/avatar_links/avatar4.jpeg'),
+   ('TooDressing', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Peru', 'I like cars', 'TooDressing@per.com', 'https://api.adorable.io/avatars/285/TooDressing.png'),
    --5
-   ('Tester5', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Uganda', 'I like flowers', 'tester5@ug.com', 'http://localhost:3100/avatar_links/avatar5.jpeg'),
+   ('ReconditeJiffy', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Uganda', 'I like flowers', 'ReconditeJiffy@ug.com', 'https://api.adorable.io/avatars/285/ReconditeJiffy.png'),
    --6
-   ('Tester6', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Trinidad', 'I like power', 'tester6@tr.com', 'http://localhost:3100/avatar_links/avatar6.gif'),
+   ('GiggleDemanding', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Trinidad', 'I like power', 'GiggleDemanding@tr.com', 'https://api.adorable.io/avatars/285/GiggleDemanding.png'),
    --7
-   ('Tester7', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Hong Kong', 'I like headphones', 'tester7@hk.com', 'http://localhost:3100/avatar_links/avatar7.jpeg'),
+   ('MakeshiftNeedles', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Hong Kong', 'I like headphones', 'MakeshiftNeedles@hk.com', 'https://api.adorable.io/avatars/285/MakeshiftNeedles.png'),
    --8
-   ('Tester8', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Russia', 'I like buckets', 'tester8@ru.com', 'http://localhost:3100/avatar_links/avatar8.jpeg');
-
+   ('TopGarlic', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Russia', 'I like buckets', 'TopGarlic@ru.com', 'https://api.adorable.io/avatars/285/TopGarlic.png'),
+   --9
+   ('BellaIntel', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Uzbekistan', 'I like buckets', 'BellaIntel@ru.com', 'https://api.adorable.io/avatars/285/BellaIntel.png'),
+   --10
+   ('HeadbandArmchair', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Serbia', 'I like buckets', 'HeadbandArmchair@ru.com', 'https://api.adorable.io/avatars/285/HeadbandArmchair.png'),
+   --11
+   ('ProduceFondly', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'United Arab Emirates', 'I like buckets', 'ProduceFondly@ru.com', 'https://api.adorable.io/avatars/285/ProduceFondly.png'),
+   --12
+   ('GreenSuitably', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Malaysia', 'I like buckets', 'GreenSuitably@ru.com', 'https://api.adorable.io/avatars/285/GreenSuitably.png'),
+   --13
+   ('AttemptRebuilt', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Belarus', 'I like buckets', 'AttemptRebuilt@ru.com', 'https://api.adorable.io/avatars/285/AttemptRebuilt.png'),
+   --14
+   ('VacuousRecover', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Barbados', 'I like buckets', 'VacuousRecover@ru.com', 'https://api.adorable.io/avatars/285/VacuousRecover.png'),
+   --15
+   ('RirstLandmass', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Czech Republic', 'I like buckets', 'RirstLandmass@ru.com', 'https://api.adorable.io/avatars/285/RirstLandmass.png'),
+   --16
+   ('TricksterSatisfaction', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Monaco', 'I like buckets', 'TricksterSatisfaction@ru.com', 'https://api.adorable.io/avatars/285/TricksterSatisfaction.png'),
+   --17
+   ('CosMyth', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'The Gambia', 'I like buckets', 'CosMyth@ru.com', 'https://api.adorable.io/avatars/285/CosMyth.png'),
+   --18
+   ('ApatheticJokester', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Belgium', 'I like buckets', 'ApatheticJokester@ru.com', 'https://api.adorable.io/avatars/285/ApatheticJokester.png'),
+   --19
+   ('FlickaUpper', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Bangladesh', 'I like buckets', 'FlickaUpper@ru.com', 'https://api.adorable.io/avatars/285/FlickaUpper.png'),
+   --20
+   ('WildfowlVillage', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Estonia', 'I like buckets', 'WildfowlVillage@ru.com', 'https://api.adorable.io/avatars/285/WildfowlVillage.png'),
+   --21
+   ('CharleyPoppycock', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'South Sudan', 'I like buckets', 'CharleyPoppycock@ru.com', 'https://api.adorable.io/avatars/285/CharleyPoppycock.png'),
+   --22
+   ('RembrantBoal', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'El Salvador', 'I like buckets', 'RembrantBoal@ru.com', 'https://api.adorable.io/avatars/285/RembrantBoal.png'),
+   --23
+   ('CrincersScientist', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Sao Tome and Principe', 'I like buckets', 'CrincersScientist@ru.com', 'https://api.adorable.io/avatars/285/CrincersScientist.png'),
+   --24
+   ('BrightGlider', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Kiribati', 'I like buckets', 'BrightGlider@ru.com', 'https://api.adorable.io/avatars/285/BrightGlider.png'),
+   --25
+   ('DollaRappetizer', '$2b$12$fPdgdHjt8bPCXzQpFpOR4eZ7u/r5SWGLWd7YC2ZRldxa4XSAASCsG', 'Republic of Kosovo', 'I like buckets', 'DollaRappetizer@ru.com', 'https://api.adorable.io/avatars/285/DollaRappetizer.png'),
 
 INSERT INTO posts (file_src, caption, p_username)
     VALUES
