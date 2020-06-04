@@ -62,7 +62,7 @@ class StoryPage extends React.Component {
                                 </polygon>
                             </clipPath>
                         </svg>
-                        <img onError={this.addDefaultStoryImg} src={storyProps.file_src} className='clip' alt='img' />
+                        <img onError={this.addDefaultStoryImg} src={storyProps.file_src + `1`} className='clip' alt='img' />
 
                         <Link className='chat' to='/explore'>
                             <svg
