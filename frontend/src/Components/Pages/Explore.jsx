@@ -64,7 +64,7 @@ class Explore extends React.Component {
                         filteredData.map((element, i) => {
                             return (
                                 <div key={i} className="masonry-blocks">
-                                    <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
+                                    <img onError={this.addDefaultSrc} src={element.file_src + `${i}`} alt='img' />
                                     {/* <a onClick={this.showStory.bind(this, element)}> */}
                                     <Link to={{
                                         pathname: '/storypage',
