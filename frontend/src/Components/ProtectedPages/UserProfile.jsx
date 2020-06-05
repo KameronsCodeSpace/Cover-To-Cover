@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Navbar from '../Support Files/Navbar'
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Post from '../Support Files/posts';
+// import Post from '../Support Files/posts';
 import { login } from '../../Actions/authActions';
 import questionAvatar from '../../img/QuestionAvatar.png'
 import staticStoryImg from '../../img/Unknown_location.png';
@@ -76,7 +76,7 @@ class UserProfile extends React.Component {
     }
 
     handleClick = () => {
-         console.log('click')
+        console.log('click')
         this.setState({
             click: true
         })
@@ -135,16 +135,21 @@ class UserProfile extends React.Component {
                             </div>
                         )
                     })}
+                    <div className="masonry-blocks-add">
+                        <Link className='nav-link' to='/newstory'>
+                            <img src="https://www.ucdavis.edu/sites/default/files/images/focal_link/add-blue_2.png" alt='img' />
+                        </Link>
+                    </div>
                 </div>
-                <br></br>
+                {/* <br></br>
                 <div className='user-posts'>
                     <Post />
-                </div>
+                </div> */}
 
 
             </div>
         );
-        
+
     }
 
 }
