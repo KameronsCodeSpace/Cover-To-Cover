@@ -16,6 +16,7 @@ import Explore from './Components/Pages/Explore'
 import Travel from './Components/ProtectedPages/Travel';
 import Trending from './Components/ProtectedPages/Trending';
 import UserProfile from './Components/ProtectedPages/UserProfile';
+import NewStory from './Components/Support Files/posts'
 import ProtectedRoute from '../src/Components/Authentication/ProtectedRoute';
 
 // import UserRoutes from './Components/Support Files/UserRoutes'
@@ -59,6 +60,7 @@ class App extends Component {
             <ProtectedRoute path='/travel' component={Travel} />
             <ProtectedRoute path='/trending' component={Trending} />
             <ProtectedRoute path='/userprofile' component={UserProfile} />
+            <ProtectedRoute path='/newstory' component={NewStory} />
 
           </Switch>
           {/* <Route

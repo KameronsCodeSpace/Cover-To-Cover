@@ -10,15 +10,7 @@ const passport = require('./auth/passport');
 const bodyParser = require('body-parser');
 const multer = require('multer')
 const users = require('./queries/users');
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, "./public/images")
-//     },
-//     filename: (req, file, cb) => {
-//       let name = Date.now() + "-" + file.originalname
-//       cb(null, name)
-//     }
-//   })
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
@@ -26,6 +18,7 @@ const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
 const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
+const questionsRouter = require ('./routes/questions')
 // const postRouter = require('./routes/posts');
 const app = express();
 const storage = multer.diskStorage({
@@ -66,6 +59,7 @@ app.use('/blog', postsRouter);
 app.use('/comments', commentsRouter); 765
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
+app.use('/questions', questionsRouter);
 app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     console.log('req.file:', req.file)
     console.log('req.body:', req.body)

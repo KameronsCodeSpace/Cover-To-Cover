@@ -646,13 +646,29 @@ p {
   border-radius: 10%;
   top: 0;
   left: 0;
-  width: 100%;
   object-fit: cover;
   transition: 0.5s;
 }
 
 .masonry-blocks:hover img {
   opacity: 0;
+}
+
+.masonry-blocks-add {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  margin-top: 25%;
+  margin-bottom: 25%;
+}
+
+.masonry-blocks-add img {
+  width: 50%;
+  height: 50%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  transition: 0.5s;
 }
 
 .masonry-holder .block-content {
