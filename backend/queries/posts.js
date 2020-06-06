@@ -34,6 +34,15 @@ const updatePost = async(caption, id) => {
         return updatedFeed
 }
 
+// // QUERY to GET the starter questions 
+// const getAllQuestions = async () => {
+//   const requestQuery = `SELECT question FROM questions`
+//   let allQuestions = await db.any(requestQuery);
+//   console.log("questions", allquestions);
+//   return allQuestions;
+
+// };
+
 module.exports = {
     createNewPost,
     deletedPost,
