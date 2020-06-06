@@ -50,6 +50,11 @@ CREATE TABLE post_tag (
 
 );
 
+CREATE TABLE questions (
+    id SERIAL PRIMARY KEY,
+    starter VARCHAR
+);
+
 INSERT INTO  users (username, password, region, info, email, avatar) 
 VALUES
 
@@ -619,3 +624,11 @@ INSERT INTO posts (p_username, file_src, caption)
 INSERT INTO comments (commentors_name, comment, c_post_id)
     VALUES
         ('DollaRappetizer', 'Interesting post', '1');
+
+INSERT INTO questions (starter)
+    VALUES
+        ('Can you tell me about a person who has been kindest to you in your life?'),
+        ('What are some of the most important lessons you have learned in life?'),
+        ('For future generations of your family listening to this years from now, is there an wisdom you would want to pass on to them? What would you want them to know'),
+        ('Do you remember any songs that you used to sing? Can you sing them now?'),
+        ('Can you describe the moment when you saw your child for the first time?');

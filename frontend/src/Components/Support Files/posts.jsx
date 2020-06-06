@@ -8,9 +8,27 @@ class Post extends React.Component {
     super(props)
     this.state = {
       cap: '',
-      image: null
+      image: null ,
+      questions: [],
+      questOptions:[],
+      questchoice:''
       // file: null,
     }
+  }
+
+  async componentDidMount () {
+    let questResponse = await axios.get('/questions')
+
+    let questArr = []
+
+    for (let i = 0; i < questResponse.data.payload.length; i++) {
+        questArr.push(questResponse.data.payload[i].starter)
+    }
+
+    this.setState({
+      questions: questArr
+    })
+    this.populateSelect();
   }
 
   //Handle for files
@@ -41,7 +59,23 @@ class Post extends React.Component {
       console.log(err)
     }
   }
+
+  populateSelect = () => {
+    const { questions } = this.state 
+    let questOpts = [];
+    questOpts.push(<option value={''} key={''}>Choose starter question</option>)
+
+    for (let i = 0; i < questions.length; i++) {
+      questOpts.push(<option value={i + 1} key={questions[i]}>{questions[i]}</option>);
+    }
+
+    this.setState({
+      questOptions: questOpts,
+      questchoice:`${questOpts[0].props.value}` 
+    })
+  }
   render() {
+    let {questOptions} = this.state;
 
     const items = [
       {
@@ -74,6 +108,9 @@ class Post extends React.Component {
           <Dropdown title="Select a Question" items={items} multiSelect />
         </div>
         <form onSubmit={this.handleSubmit}>
+          <select name='questionOptions' onChange={this.handleInput}>
+          {questOptions}
+          </select>
           <textarea id="captionInput" name='cap' placeholder='Start a discussion' onChange={this.handleInput} />
           <br />
           <input type='file' onChange={this.handleFileInput} />
