@@ -8,6 +8,7 @@ import Post from '../Support Files/posts';
 import { login } from '../../Actions/authActions';
 import questionAvatar from '../../img/QuestionAvatar.png'
 import staticStoryImg from '../../img/Unknown_location.png';
+import UpdatePost from '../Support Files/UpdatePost'
 
 // import Info from '../Support Files/Info';
 // import ActivityBar from '../Support Files/ActivityBar';
@@ -120,6 +121,8 @@ class UserProfile extends React.Component {
                     {feeds.map((feed, i) => {
                         return (
                             <div key={i} className="masonry-blocks">
+                                <div> <UpdatePost/></div>
+                               
                                 <img onError={this.addDefaultStoryImg} src={feed.file_src + `${i}`} alt='img' />
                                 <Link to={{
                                     pathname: '/storypage',
@@ -132,6 +135,7 @@ class UserProfile extends React.Component {
                                         <p>{feed.caption}</p>
                                     </div>
                                 </Link>
+                                
                             </div>
                         )
                     })}

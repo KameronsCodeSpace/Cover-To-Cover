@@ -56,86 +56,109 @@ const registerNewUser = async (user) => {
 
 
 //QUERY to PATCH a user's username
-const updateUsername = async (id, username) => {
-    console.log('id', id)
-    const updateQuery = `UPDATE users SET username=$2 WHERE id=$1 
-            RETURNING *`;
-    const update = await db.one(updateQuery, [id,
-        username]);
+const updateUserData = async (id, data) => {
+    console.log('id', data.username)
+   let query = `UPDATE users SET ` 
+
+  if (data.email) {
+    query += `  users.email = ${data.email},`
+  }
+  if (data.username) {
+    query += `users.username= ${data.username},`
+  }
+  if (data.info) {
+    query += `users.info = ${data.info},`
+  }
+  query = query.slice(0, query.length -1)
+  if (data.region) {
+    query += `users.region = ${data.region}`
+  }
+ 
+  query += ` WHERE users.id = ${id}`
+//    query+= ` RETURNING *`
+  console.log('query', query)
+          
+    const update = await db.any(query, {
+                    email: data.email,
+                    username: data.username,
+                    region: data.region,
+                    info: data.info
+                })
     console.log('update', update);
     return update;
+ 
 }
 
-//QUERY to PATCH a user's password
-const updatePassword = async (id, password) => {
-    console.log('id', id)
-    const updateQuery = `UPDATE users 
-                            SET password=$2 
-                            WHERE id=$1 
-                              RETURNING *`;
-    const update = await db.one(updateQuery, [id, password]);
-    console.log('update', update);
-    return update;
-}
+// //QUERY to PATCH a user's password
+// const updatePassword = async (id, password) => {
+//     console.log('id', id)
+//     const updateQuery = `UPDATE users 
+//                             SET password=$2 
+//                             WHERE id=$1 
+//                               RETURNING *`;
+//     const update = await db.one(updateQuery, [id, password]);
+//     console.log('update', update);
+//     return update;
+// }
 
-//QUERY to PATCH a user's email
-const updateEmail = async (id, email) => {
-    console.log('id', id)
-    const updateQuery = `UPDATE users 
-                        SET email=$2 
-                        WHERE id=$1 
-                        RETURNING *`;
-    const update = await db.one(updateQuery, [id, email]);
-    console.log('update', update);
-    return update;
-}
+// //QUERY to PATCH a user's email
+// const updateEmail = async (id, email) => {
+//     console.log('id', id)
+//     const updateQuery = `UPDATE users 
+//                         SET email=$2 
+//                         WHERE id=$1 
+//                         RETURNING *`;
+//     const update = await db.one(updateQuery, [id, email]);
+//     console.log('update', update);
+//     return update;
+// }
 
-//QUERY to PATCH a user's region
-const updateRegion = async (id, region) => {
-    console.log('id', id)
-    const updateQuery = `UPDATE users 
-                        SET region=$2 
-                        WHERE id=$1 
-                        RETURNING *`;
-    const update = await db.one(updateQuery, [id, region]);
-    console.log('update', update);
-    return update;
-}
+// //QUERY to PATCH a user's region
+// const updateRegion = async (id, region) => {
+//     console.log('id', id)
+//     const updateQuery = `UPDATE users 
+//                         SET region=$2 
+//                         WHERE id=$1 
+//                         RETURNING *`;
+//     const update = await db.one(updateQuery, [id, region]);
+//     console.log('update', update);
+//     return update;
+// }
 
-//QUERY to PATCH a user's info
-const updateInfo = async (id, info) => {
-    console.log('id', id)
-    const updateQuery = `UPDATE users 
-                        SET info=$2 
-                        WHERE id=$1 
-                        RETURNING *`;
-    const update = await db.one(updateQuery, [id, info]);
-    console.log('update', update);
-    return update;
-}
+// //QUERY to PATCH a user's info
+// const updateInfo = async (id, info) => {
+//     console.log('id', id)
+//     const updateQuery = `UPDATE users 
+//                         SET info=$2 
+//                         WHERE id=$1 
+//                         RETURNING *`;
+//     const update = await db.one(updateQuery, [id, info]);
+//     console.log('update', update);
+//     return update;
+// }
 
-//QUERY to PATCH a user's avatar
-const updateAvatar = async (id, avatar) => {
-    console.log('id', id)
-    const updateQuery = `UPDATE users 
-                        SET avatar=$2 
-                        WHERE id=$1 
-                        RETURNING *`;
-    const update = await db.one(updateQuery, [id, avatar]);
-    console.log('update', update);
-    return update;
-}
+// //QUERY to PATCH a user's avatar
+// const updateAvatar = async (id, avatar) => {
+//     console.log('id', id)
+//     const updateQuery = `UPDATE users 
+//                         SET avatar=$2 
+//                         WHERE id=$1 
+//                         RETURNING *`;
+//     const update = await db.one(updateQuery, [id, avatar]);
+//     console.log('update', update);
+//     return update;
+// }
 
-const changeAvatar = async(id, avatar) => {
-    const updateQuery = `UPDATE users 
-                        SET avatar=$2 
-                        WHERE id=$1 
-                        RETURNING *`
-                         ;
-    const change = await db.one(updateQuery, [id, avatar]);
-    console.log('update', change);
-    return change;
-}
+// const changeAvatar = async(id, avatar) => {
+//     const updateQuery = `UPDATE users 
+//                         SET avatar=$2 
+//                         WHERE id=$1 
+//                         RETURNING *`
+//                          ;
+//     const change = await db.one(updateQuery, [id, avatar]);
+//     console.log('update', change);
+//     return change;
+// }
 
 const deleteUser = async (params) => {
     const deleteQuery = `DELETE FROM users WHERE id = $1 RETURNING *`;
@@ -149,12 +172,12 @@ module.exports = {
     getUserById,
     getByUsername,
     registerNewUser,
-    updateUsername,
-    updatePassword,
-    updateEmail,
-    updateRegion,
-    updateInfo,
-    updateAvatar,
-    changeAvatar,
+    updateUserData,
+    // updatePassword,
+    // updateEmail,
+    // updateRegion,
+    // updateInfo,
+    // updateAvatar,
+    // changeAvatar,
     deleteUser
 };

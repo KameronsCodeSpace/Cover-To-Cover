@@ -18,7 +18,8 @@ class Login extends Component {
         username: '',
         password: '',
         msg: null,
-        backButton: false
+        backButton: false,
+        rememberMe: false
     };
 
     static propTypes = {
@@ -36,7 +37,7 @@ class Login extends Component {
 
                 this.setState({ msg: error.msg.msg });
             } else {
-                this.setState({ msg: null });
+                this.setState({ msg: null, rememberMe: this.state.rememberMe });
             }
         }
 
@@ -64,6 +65,13 @@ class Login extends Component {
         // Attempt to login
         this.props.login(user);
         window.localStorage.setItem('password', password)
+    }
+
+    checkRememberBox = () => {
+        console.log('box was checked')
+        this.setState({
+            rememberMe: true
+        })
     }
 
     toRegistration = () => {
@@ -114,7 +122,7 @@ class Login extends Component {
                             </div>
                             <div className={'contentBox'}>
                                 <div className={'checkboxBox'}>
-                                    <input type={'checkbox'} className={'checkbox'} />
+                                    <input type={'checkbox'} className={'checkbox'} onClick={this.checkRememberBox}/>
                                     <label className={'checkboxLabel'}>Remember</label>
                                 </div>
                                 <div className={'text1'}>Forgot Password?</div>
