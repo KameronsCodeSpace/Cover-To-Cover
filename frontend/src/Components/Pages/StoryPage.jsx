@@ -21,6 +21,7 @@ class StoryPage extends React.Component {
 
     async componentDidMount() {
         const { storyProps } = this.props.location.state
+        console.log("PROPS", storyProps);
         console.log("PROPS", storyProps.p_username);
 
         try {
