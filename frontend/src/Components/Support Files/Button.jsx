@@ -7,7 +7,7 @@ const STYLES = [
     "btn--sight--solid",
 ];
 
-const SIZES = ["btn--medium", "btn--large", "btn--tall"];
+const SIZES = ["btn--medium", "btn--large", "btn--tall", "btn--landing"];
 
 export const Button = ({
     children,
