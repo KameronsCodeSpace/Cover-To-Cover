@@ -1038,6 +1038,11 @@ nav .story-navigation a:nth-child(4) {
   
 }
 
+.upload-btn {
+  color: rgb(168, 161, 161);
+  size: 20px;
+}
+
 @media screen and (min-width: 1200px) {
   .masonry-holder{
     column-count: 4;

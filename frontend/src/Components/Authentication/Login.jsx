@@ -8,9 +8,9 @@ import { withRouter } from 'react-router-dom';
 import { Button } from "../Support Files/Button"
 
 import background from '../../img/bg-shape.svg';
-import GoogleIcon from '../../img/GoogleIcon.png';
-import FacebookIcon from '../../img/facebookIcon.png';
-import TwitterIcon from '../../img/TwitterIcon.png';
+// import GoogleIcon from '../../img/GoogleIcon.png';
+// import FacebookIcon from '../../img/facebookIcon.png';
+// import TwitterIcon from '../../img/TwitterIcon.png';
 
 
 class Login extends Component {
@@ -95,12 +95,6 @@ class Login extends Component {
     render() {
         return (
             <div className={'authBox'}>
-                <div className='back'>
-                    <Button onClick={this.handleBackButton}
-                            buttonStyle="btn--login--solid"
-                            buttonSize="btn--medium">Back
-                    </Button>
-                </div>
                 <img src={background} alt='Background Shape' id='bg' />
                 <div className={'leftBox'}>
                     <div className={'bgColor'} />
@@ -146,12 +140,19 @@ class Login extends Component {
 
                         <div className={'borderBox'}>
                             <div className={'line'} />
-                            <div className={'text2 or'}>OR</div>
+                            {/* <div className={'text2 or'}>OR</div> */}
                         </div>
                         <div className={'socialMediaBox'}>
-                            <div className={'icAuth google'}> <img alt='google' src={GoogleIcon}></img></div>
+                            <div className='back'>
+                                <Button onClick={this.handleBackButton}
+                                        type="button"
+                                        buttonStyle="btn--login--solid"
+                                        buttonSize="btn--medium">Back
+                                    </Button>
+                            </div>
+                            {/* <div className={'icAuth google'}> <img alt='google' src={GoogleIcon}></img></div>
                             <div className={'icAuth facebook'}><img alt='facebook' src={FacebookIcon}></img></div>
-                            <div className={'icAuth twitter'}><img alt='twitter' src={TwitterIcon}></img></div>
+                            <div className={'icAuth twitter'}><img alt='twitter' src={TwitterIcon}></img></div> */}
                         </div>
                     </div>
                 </div>

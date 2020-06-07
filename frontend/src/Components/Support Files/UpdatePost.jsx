@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
-
+import { Link } from 'react-router-dom'
 
 class UpdatePosts extends React.Component {
     constructor(props) {
@@ -22,7 +21,9 @@ class UpdatePosts extends React.Component {
     render() {
         return(
             <div>
-        
+                <Link className="edit" to='/editstory'>
+                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSLCHaJ7AGgEGx2eI8AeWjdiaux6BBNyZZaUZHMDx0o7oQBvE-2&usqp=CAU' alt='' width='10px'/>
+                </Link>
             </div>
         )
     }
