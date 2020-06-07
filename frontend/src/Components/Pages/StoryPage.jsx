@@ -12,26 +12,35 @@ import staticStoryImg from '../../img/Unknown_location.png';
 //display story based on ID
 
 class StoryPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        console.log('storypage state????:', props)
+        super(props)
         this.state = {
-            userData: []
+            userData: [],
+            user_avatar: ''
         }
     }
 
     async componentDidMount() {
         const { storyProps } = this.props.location.state
+        console.log("PROPS", storyProps);
         console.log("PROPS", storyProps.p_username);
 
         try {
             let blogs = await axios.get('/users/user/' + storyProps.p_username);
             this.setState({
-                userData: blogs.data.payload
+                userData: blogs.data.payload,
+                user_avatar: storyProps.avatar
             });
             console.log("state:", this.state);
         } catch (err) {
             console.log("ERROR:", err);
         }
+    }
+
+    addDefaultSrc(ev) {
+        const { storyProps } = this.props.location.state
+        ev.target.src = `https://api.adorable.io/avatars/285/${storyProps.p_username}.png`
     }
 
     addDefaultAvatar(ev) {
@@ -43,7 +52,7 @@ class StoryPage extends React.Component {
     }
 
     render() {
-        const { userData } = this.state
+        const { userData, user_avatar } = this.state
         const { storyProps } = this.props.location.state
 
         console.log('My story props', storyProps)
@@ -87,11 +96,16 @@ class StoryPage extends React.Component {
                     </div>
                     <div className='story-card-right'>
                         <h2>Some Question - Q 1/10</h2>
-                        <h2>{storyProps.p_username}</h2>
+                        <div classname='avatar-username'>
+                            <h3>
+                                <img className='avatar-picture' onError={this.addDefaultSrc} src={`https://api.adorable.io/avatars/285/` + storyProps.p_username + `.png`} alt='img' />
+                                {storyProps.p_username}
+                            </h3>
+                        </div>
                         <p>{storyProps.caption}</p>
                         <nav>
                             <div className='story-navigation'>
-                                <h1>Story Title</h1>
+                                <h1>{storyProps.story_title}</h1>
                                 <a href='#'><i className='story-back'>
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-circle-left" class="svg-inline--fa fa-arrow-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"></path></svg>
                                 </i></a>

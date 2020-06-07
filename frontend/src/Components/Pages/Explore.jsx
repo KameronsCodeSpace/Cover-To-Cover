@@ -72,32 +72,13 @@ class Explore extends React.Component {
                                             storyProps: element
                                         }
                                     }}>
-                                        <h3>{element.p_username}</h3>
+                                        <h3>{element.story_title}</h3>
                                         <div className="block-content">
                                             <p>{element.caption}</p>
                                         </div>
                                     </Link>
                                     {/* </a> */}
                                 </div>
-                                // <div className="blog-box">
-                                //     <div className="blog-img">
-                                //     <img onError={this.addDefaultSrc} src={element.file_src} alt='img' />
-                                //     </div>
-                                //     {/* <a onClick={this.showStory.bind(this, element)}> */}
-                                //     <Link to={{
-                                //         pathname: '/storypage',
-                                //         state: {
-                                //             storyProps: element
-                                //         }
-                                //     }}>
-                                //         <div className="blog-content">
-                                //             {/* <p>{element.id}</p> */}
-                                //             <h3>{element.p_username}</h3>
-                                //             <p>{element.caption}</p>
-                                //         </div>
-                                //     </Link>
-                                //     {/* </a> */}
-                                // </div>
                             );
                         })
                     }

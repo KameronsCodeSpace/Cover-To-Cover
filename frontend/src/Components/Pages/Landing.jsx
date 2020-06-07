@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { Link } from 'react-router-dom'
+
 import AppTitlePage from '../Support Files/AppTitlePage';
 import Stories from '../Support Files/Stories';
 
@@ -27,8 +29,23 @@ function Landing() {
     return (
         <main>
             <AppTitlePage />
-            <Stories randomData={randomData[0]} userName={userName[0]} storyTitle={storyTitle[0]} storyImg={storyImg[0]} />
-            <Stories randomData={randomData[1]} userName={userName[1]} storyTitle={storyTitle[1]} storyImg={storyImg[1]} />
+            <Link to={{
+                pathname: '/storypage',
+                state: {
+                    storyProps: 'yes'
+                }
+            }}>
+                <Stories randomData={randomData[0]} userName={userName[0]} storyTitle={storyTitle[0]} storyImg={storyImg[0]} />
+            </Link>
+
+            <Link to={{
+                pathname: '/storypage',
+                state: {
+                    storyProps: 'yes'
+                }
+            }}>
+                <Stories randomData={randomData[1]} userName={userName[1]} storyTitle={storyTitle[1]} storyImg={storyImg[1]} />
+            </Link>
         </main>
     );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Dropdown from '../Support Files/Dropdown';
+import Navbar from '../Support Files/Navbar'
 
 class Post extends React.Component {
   constructor(props) {
@@ -76,6 +77,7 @@ class Post extends React.Component {
   }
   render() {
     let {questOptions} = this.state;
+    
 
     const items = [
       {
@@ -102,6 +104,7 @@ class Post extends React.Component {
 
     return (
       <div className='user-post-form'>
+         <Navbar />
         <h1>Create a Story</h1>
         <br />
         <div className='dropdown-container'>
