@@ -3,14 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import Navbar from '../Support Files/Navbar'
 import { connect } from 'react-redux';
+import { Button } from '../Support Files/Button'
 import axios from 'axios';
 // import Post from '../Support Files/posts';
 import { login } from '../../Actions/authActions';
 import questionAvatar from '../../img/QuestionAvatar.png'
 import staticStoryImg from '../../img/Unknown_location.png';
 
-// import Info from '../Support Files/Info';
-// import ActivityBar from '../Support Files/ActivityBar';
 
 class UserProfile extends React.Component {
     constructor(props) {
@@ -107,8 +106,18 @@ class UserProfile extends React.Component {
                                     style={{ display: 'none' }}
                                     ref={fileInput => this.fileInput = fileInput}
                                 />
-                                <button onClick={() => this.fileInput.click()}>Choose picture</button>
-                                <input type='submit' value='Upload' />
+                                <Button onClick={() => this.fileInput.click()}
+                                        buttonStyle="btn--sight--solid"
+                                        buttonSize="btn--medium"
+                                >Choose Picture
+                                </Button>
+                                <input
+                                    className='upload-btn' 
+                                    type='submit' 
+                                    value='Upload' 
+                                    style={{color: 'blue'}}
+                                    size={{}}
+                                />
                             </form>
                         </div>
                     </div>
@@ -132,6 +141,7 @@ class UserProfile extends React.Component {
                                         <p>{feed.caption}</p>
                                     </div>
                                 </Link>
+                                
                             </div>
                         )
                     })}

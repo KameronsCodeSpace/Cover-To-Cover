@@ -8,9 +8,9 @@ import { withRouter } from 'react-router-dom';
 import { Button } from "../Support Files/Button"
 
 import background from '../../img/bg-shape.svg';
-import GoogleIcon from '../../img/GoogleIcon.png';
-import FacebookIcon from '../../img/facebookIcon.png';
-import TwitterIcon from '../../img/TwitterIcon.png';
+// import GoogleIcon from '../../img/GoogleIcon.png';
+// import FacebookIcon from '../../img/facebookIcon.png';
+// import TwitterIcon from '../../img/TwitterIcon.png';
 
 
 class Login extends Component {
@@ -18,7 +18,8 @@ class Login extends Component {
         username: '',
         password: '',
         msg: null,
-        backButton: false
+        backButton: false,
+        rememberMe: false
     };
 
     static propTypes = {
@@ -36,7 +37,7 @@ class Login extends Component {
 
                 this.setState({ msg: error.msg.msg });
             } else {
-                this.setState({ msg: null });
+                this.setState({ msg: null, rememberMe: this.state.rememberMe });
             }
         }
 
@@ -66,6 +67,13 @@ class Login extends Component {
         window.localStorage.setItem('password', password)
     }
 
+    checkRememberBox = () => {
+        console.log('box was checked')
+        this.setState({
+            rememberMe: true
+        })
+    }
+
     toRegistration = () => {
         const { history } = this.props;
 
@@ -87,12 +95,6 @@ class Login extends Component {
     render() {
         return (
             <div className={'authBox'}>
-                <div className='back'>
-                    <Button onClick={this.handleBackButton}
-                            buttonStyle="btn--login--solid"
-                            buttonSize="btn--medium">Back
-                    </Button>
-                </div>
                 <img src={background} alt='Background Shape' id='bg' />
                 <div className={'leftBox'}>
                     <div className={'bgColor'} />
@@ -114,7 +116,7 @@ class Login extends Component {
                             </div>
                             <div className={'contentBox'}>
                                 <div className={'checkboxBox'}>
-                                    <input type={'checkbox'} className={'checkbox'} />
+                                    <input type={'checkbox'} className={'checkbox'} onClick={this.checkRememberBox}/>
                                     <label className={'checkboxLabel'}>Remember</label>
                                 </div>
                                 <div className={'text1'}>Forgot Password?</div>
@@ -138,12 +140,19 @@ class Login extends Component {
 
                         <div className={'borderBox'}>
                             <div className={'line'} />
-                            <div className={'text2 or'}>OR</div>
+                            {/* <div className={'text2 or'}>OR</div> */}
                         </div>
                         <div className={'socialMediaBox'}>
-                            <div className={'icAuth google'}> <img alt='google' src={GoogleIcon}></img></div>
+                            <div className='back'>
+                                <Button onClick={this.handleBackButton}
+                                        type="button"
+                                        buttonStyle="btn--login--solid"
+                                        buttonSize="btn--medium">Back
+                                    </Button>
+                            </div>
+                            {/* <div className={'icAuth google'}> <img alt='google' src={GoogleIcon}></img></div>
                             <div className={'icAuth facebook'}><img alt='facebook' src={FacebookIcon}></img></div>
-                            <div className={'icAuth twitter'}><img alt='twitter' src={TwitterIcon}></img></div>
+                            <div className={'icAuth twitter'}><img alt='twitter' src={TwitterIcon}></img></div> */}
                         </div>
                     </div>
                 </div>

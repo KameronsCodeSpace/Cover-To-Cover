@@ -83,130 +83,34 @@ router.get("/user/:username", async (req, res, next) => {
 router.patch("/:id", async (req, res, next) => {
  
   const id = req.params.id; 
-  const username = req.body.username;
-  const password = req.body.password;
-  const region = req.body.region;
-  const info = req.body.info;
-  const email = req.body.email;
-  const avatar = req.body.avatar;
-
-  
- if (username) {
-  try {
-    const update = await usersQueries.updateUsername(id, username)
+  // const username = req.body.username;
+  // // const password = req.body.password;
+  // const region = req.body.region;
+  // const info = req.body.info;
+  // const email = req.body.email;
+  // const avatar = req.body.avatar;
+try {
+     let data = {
+      username: req.body.username,
+      email: req.body.email,
+      region: req.body.region,
+      info: req.body.info
+    }
+    const update = await usersQueries.updateUserData(id, data)
+    console.log('data', data)
+    
     res.json({
       payload: update,
-      message: `The username was successfully updated`
+      message: `The data was successfully updated`
     });
   } catch (error) {
     res.status(500);
     res.json({
-      
-      message: `Unable to update username`
+      message: `Unable to update data`
     });
     console.log('error', error)
   }
- }
- if (password) {
-   try {
-      const update = await usersQueries.updatePassword(id, password)
-      console.log('params', id)
-      res.json({
-        payload: update,
-        message: `The password was successfully updated`
-      });
-    } catch (error) {
-      res.status(500);
-      res.json({
-        message: `Unable to update password`
-      });
-      console.log('error', error)
-    }
-  }
-  if (region) {
-   try {
-      const update = await usersQueries.updateRegion(id, region)
-      console.log('params', id)
-      res.json({
-        payload: update,
-        message: `The region was successfully updated`
-     });
-    } catch (error) {
-      res.status(500);
-      res.json({
-        message: `Unable to update region`
-      });
-      console.log('error', error)
-    }
-  }
-  if (email) {
-    try {
-      const update = await usersQueries.updateEmail(id, email)
-      console.log('params', id)
-      res.json({ //new variable instead of res.json final update = this uppdate 
-        payload: update,
-        message: `The email was successfully updated`
-      });
-    } catch (error) {
-      res.status(500);
-      res.json({
-        message: `Unable to update email`
-      });
-      console.log('error', error)
-    }
-  }
-  if (info) {
-    try {
-      const update = await usersQueries.updateInfo(id, info)
-      console.log('params', id)
-      res.json({
-        payload: update,
-        message: `The info was successfully updated`
-      });
-    } catch (error) {
-      res.status(500);
-      res.json({
-        message: `Unable to update info`
-      });
-      console.log('error', error)
-    }
-  }
-  if (avatar) {
-    try {
-      
-      const update = await usersQueries.updateAvatar(id, avatar)
-      console.log('params', id)
-      res.json({
-        payload: update,
-        message: `The avatar was successfully updated`
-      });
-    } catch (error) {
-      res.status(500);
-      res.json({
-        message: `Unable to update avatar`
-      });
-      console.log('error', error)
-    }
-  }
-
-});
-
-router.put("/upload/:id", async(req, res, next) => {
-  const id = req.params.id; 
-  const avatar = req.body.avatar;
-  try {
-    const change = await usersQueries.changeAvatar(id, avatar)
-    res.json({
-      payload: change,
-      message: `The Avatar was changed`
-    })
-  } catch (error) {
-     res.status(500);
-      res.json({
-        message: `Unable to change the avatar`
-      });
-      console.log('error', error)
-  }
+ 
 })
 
 //DELETE Route to delete a user
