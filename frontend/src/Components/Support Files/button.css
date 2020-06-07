@@ -61,6 +61,16 @@
     margin-bottom: 10px;
 }
 
+.btn--landing {
+    /* font-size: 1em; */
+    font-weight: bold;
+    border-radius: 15px;
+    width: 45px;
+    height: 55px;
+    padding: 3px;
+    margin-bottom: 10px;
+}
+
 /* Login Button ----- Remove login from App.css and finish putting all buttons here */
 
 /* .btnAuth {
