@@ -45,7 +45,8 @@ router.post('/new', loginRequired, async (req, res) => {
       let data = {
           image: req.body.file_src,
           poster: req.body.p_username,
-          caption: req.body.caption
+          caption: req.body.caption,
+          storytitle: req.body.story_title
         }
      const newFeed = await usersQueries.createNewPost(data)
         res.json({

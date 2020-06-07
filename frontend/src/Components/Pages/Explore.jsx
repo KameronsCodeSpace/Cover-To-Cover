@@ -72,7 +72,7 @@ class Explore extends React.Component {
                                             storyProps: element
                                         }
                                     }}>
-                                        <h3>{element.p_username}</h3>
+                                        <h3>{element.story_title}</h3>
                                         <div className="block-content">
                                             <p>{element.caption}</p>
                                         </div>
