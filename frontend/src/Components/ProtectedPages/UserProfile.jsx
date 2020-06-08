@@ -136,7 +136,7 @@ class UserProfile extends React.Component {
                                         storyProps: feed
                                     }
                                 }}>
-                                    <h3>{feed.p_username}</h3>
+                                    <h3>{feed.story_title}</h3>
                                     <div className="block-content">
                                         <p>{feed.caption}</p>
                                     </div>
