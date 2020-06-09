@@ -17,25 +17,41 @@ class StoryPage extends React.Component {
         super(props)
         this.state = {
             userData: [],
-            user_avatar: ''
+            user_avatar: '',
+            starter_question: ''
         }
     }
 
     async componentDidMount() {
         const { storyProps } = this.props.location.state
         console.log("PROPS", storyProps);
-        console.log("PROPS", storyProps.p_username);
+        console.log("STORY PROPS", storyProps.id);
 
         try {
             let blogs = await axios.get('/users/user/' + storyProps.p_username);
+            let firstquestion = await axios.get('/starterquestion/' + storyProps.id);
+            console.log('The First Ever question', firstquestion.data.payload.starter)
+
             this.setState({
                 userData: blogs.data.payload,
-                user_avatar: storyProps.avatar
+                user_avatar: storyProps.avatar,
+                starter_question: firstquestion.data.payload.starter
             });
             console.log("state:", this.state);
         } catch (err) {
             console.log("ERROR:", err);
         }
+
+        // try {
+        //     let firstquestion = await axios.get('/starterquestion/' + storyProps.id);
+        //     this.setState({
+        //         starter_question: firstquestion
+        //     });
+        //     console.log("QUESTION state:", this.state);
+        // } catch (err) {
+        //     console.log("ERROR:", err);
+        // }
+
     }
 
     addDefaultSrc(ev) {
@@ -52,7 +68,7 @@ class StoryPage extends React.Component {
     }
 
     render() {
-        const { userData, user_avatar } = this.state
+        const { userData, starter_question } = this.state
         const { storyProps } = this.props.location.state
 
         console.log('My story props', storyProps)
@@ -95,7 +111,7 @@ class StoryPage extends React.Component {
                         </Link>
                     </div>
                     <div className='story-card-right'>
-                        <h2>Some Question - Q 1/10</h2>
+                        <h2>{starter_question} - Q 1/10</h2>
                         <div classname='avatar-username'>
                             <h3>
                                 <img className='avatar-picture' onError={this.addDefaultSrc} src={`https://api.adorable.io/avatars/285/` + storyProps.p_username + `.png`} alt='img' />
