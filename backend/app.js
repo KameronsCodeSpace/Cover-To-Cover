@@ -18,7 +18,9 @@ const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
 const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
-const questionsRouter = require ('./routes/questions')
+const questionsRouter = require ('./routes/questions');
+const starterQuestion = require ('./routes/starter_question');
+
 // const postRouter = require('./routes/posts');
 const app = express();
 const storage = multer.diskStorage({
@@ -45,21 +47,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("NOT_A_GOOD_SECRET"));
 app.use(express.static(path.join(__dirname, '../backend/public')));
+
 app.use(session({
     secret: "NOT_A_GOOD_SECRET",
     resave: false,
     saveUninitialized: true
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
 app.use('/blog', postsRouter);
-app.use('/comments', commentsRouter); 765
+app.use('/comments', commentsRouter); 
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
 app.use('/questions', questionsRouter);
+app.use('/starterquestion', starterQuestion);
+
 app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     console.log('req.file:', req.file)
     console.log('req.body:', req.body)
