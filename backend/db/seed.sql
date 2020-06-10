@@ -35,6 +35,12 @@ CREATE TABLE starter_question (
     first_question INT REFERENCES questions(id)
 );
 
+CREATE TABLE user_questions (
+    id SERIAL PRIMARY KEY,
+    story_id INT NOT NULL REFERENCES posts(id),
+    new_question VARCHAR NOT NULL
+);
+
 CREATE TABLE followup_questions (
     id SERIAL PRIMARY KEY,
     story_id INT NOT NULL REFERENCES posts(id),
