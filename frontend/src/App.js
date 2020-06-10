@@ -10,6 +10,7 @@ import Landing from './Components/Pages/Landing';
 import Login from './Components/Authentication/Login';
 import Registration from './Components/Authentication/Registration';
 import StoryPage from './Components/Pages/StoryPage'
+import Comments from './Components/Pages/Comments'
 
 // Pages with user only features
 import Explore from './Components/Pages/Explore'
@@ -18,6 +19,7 @@ import Trending from './Components/ProtectedPages/Trending';
 import UserProfile from './Components/ProtectedPages/UserProfile';
 import NewStory from './Components/Support Files/posts'
 import ProtectedRoute from '../src/Components/Authentication/ProtectedRoute';
+
 
 // import UserRoutes from './Components/Support Files/UserRoutes'
 // import VistorRoutes from './Components/Support Files/VistorRoutes'
@@ -55,6 +57,7 @@ class App extends Component {
             <Route exact path='/registration' component={Registration} />
             <Route path='/explore' component={Explore} />
             <Route path='/storypage' component={StoryPage} />
+            <Route path='/comments' component={Comments}/>
 
             {/* Auth UserRoutes below */}
             <ProtectedRoute path='/travel' component={Travel} />

@@ -24,8 +24,10 @@ class StoryPage extends React.Component {
             usersuggestion: '',
             userData: [],
             user_avatar: '',
+
             starter_question: '',
             modalIsOpen: false
+
         }
     }
 
@@ -60,7 +62,8 @@ class StoryPage extends React.Component {
         // }
 
     }
-
+    
+    
     addDefaultSrc(ev) {
         const { storyProps } = this.props.location.state
         ev.target.src = `https://api.adorable.io/avatars/285/${storyProps.p_username}.png`
@@ -73,6 +76,7 @@ class StoryPage extends React.Component {
     addDefaultStoryImg(ev) {
         ev.target.src = staticStoryImg
     }
+
 
     setModalToOpen() {
         this.setState({
@@ -118,6 +122,7 @@ class StoryPage extends React.Component {
 
     render() {
         const { userData, starter_question, modalIsOpen } = this.state
+
         const { storyProps } = this.props.location.state
 
         console.log('My story props', storyProps)
@@ -204,6 +209,7 @@ class StoryPage extends React.Component {
 
 
                     <div className='story-card-right'>
+
                         <h2>{starter_question} - Q 1/10</h2>
                         <div classname='avatar-username'>
                             <h3>
@@ -221,9 +227,16 @@ class StoryPage extends React.Component {
                                 <a href='#'><i className='story-next'>
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-circle-right" class="svg-inline--fa fa-arrow-circle-right fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"></path></svg>
                                 </i></a>
-                                <a href='#'><i className='story-comments'>
+                                <Link to={{pathname:'/comments',
+                                            state: {
+                                                storyProps: storyProps
+                                            }
+                                        }}
+
+                                ><i className='story-comments'>
                                     <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="comment-alt" class="svg-inline--fa fa-comment-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 7.1 5.8 12 12 12 2.4 0 4.9-.7 7.1-2.4L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-12.8 9.6L208 428v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path></svg>
-                                </i></a>
+                                   </i>
+                                </Link>
                             </div>
                         </nav>
                     </div>
