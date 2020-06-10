@@ -17,6 +17,11 @@ class StoryPage extends React.Component {
         console.log('storypage state????:', props)
         super(props)
         this.state = {
+            questionmsg: '',
+            username: '',
+            useremail: '',
+            userregion: '',
+            usersuggestion: '',
             userData: [],
             user_avatar: '',
             starter_question: '',
@@ -79,6 +84,36 @@ class StoryPage extends React.Component {
         this.setState({
             modalIsOpen: false
         });
+    }
+
+    handleInput = (e) => {
+        this.setState({
+            [e.target.name]:
+                e.target.value
+        })
+    }
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const { questionmsg, username, useremail, userregion, usersuggestion } = this.state;
+        const { storyProps } = this.props.location.state
+
+        try {
+            const res = await axios.post(`/userquestions/${storyProps.id}`,
+                {
+                    storyid: storyProps.id,
+                    new_question: questionmsg,
+                    user_name: username,
+                    user_email: useremail,
+                    user_region: userregion,
+                    suggested_story: usersuggestion
+                })
+            console.log('The info', res)
+        } catch (err) {
+            console.log(err)
+        }
+        
+        this.setModalToClose()
     }
 
     render() {
@@ -144,21 +179,25 @@ class StoryPage extends React.Component {
                             }
                         >
                             <h2>Ask your question</h2>
+                            <form onSubmit={this.handleSubmit}>
 
-                            <div className="modal-info-form">
-                                <div className="modal-input-fields">
-                                    <input type='text' className='modal-input' placeholder="Name"></input>
-                                    <input type='text' className='modal-input' placeholder="Email"></input>
-                                    <input type='text' className='modal-input' placeholder="Your Region"></input>
-                                    <input type='text' className='modal-input' placeholder="Simliar Story Link"></input>
+                                <div className="modal-info-form">
+                                    <div className="modal-input-fields">
+                                        <input type='text' name='username' className='modal-input' placeholder="Name" onChange={this.handleInput}></input>
+                                        <input type='text' name='useremail' className='modal-input' placeholder="Email" onChange={this.handleInput}></input>
+                                        <input type='text' name='userregion' className='modal-input' placeholder="Your Region" onChange={this.handleInput}></input>
+                                        <input type='text' name='usersuggestion' className='modal-input' placeholder="Simliar Story Link" onChange={this.handleInput}></input>
 
-                                    <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
+                                        <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
+                                    </div>
+                                    <div className='modal-msg'>
+                                        <textarea name='questionmsg' placeholder='Question' onChange={this.handleInput}></textarea>
+                                        <button className='modal-btn' type='submit'>Submit</button>
+                                    </div>
                                 </div>
-                                <div className='modal-msg'>
-                                    <textarea placeholder='Question'></textarea>
-                                    <button className='modal-btn' onClick={() => this.setModalToClose()}>Submit</button>
-                                </div>
-                            </div>
+                            </form>
+
+
                         </Modal>
                     </div>
 
