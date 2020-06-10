@@ -2,14 +2,16 @@ import React from 'react';
 import axios from "axios";
 import { Link } from 'react-router-dom'
 
-
 import Navbar from '../Support Files/Navbar'
 import questionAvatar from '../../img/QuestionAvatar.png'
 import staticStoryImg from '../../img/Unknown_location.png';
+import Modal from 'react-modal'
 
 //will need props value of current story clicked on
 //Show username and avatar of story creater
 //display story based on ID
+
+Modal.setAppElement('#root')
 
 class StoryPage extends React.Component {
     constructor(props) {
@@ -18,7 +20,8 @@ class StoryPage extends React.Component {
         this.state = {
             userData: [],
             user_avatar: '',
-            starter_question: ''
+            starter_question: '',
+            modalIsOpen: false
         }
     }
 
@@ -67,8 +70,20 @@ class StoryPage extends React.Component {
         ev.target.src = staticStoryImg
     }
 
+    setModalToOpen() {
+        this.setState({
+            modalIsOpen: true
+        });
+    }
+
+    setModalToClose() {
+        this.setState({
+            modalIsOpen: false
+        });
+    }
+
     render() {
-        const { userData, starter_question } = this.state
+        const { userData, starter_question, modalIsOpen } = this.state
         const { storyProps } = this.props.location.state
 
         console.log('My story props', storyProps)
@@ -88,8 +103,7 @@ class StoryPage extends React.Component {
                             </clipPath>
                         </svg>
                         <img onError={this.addDefaultStoryImg} src={storyProps.file_src + `1`} className='clip' alt='img' />
-
-                        <Link className='chat' to='/explore'>
+                        <div className='chat' onClick={() => this.setModalToOpen()}>
                             <svg
                                 aria-hidden="true"
                                 focusable="false"
@@ -108,8 +122,49 @@ class StoryPage extends React.Component {
                                     </path>
                                 </g>
                             </svg>
-                        </Link>
+                        </div>
+
+                        <Modal className="modal-wrapper"
+                            isOpen={modalIsOpen}
+                            onRequestClose={() => this.setModalToClose()}
+                            style={
+                                {
+                                    overlay: {
+                                        backgroundColor: 'rgba(32, 37, 58, 0.50)'
+                                    },
+                                    content: {
+                                        color: 'orange',
+                                        width: '550px',
+                                        height: '70%',
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                        transform: 'translate(-50%, -50%)'
+                                    }
+                                }
+                            }
+                        >
+                            <h2>Ask your question</h2>
+
+                            <div className="modal-info-form">
+                                <div className="modal-input-fields">
+                                    <input type='text' className='modal-input' placeholder="Name"></input>
+                                    <input type='text' className='modal-input' placeholder="Email"></input>
+                                    <input type='text' className='modal-input' placeholder="Your Region"></input>
+                                    <input type='text' className='modal-input' placeholder="Simliar Story Link"></input>
+
+                                    <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
+                                </div>
+                                <div className='modal-msg'>
+                                    <textarea placeholder='Question'></textarea>
+                                    <button className='modal-btn' onClick={() => this.setModalToClose()}>Submit</button>
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
+
+
+
                     <div className='story-card-right'>
                         <h2>{starter_question} - Q 1/10</h2>
                         <div classname='avatar-username'>
