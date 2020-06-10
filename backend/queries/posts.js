@@ -1,16 +1,17 @@
 const db = require("../db/db");
 
 //QUERY to add a feed in the POST route
-const createNewPost = async (feed) => {
-    let insertQuery = `INSERT INTO posts(p_username, file_src, story_title, caption)
-                        VALUES($1, $2, $3, $4)
+const createNewPost = async (poster, question, image, storytitle, caption) => {
+    let insertQuery = `INSERT INTO posts(p_username, first_question, file_src, story_title, caption)
+                        VALUES($1, $2, $3, $4, $5)
                         RETURNING *`
 
     const newFeed = await db.oneOrNone(insertQuery, [
-        feed.poster,
-        feed.image,
-        feed.storytitle,
-        feed.caption
+        poster,
+        question,
+        image,
+        storytitle,
+        caption
     ]);
     // console.log('new feed', newFeed)
     return newFeed

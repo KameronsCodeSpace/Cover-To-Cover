@@ -112,7 +112,7 @@ class StoryPage extends React.Component {
         } catch (err) {
             console.log(err)
         }
-        
+
         this.setModalToClose()
     }
 
@@ -168,8 +168,8 @@ class StoryPage extends React.Component {
                                     },
                                     content: {
                                         color: 'orange',
-                                        width: '550px',
-                                        height: '70%',
+                                        width: '900px',
+                                        height: '80%',
                                         position: 'absolute',
                                         top: '50%',
                                         left: '50%',

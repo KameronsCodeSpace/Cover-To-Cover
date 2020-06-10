@@ -19,6 +19,7 @@ CREATE TABLE users (
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     p_username VARCHAR NOT NULL REFERENCES users(username),
+    first_question VARCHAR,
     file_src VARCHAR,
     story_title VARCHAR NOT NULL,
     caption VARCHAR
