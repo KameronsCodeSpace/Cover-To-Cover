@@ -127,6 +127,7 @@ class UserProfile extends React.Component {
                 <div className='masonry-holder'>
 
                     {feeds.map((feed, i) => {
+                        // console.log(feeds)
                         return (
                             <div key={i} className="masonry-blocks">
                                 <img onError={this.addDefaultStoryImg} src={feed.file_src + `${i}`} alt='img' />
@@ -136,8 +137,8 @@ class UserProfile extends React.Component {
                                         storyProps: feed
                                     }
                                 }}>
-                                    <h3>{feed.p_username}</h3>
-                                   stat <div className="block-content">
+                                    <h3>{feed.story_title}</h3>
+                                    <div className="block-content">
                                         <p>{feed.caption}</p>
                                     </div>
                                 </Link>

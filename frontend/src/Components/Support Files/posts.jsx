@@ -107,13 +107,17 @@ class Post extends React.Component {
          <Navbar />
         <h1>Create a Story</h1>
         <br />
-        <div className='dropdown-container'>
+        {/* <div className='dropdown-container'>
           <Dropdown title="Select a Question" items={items} multiSelect />
-        </div>
+        </div> */}
         <form onSubmit={this.handleSubmit}>
+          <input placeholder='Title'></input>
+          <br />
+          <br />
           <select name='questionOptions' onChange={this.handleInput}>
           {questOptions}
           </select>
+          <br />
           <textarea id="captionInput" name='cap' placeholder='Start a discussion' onChange={this.handleInput} />
           <br />
           <input type='file' onChange={this.handleFileInput} />
