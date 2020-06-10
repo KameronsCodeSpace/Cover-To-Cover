@@ -63,6 +63,22 @@ class UserProfile extends React.Component {
         })
     }
 
+    async componentDidUpdate() {
+        const id = this.props.id
+
+        try {
+            let url = `http://localhost:3100/users/${id}`
+            const userPost = await axios.get(url)
+            this.setState({
+                feeds: userPost.data.payload,
+                // displayPosts: true
+            })
+
+        } catch (error) {
+            console.log('ERROR', error)
+        }
+    }
+
     // handleFormSubmit = async (e) => {
     //     e.preventDefault()
     //     const data = new FormData()
