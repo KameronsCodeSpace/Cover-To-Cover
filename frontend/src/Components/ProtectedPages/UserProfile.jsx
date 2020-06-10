@@ -9,19 +9,28 @@ import axios from 'axios';
 import { login } from '../../Actions/authActions';
 import questionAvatar from '../../img/QuestionAvatar.png'
 import staticStoryImg from '../../img/Unknown_location.png';
+import Modal from 'react-modal'
 
+Modal.setAppElement('#root')
 
 class UserProfile extends React.Component {
     constructor(props) {
-        console.log('state????:', props)
+        console.log('props????:', props)
         super(props)
         this.state = {
             avatar: '',
             imgFile: null,
             newAvatar: false,
             feeds: [],
-            click: false
+            click: false,
+            modalIsOpen: false,
+            storytitle: '',
+            question: '',
+            pictureurl: '',
+            story: ''
         }
+        console.log('state????:', this.state)
+
     }
 
     //getting all posts from the user
@@ -54,24 +63,65 @@ class UserProfile extends React.Component {
         })
     }
 
-    handleFormSubmit = async (e) => {
-        e.preventDefault()
-        const data = new FormData()
-        data.append('avatar', this.state.imgFile)
-        data.append('id', this.props.id)
+    async componentDidUpdate() {
+        const id = this.props.id
 
         try {
-            const response = await axios.post('http://localhost:3100/upload', data)
-            this.props.login({
-                username: this.props.username,
-                password: window.localStorage.getItem('password')
-            })
+            let url = `http://localhost:3100/users/${id}`
+            const userPost = await axios.get(url)
             this.setState({
-                avatar: response.data.imgURL,
+                feeds: userPost.data.payload,
+                // displayPosts: true
             })
+
         } catch (error) {
-            console.log('error', error)
+            console.log('ERROR', error)
         }
+    }
+
+    // handleFormSubmit = async (e) => {
+    //     e.preventDefault()
+    //     const data = new FormData()
+    //     data.append('avatar', this.state.imgFile)
+    //     data.append('id', this.props.id)
+
+    //     try {
+    //         const response = await axios.post('http://localhost:3100/upload', data)
+    //         this.props.login({
+    //             username: this.props.username,
+    //             password: window.localStorage.getItem('password')
+    //         })
+    //         this.setState({
+    //             avatar: response.data.imgURL,
+    //         })
+    //     } catch (error) {
+    //         console.log('error', error)
+    //     }
+    // }
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const { storytitle, question, pictureurl, story } = this.state;
+        // const { storyProps } = this.props.location.state
+        let username = this.props.username
+        // console.log('working?', storyProps)
+        console.log('working2?', this.props.username)
+
+        try {
+            const res = await axios.post(`/blog/new/`,
+                {
+                    storyteller: username,
+                    newtitle: storytitle,
+                    firstquestion: question,
+                    newpicture: pictureurl,
+                    storybody: story
+                })
+            console.log('The info', res)
+        } catch (err) {
+            console.log(err)
+        }
+
+        this.setModalToClose()
     }
 
     handleClick = () => {
@@ -81,8 +131,27 @@ class UserProfile extends React.Component {
         })
     }
 
+    setModalToClose() {
+        this.setState({
+            modalIsOpen: false
+        });
+    }
+
+    setModalToOpen() {
+        this.setState({
+            modalIsOpen: true
+        });
+    }
+
+    handleInput = (e) => {
+        this.setState({
+            [e.target.name]:
+                e.target.value
+        })
+    }
+
     render() {
-        const { avatar, feeds } = this.state
+        const { avatar, feeds, modalIsOpen } = this.state
         console.log('feeds', feeds)
 
         return (
@@ -107,15 +176,15 @@ class UserProfile extends React.Component {
                                     ref={fileInput => this.fileInput = fileInput}
                                 />
                                 <Button onClick={() => this.fileInput.click()}
-                                        buttonStyle="btn--sight--solid"
-                                        buttonSize="btn--medium"
+                                    buttonStyle="btn--sight--solid"
+                                    buttonSize="btn--medium"
                                 >Choose Picture
                                 </Button>
                                 <input
-                                    className='upload-btn' 
-                                    type='submit' 
-                                    value='Upload' 
-                                    style={{color: 'blue'}}
+                                    className='upload-btn'
+                                    type='submit'
+                                    value='Upload'
+                                    style={{ color: 'blue' }}
                                     size={{}}
                                 />
                             </form>
@@ -142,22 +211,60 @@ class UserProfile extends React.Component {
                                         <p>{feed.caption}</p>
                                     </div>
                                 </Link>
-                                
+
                             </div>
                         )
                     })}
                     <div className="masonry-blocks-add">
-                        <Link className='nav-link' to='/newstory'>
-                            <img src="https://www.ucdavis.edu/sites/default/files/images/focal_link/add-blue_2.png" alt='img' />
-                        </Link>
+                        {/* <Link className='nav-link' to='/newstory'> */}
+
+                        <img onClick={() => this.setModalToOpen()} src="https://www.ucdavis.edu/sites/default/files/images/focal_link/add-blue_2.png" alt='img' />
+                        {/* </Link> */}
+
                     </div>
                 </div>
                 {/* <br></br>
                 <div className='user-posts'>
-                    <Post />
-                </div> */}
+                <Post />
+            </div> */}
 
+                <Modal className="modal-wrapper"
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => this.setModalToClose()}
+                    style={
+                        {
+                            overlay: {
+                                backgroundColor: 'rgba(32, 37, 58, 0.50)'
+                            },
+                            content: {
+                                color: 'orange',
+                                width: '900px',
+                                height: '80%',
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)'
+                            }
+                        }
+                    }
+                >
+                    <form onSubmit={this.handleSubmit}>
 
+                        <div className="modal-info-form">
+                            <div className="modal-input-fields">
+                                <input type='text' name='storytitle' className='modal-input' placeholder="Title" onChange={this.handleInput}></input>
+                                <input type='text' name='question' className='modal-input' placeholder="First Question" onChange={this.handleInput}></input>
+                                <input type='text' name='pictureurl' className='modal-input' placeholder="URL Image" onChange={this.handleInput}></input>
+
+                                <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
+                            </div>
+                            <div className='modal-msg'>
+                                <textarea name='story' placeholder='Tell Your Story' onChange={this.handleInput}></textarea>
+                                <button className='modal-btn' type='submit'>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </Modal>
             </div>
         );
 

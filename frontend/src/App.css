@@ -379,7 +379,7 @@ p {
   transition: top .6s;
   background: rgba(0, 0, 0, 0.6);
   padding: 10px;
-  z-index: 10000;
+  z-index: 10;
   overflow: hidden;
 }
 
@@ -918,7 +918,7 @@ p {
   left: 0;
   width: 100%;
   text-align: center;
-  z-index: 1000;
+  /* z-index: 1; */
 }
 
 .story-navigation h1 {
@@ -977,6 +977,89 @@ nav .story-navigation a:nth-child(4) {
 
 .story-card-left .clip {
   clip-path: url('#clip-polygon')
+}
+
+/* Modal CSS */
+
+.modal-wrapper {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(40, 50, 80, 0.8);
+  padding: 0 20px;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.modal-wrapper h2 {
+  margin-top: 25px;
+}
+
+.modal-info-form {
+  max-width: 700px;
+  margin: 10px auto;
+  padding: 30px;
+  border-radius: 5px;
+  display: flex;
+}
+
+.modal-input-fields {
+  display: flex;
+  flex-direction: column;
+  margin-right: 4%;
+}
+
+.modal-input-fields input{
+  font-size: .9em;
+}
+
+.modal-input-fields,
+.modal-msg {
+  width: 48%;
+}
+
+.modal-msg {
+  height: 350px;
+}
+
+.modal-input-fields .modal-input,
+.modal-msg textarea {
+  margin: 10px 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--white);
+  padding: 10px;
+  color: var(--white);
+  width: 100%;
+}
+
+.modal-msg textarea {
+  height: 100%;
+  font-size: .9em;
+}
+
+::-webkit-input-placeholder {
+  color: var(--white);
+}
+
+::-moz-input-placeholder {
+  color: var(--white);
+}
+
+::-ms-input-placeholder {
+  color: var(--white);
+}
+
+.modal-btn {
+  background: #39b7dd;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  border-radius: 5px;
+  color: var(--white);
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 /* Reactive Media Queries */

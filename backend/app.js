@@ -20,6 +20,7 @@ const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
 const questionsRouter = require ('./routes/questions');
 const starterQuestion = require ('./routes/starter_question');
+const userQuestions = require ('./routes/user_questions');
 
 // const postRouter = require('./routes/posts');
 const app = express();
@@ -65,6 +66,7 @@ app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
 app.use('/questions', questionsRouter);
 app.use('/starterquestion', starterQuestion);
+app.use('/userquestions', userQuestions)
 
 app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     console.log('req.file:', req.file)

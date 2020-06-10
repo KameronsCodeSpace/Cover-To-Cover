@@ -19,6 +19,7 @@ CREATE TABLE users (
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
     p_username VARCHAR NOT NULL REFERENCES users(username),
+    first_question VARCHAR,
     file_src VARCHAR,
     story_title VARCHAR NOT NULL,
     caption VARCHAR
@@ -33,6 +34,16 @@ CREATE TABLE starter_question (
     id SERIAL PRIMARY KEY,
     story_id INT NOT NULL REFERENCES posts(id),
     first_question INT REFERENCES questions(id)
+);
+
+CREATE TABLE user_questions (
+    id SERIAL PRIMARY KEY,
+    story_id INT NOT NULL REFERENCES posts(id),
+    new_question VARCHAR NOT NULL,
+    user_name VARCHAR,
+    user_email VARCHAR,
+    user_region VARCHAR,
+    suggested_story VARCHAR
 );
 
 CREATE TABLE followup_questions (

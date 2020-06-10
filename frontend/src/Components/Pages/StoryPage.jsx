@@ -1,42 +1,66 @@
 import React from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom';
 
 import Navbar from '../Support Files/Navbar'
 import questionAvatar from '../../img/QuestionAvatar.png'
 import staticStoryImg from '../../img/Unknown_location.png';
+import Modal from 'react-modal'
 
 //will need props value of current story clicked on
 //Show username and avatar of story creater
 //display story based on ID
+
+Modal.setAppElement('#root')
 
 class StoryPage extends React.Component {
     constructor(props) {
         console.log('storypage state????:', props)
         super(props)
         this.state = {
+            questionmsg: '',
+            username: '',
+            useremail: '',
+            userregion: '',
+            usersuggestion: '',
             userData: [],
             user_avatar: '',
-            
+
+            starter_question: '',
+            modalIsOpen: false
+
         }
     }
 
     async componentDidMount() {
         const { storyProps } = this.props.location.state
         console.log("PROPS", storyProps);
-        console.log("PROPS", storyProps.p_username);
+        console.log("STORY PROPS", storyProps.id);
 
         try {
             let blogs = await axios.get('/users/user/' + storyProps.p_username);
+            let firstquestion = await axios.get('/starterquestion/' + storyProps.id);
+            console.log('The First Ever question', firstquestion.data.payload.starter)
+
             this.setState({
                 userData: blogs.data.payload,
-                user_avatar: storyProps.avatar
+                user_avatar: storyProps.avatar,
+                starter_question: firstquestion.data.payload.starter
             });
             console.log("state:", this.state);
         } catch (err) {
             console.log("ERROR:", err);
         }
-       
+
+        // try {
+        //     let firstquestion = await axios.get('/starterquestion/' + storyProps.id);
+        //     this.setState({
+        //         starter_question: firstquestion
+        //     });
+        //     console.log("QUESTION state:", this.state);
+        // } catch (err) {
+        //     console.log("ERROR:", err);
+        // }
+
     }
     
     
@@ -54,8 +78,51 @@ class StoryPage extends React.Component {
     }
 
 
+    setModalToOpen() {
+        this.setState({
+            modalIsOpen: true
+        });
+    }
+
+    setModalToClose() {
+        this.setState({
+            modalIsOpen: false
+        });
+    }
+
+    handleInput = (e) => {
+        this.setState({
+            [e.target.name]:
+                e.target.value
+        })
+    }
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const { questionmsg, username, useremail, userregion, usersuggestion } = this.state;
+        const { storyProps } = this.props.location.state
+
+        try {
+            const res = await axios.post(`/userquestions/${storyProps.id}`,
+                {
+                    storyid: storyProps.id,
+                    new_question: questionmsg,
+                    user_name: username,
+                    user_email: useremail,
+                    user_region: userregion,
+                    suggested_story: usersuggestion
+                })
+            console.log('The info', res)
+        } catch (err) {
+            console.log(err)
+        }
+
+        this.setModalToClose()
+    }
+
     render() {
-        const { userData, user_avatar} = this.state
+        const { userData, starter_question, modalIsOpen } = this.state
+
         const { storyProps } = this.props.location.state
 
         console.log('My story props', storyProps)
@@ -75,8 +142,7 @@ class StoryPage extends React.Component {
                             </clipPath>
                         </svg>
                         <img onError={this.addDefaultStoryImg} src={storyProps.file_src + `1`} className='clip' alt='img' />
-
-                        <Link className='chat' to='/explore'>
+                        <div className='chat' onClick={() => this.setModalToOpen()}>
                             <svg
                                 aria-hidden="true"
                                 focusable="false"
@@ -95,11 +161,57 @@ class StoryPage extends React.Component {
                                     </path>
                                 </g>
                             </svg>
-                        </Link>
+                        </div>
+
+                        <Modal className="modal-wrapper"
+                            isOpen={modalIsOpen}
+                            onRequestClose={() => this.setModalToClose()}
+                            style={
+                                {
+                                    overlay: {
+                                        backgroundColor: 'rgba(32, 37, 58, 0.50)'
+                                    },
+                                    content: {
+                                        color: 'orange',
+                                        width: '900px',
+                                        height: '80%',
+                                        position: 'absolute',
+                                        top: '50%',
+                                        left: '50%',
+                                        transform: 'translate(-50%, -50%)'
+                                    }
+                                }
+                            }
+                        >
+                            <h2>Ask your question</h2>
+                            <form onSubmit={this.handleSubmit}>
+
+                                <div className="modal-info-form">
+                                    <div className="modal-input-fields">
+                                        <input type='text' name='username' className='modal-input' placeholder="Name" onChange={this.handleInput}></input>
+                                        <input type='text' name='useremail' className='modal-input' placeholder="Email" onChange={this.handleInput}></input>
+                                        <input type='text' name='userregion' className='modal-input' placeholder="Your Region" onChange={this.handleInput}></input>
+                                        <input type='text' name='usersuggestion' className='modal-input' placeholder="Simliar Story Link" onChange={this.handleInput}></input>
+
+                                        <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
+                                    </div>
+                                    <div className='modal-msg'>
+                                        <textarea name='questionmsg' placeholder='Question' onChange={this.handleInput}></textarea>
+                                        <button className='modal-btn' type='submit'>Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </Modal>
                     </div>
+
+
+
                     <div className='story-card-right'>
-                        <h2>Some Question - Q 1/10</h2>
-                        <div className='avatar-username'>
+
+                        <h2>{starter_question} - Q 1/10</h2>
+                        <div classname='avatar-username'>
                             <h3>
                                 <img className='avatar-picture' onError={this.addDefaultSrc} src={`https://api.adorable.io/avatars/285/` + storyProps.p_username + `.png`} alt='img' />
                                 {storyProps.p_username}
