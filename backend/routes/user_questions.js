@@ -25,11 +25,15 @@ router.get('/:storyid',  async (req, res) => {
   router.post('/:storyid', async (req, res) => {
       console.log('CHECKTHIS', req.body);
     let story_id = req.params.storyid
-
     let question = req.body.new_question
+    let username = req.body.user_name
+    let useremail = req.body.user_email
+    let userregion = req.body.user_region
+    let suggestion = req.body.suggested_story
+
     console.log('id and question', story_id, question)
       try {
-         const newQuestion = await usersQueries.createNewQuestion(story_id, question)
+         const newQuestion = await usersQueries.createNewQuestion(story_id, question, username, useremail, userregion, suggestion)
             res.json({
               payload: newQuestion,
               message: `Post was sent!`
