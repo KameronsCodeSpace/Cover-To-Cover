@@ -137,7 +137,7 @@ class UserProfile extends React.Component {
                                     }
                                 }}>
                                     <h3>{feed.p_username}</h3>
-                                    <div className="block-content">
+                                   stat <div className="block-content">
                                         <p>{feed.caption}</p>
                                     </div>
                                 </Link>
