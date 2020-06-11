@@ -162,7 +162,7 @@ class StoryPage extends Component {
         // const { storyProps } = this.props.location.state
         // console.log('working?', questionSelect)
         // let followUpQuestionId = await axios.get('/userquestions/findid/' + questionSelect)
-console.log('Whats in here', questionSelect)
+        console.log('Whats in here', questionSelect)
         try {
             const res = await axios.patch(`/userquestions/`,
                 {
@@ -360,7 +360,13 @@ console.log('Whats in here', questionSelect)
                                 {storyProps.p_username}
                             </h3>
                         </div>
-                        <p>{storyProps.caption}</p>
+
+                        <div className="storyBodyScroll">
+                            <p className="storyBody">
+                                {storyProps.caption}
+                            </p>
+                        </div>
+
                         <nav>
                             <div className='story-navigation'>
                                 <h1>{storyProps.story_title}</h1>
