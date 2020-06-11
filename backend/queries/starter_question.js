@@ -23,6 +23,7 @@ const getFirstStoryQuestion = async (question) => {
                                 p.id = sq.story_id
                             WHERE p.id = $1`
 
+                            
 
     const thisQuestion = await db.one(requestQuery, question)
     console.log('This Question', thisQuestion)

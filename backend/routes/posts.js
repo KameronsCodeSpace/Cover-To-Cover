@@ -62,6 +62,33 @@ router.post('/new', async (req, res) => {
     }
 })
 
+//Route to GET story questions by story ID
+router.get("/firstquestion/:storyid", async (req, res, next) => {
+    console.log('wrewer', req.body);
+
+    const storyid = req.params.storyid
+
+    console.log('What is the story id?', storyid)
+    try {
+
+        const thisQuestion = await usersQueries.getFirstStoryQuestion(storyid);
+        console.log('Proof thisQuestion Works', thisQuestion)
+        res.json({
+            payload: thisQuestion,
+            message: `This question was successfully retrieved`,
+            error: false
+        });
+    } catch (error) {
+        console.log('error', error)
+        res.status(500);
+        res.json({
+            message: `Unable to retrieve question`,
+            error: true
+        });
+
+    }
+})
+
 router.delete('/:id', loginRequired, async (req, res) => {
     let id = req.params.id
     try {

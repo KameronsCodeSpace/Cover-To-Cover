@@ -17,6 +17,18 @@ const createNewPost = async (poster, question, image, storytitle, caption) => {
     return newFeed
 }
 
+//QUERY get first question for a story
+const getFirstStoryQuestion = async (question) => {
+    let requestQuery = `SELECT starter
+                            FROM questions q
+                            INNER JOIN posts p ON
+                                q.id = p.first_question
+                            WHERE p.id = $1`
+    const thisQuestion = await db.one(requestQuery, question)
+    console.log('This Question', thisQuestion)
+    return thisQuestion
+}
+
 //QUERY to remove a feed in the DELETE route
 const deletedPost = async (id) => {
     const deleteQuery = `DELETE 
@@ -49,5 +61,6 @@ module.exports = {
     createNewPost,
     deletedPost,
     updatePost,
+    getFirstStoryQuestion
 }
 

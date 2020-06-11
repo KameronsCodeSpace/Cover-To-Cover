@@ -39,7 +39,7 @@ class StoryPage extends React.Component {
 
         try {
             let blogs = await axios.get('/users/user/' + storyProps.p_username);
-            let firstquestion = await axios.get('/starterquestion/' + storyProps.id);
+            let firstquestion = await axios.get('/blog/firstquestion/' + storyProps.id);
             console.log('The First Ever question', firstquestion.data.payload.starter)
 
             this.setState({

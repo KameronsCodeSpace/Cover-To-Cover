@@ -27,7 +27,12 @@ class UserProfile extends React.Component {
             storytitle: '',
             question: '',
             pictureurl: '',
-            story: ''
+            story: '',
+            questions: [],
+            questionOptions: [],
+            questionSelect: '',
+            questionChoice: '',
+            questionId: ''
         }
         console.log('state????:', this.state)
 
@@ -47,6 +52,20 @@ class UserProfile extends React.Component {
         } catch (error) {
             console.log('ERROR', error)
         }
+
+        let questionResponse = await axios.get('/questions')
+
+        let questionArray = []
+
+        for (let i = 0; i < questionResponse.data.payload.length; i++) {
+            questionArray.push(questionResponse.data.payload[i].starter)
+        }
+
+        this.setState({
+            questions: questionArray
+        })
+        this.populateSelect();
+
     }
 
     addDefaultSrc(ev) {
@@ -101,7 +120,7 @@ class UserProfile extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        const { storytitle, question, pictureurl, story } = this.state;
+        const { storytitle, questionSelect, pictureurl, story } = this.state;
         // const { storyProps } = this.props.location.state
         let username = this.props.username
         // console.log('working?', storyProps)
@@ -112,7 +131,7 @@ class UserProfile extends React.Component {
                 {
                     storyteller: username,
                     newtitle: storytitle,
-                    firstquestion: question,
+                    firstquestion: questionSelect,
                     newpicture: pictureurl,
                     storybody: story
                 })
@@ -150,8 +169,23 @@ class UserProfile extends React.Component {
         })
     }
 
+    populateSelect = () => {
+        const { questions } = this.state
+        let questionOpts = [];
+        questionOpts.push(<option value={''} key={''}>Choose starter question</option>)
+
+        for (let i = 0; i < questions.length; i++) {
+            questionOpts.push(<option value={i + 1} key={questions[i]}>{questions[i]}</option>);
+        }
+
+        this.setState({
+            questionOptions: questionOpts,
+            questionChoice: `${questionOpts[0].props.value}`,
+        })
+    }
+
     render() {
-        const { avatar, feeds, modalIsOpen } = this.state
+        const { avatar, feeds, modalIsOpen, questionOptions } = this.state
         console.log('feeds', feeds)
 
         return (
@@ -253,8 +287,11 @@ class UserProfile extends React.Component {
                         <div className="modal-info-form">
                             <div className="modal-input-fields">
                                 <input type='text' name='storytitle' className='modal-input' placeholder="Title" onChange={this.handleInput}></input>
-                                <input type='text' name='question' className='modal-input' placeholder="First Question" onChange={this.handleInput}></input>
+                                {/* <input type='text' name='question' className='modal-input' placeholder="First Question" onChange={this.handleInput}></input> */}
                                 <input type='text' name='pictureurl' className='modal-input' placeholder="URL Image" onChange={this.handleInput}></input>
+                                <select name='questionSelect' onChange={this.handleInput}>
+                                    {questionOptions}
+                                </select>
 
                                 <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
                             </div>
