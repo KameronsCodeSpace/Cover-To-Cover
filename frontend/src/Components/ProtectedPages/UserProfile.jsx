@@ -172,7 +172,7 @@ class UserProfile extends React.Component {
     populateSelect = () => {
         const { questions } = this.state
         let questionOpts = [];
-        questionOpts.push(<option value={''} key={''}>Choose starter question</option>)
+        questionOpts.push(<option value={''} key={''}>Choose a starter question</option>)
 
         for (let i = 0; i < questions.length; i++) {
             questionOpts.push(<option value={i + 1} key={questions[i]}>{questions[i]}</option>);

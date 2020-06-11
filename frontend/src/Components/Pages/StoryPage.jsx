@@ -31,7 +31,10 @@ class StoryPage extends Component {
             starter_question: '',
             modalIsOpen: false,
             responseModalIsOpen: false,
-            isStoryOwner: false
+            isStoryOwner: false,
+            questions: [],
+            questionOptions: [],
+            questionChoice: ''
         }
     }
 
@@ -65,6 +68,19 @@ class StoryPage extends Component {
         } catch (err) {
             console.log("ERROR:", err);
         }
+
+        let questionResponse = await axios.get('/questions')
+
+        let questionArray = []
+
+        for (let i = 0; i < questionResponse.data.payload.length; i++) {
+            questionArray.push(questionResponse.data.payload[i].starter)
+        }
+
+        this.setState({
+            questions: questionArray
+        })
+        this.populateSelect();
     }
 
     addDefaultSrc(ev) {
@@ -136,8 +152,23 @@ class StoryPage extends Component {
         this.setResponseModalToClose()
     }
 
+    populateSelect = () => {
+        const { questions } = this.state
+        let questionOpts = [];
+        questionOpts.push(<option value={''} key={''}>Choose a followup question</option>)
+
+        for (let i = 0; i < questions.length; i++) {
+            questionOpts.push(<option value={i + 1} key={questions[i]}>{questions[i]}</option>);
+        }
+
+        this.setState({
+            questionOptions: questionOpts,
+            questionChoice: `${questionOpts[0].props.value}`,
+        })
+    }
+
     render() {
-        const { userData, starter_question, modalIsOpen, responseModalIsOpen, isStoryOwner } = this.state
+        const { userData, starter_question, modalIsOpen, responseModalIsOpen, isStoryOwner, questionOptions } = this.state
 
         const { storyProps } = this.props.location.state
 
@@ -190,11 +221,14 @@ class StoryPage extends Component {
                                 <input type='text' name='useremail' className='modal-input' placeholder="Email2" onChange={this.handleInput}></input>
                                 <input type='text' name='userregion' className='modal-input' placeholder="Your Region2" onChange={this.handleInput}></input>
                                 <input type='text' name='usersuggestion' className='modal-input' placeholder="Simliar Story Link2" onChange={this.handleInput}></input>
+                                <select name='questionSelect' onChange={this.handleInput}>
+                                    {questionOptions}
+                                </select>
 
                                 <button className='modal-btn' onClick={() => this.setResponseModalToClose()}>Close</button>
                             </div>
                             <div className='modal-msg'>
-                                <textarea name='questionmsg' placeholder='Question' onChange={this.handleInput}></textarea>
+                                <textarea name='questionmsg' placeholder='Respond to Question' onChange={this.handleInput}></textarea>
                                 <button className='modal-btn' type='submit'>Submit</button>
                             </div>
                         </div>
@@ -285,7 +319,7 @@ class StoryPage extends Component {
                         </svg>
                         <img onError={this.addDefaultStoryImg} src={storyProps.file_src + `1`} className='clip' alt='img' />
 
-                        {isStoryOwner ?  userQuestions : vistorQuestions}
+                        {isStoryOwner ? userQuestions : vistorQuestions}
 
                     </div>
 
