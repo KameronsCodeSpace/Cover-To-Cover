@@ -250,7 +250,7 @@ class StoryPage extends Component {
     }
 
     render() {
-        const { userData, starter_question, modalIsOpen, responseModalIsOpen, isStoryOwner, theStoryBook, questionOptions, pageNumber } = this.state
+        const { userData, starter_question, modalIsOpen, responseModalIsOpen, isStoryOwner, theStoryBook, questionOptions, pageNumber, questions } = this.state
 
         const { storyProps } = this.props.location.state
 
@@ -393,7 +393,7 @@ class StoryPage extends Component {
 
         const firstPage = (
             <Fragment>
-                <h2>{starter_question} - Q 1/10</h2>
+                <h2>{starter_question} - Q 1/{questions.length}</h2>
 
                 <div classname='avatar-username'>
                     <h3>
@@ -416,7 +416,7 @@ class StoryPage extends Component {
                     followUpPages.map((element, i) => {
                         return (
                             <div>
-                                <h2>{element.new_question} - Q {element.id + 1}/10</h2>
+                                <h2>{element.new_question} - Q {element.id + 1}/{questions.length}</h2>
 
                                 <div classname='avatar-username'>
                                     <h3>
