@@ -82,21 +82,21 @@ class UserProfile extends React.Component {
         })
     }
 
-    async componentDidUpdate() {
-        const id = this.props.id
+    // async componentDidUpdate() {
+    //     const id = this.props.id
 
-        try {
-            let url = `http://localhost:3100/users/${id}`
-            const userPost = await axios.get(url)
-            this.setState({
-                feeds: userPost.data.payload,
-                // displayPosts: true
-            })
+    //     try {
+    //         let url = `http://localhost:3100/users/${id}`
+    //         const userPost = await axios.get(url)
+    //         this.setState({
+    //             feeds: userPost.data.payload,
+    //             // displayPosts: true
+    //         })
 
-        } catch (error) {
-            console.log('ERROR', error)
-        }
-    }
+    //     } catch (error) {
+    //         console.log('ERROR', error)
+    //     }
+    // }
 
     // handleFormSubmit = async (e) => {
     //     e.preventDefault()
@@ -229,8 +229,8 @@ class UserProfile extends React.Component {
                 <h1>Your Stories</h1>
                 <div className='masonry-holder'>
 
+                    {/* {console.log('Checking Info', feeds)} */}
                     {feeds.map((feed, i) => {
-                        // console.log(feeds)
                         return (
                             <div key={i} className="masonry-blocks">
                                 <img onError={this.addDefaultStoryImg} src={feed.file_src + `${i}`} alt='img' />
@@ -310,7 +310,7 @@ class UserProfile extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('check state:', state)
+    console.log('check state:', state.auth.user.payload.username)
     return state.auth.payload
 }
 

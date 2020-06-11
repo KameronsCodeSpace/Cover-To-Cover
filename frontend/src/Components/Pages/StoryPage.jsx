@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../Actions/authActions';
 
-import Navbar from '../Support Files/Navbar'
-import questionAvatar from '../../img/QuestionAvatar.png'
+import PropTypes from 'prop-types';
+import Navbar from '../Support Files/Navbar';
+import questionAvatar from '../../img/QuestionAvatar.png';
 import staticStoryImg from '../../img/Unknown_location.png';
-import Modal from 'react-modal'
+import Modal from 'react-modal';
 
 //will need props value of current story clicked on
 //Show username and avatar of story creater
@@ -13,7 +16,7 @@ import Modal from 'react-modal'
 
 Modal.setAppElement('#root')
 
-class StoryPage extends React.Component {
+class StoryPage extends Component {
     constructor(props) {
         console.log('storypage state????:', props)
         super(props)
@@ -26,15 +29,26 @@ class StoryPage extends React.Component {
             userData: [],
             user_avatar: '',
             starter_question: '',
-            modalIsOpen: false
-
+            modalIsOpen: false,
+            isStoryOwner: false
         }
+    }
+
+    static propTypes = {
+        auth: PropTypes.object.isRequired
     }
 
     async componentDidMount() {
         const { storyProps } = this.props.location.state
         console.log("PROPS", storyProps);
-        console.log("STORY PROPS", storyProps.id);
+        console.log("STORY PROPS", storyProps.p_username);
+        console.log("Redux props", this.props.username);
+
+        if (storyProps.p_username === this.props.username) {
+            this.setState({
+                isStoryOwner: true
+            });
+        }
 
         try {
             let blogs = await axios.get('/users/user/' + storyProps.p_username);
@@ -50,16 +64,10 @@ class StoryPage extends React.Component {
         } catch (err) {
             console.log("ERROR:", err);
         }
+    }
 
-        // try {
-        //     let firstquestion = await axios.get('/starterquestion/' + storyProps.id);
-        //     this.setState({
-        //         starter_question: firstquestion
-        //     });
-        //     console.log("QUESTION state:", this.state);
-        // } catch (err) {
-        //     console.log("ERROR:", err);
-        // }
+    componentDidUpdate() {
+
 
     }
 
@@ -121,9 +129,65 @@ class StoryPage extends React.Component {
     }
 
     render() {
-        const { userData, starter_question, modalIsOpen } = this.state
+        const { userData, starter_question, modalIsOpen, isStoryOwner } = this.state
 
         const { storyProps } = this.props.location.state
+
+        const userQuestions = (
+            <Fragment>
+                <div className='chat' onClick={() => this.setModalToOpen()}>
+                    <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="fas"
+                        data-icon="question-circle"
+                        class="svg-inline--fa fa-question-circle fa-w-16"
+                        role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512">
+
+                        <g className="fa-group">
+                            <path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="circle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+            </Fragment>
+        );
+
+        const vistorQuestions = (
+            <Fragment>
+                <div className='chat' onClick={() => this.setModalToOpen()}>
+                    <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="fas"
+                        data-icon="reply-all"
+                        class="svg-inline--fa fa-reply-all fa-w-18"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 576 512">
+
+                        <g className="fa-group">
+                            <path fill="currentColor" d="M136.309 189.836L312.313 37.851C327.72 24.546 352 35.348 352 56.015v82.763c129.182 10.231 224 52.212 224 183.548 0 61.441-39.582 122.309-83.333 154.132-13.653 9.931-33.111-2.533-28.077-18.631 38.512-123.162-3.922-169.482-112.59-182.015v84.175c0 20.701-24.3 31.453-39.687 18.164L136.309 226.164c-11.071-9.561-11.086-26.753 0-36.328zm-128 36.328L184.313 378.15C199.7 391.439 224 380.687 224 359.986v-15.818l-108.606-93.785A55.96 55.96 0 0 1 96 207.998a55.953 55.953 0 0 1 19.393-42.38L224 71.832V56.015c0-20.667-24.28-31.469-39.687-18.164L8.309 189.836c-11.086 9.575-11.071 26.767 0 36.328z"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="circle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+            </Fragment>
+        );
+
 
         console.log('My story props', storyProps)
         console.log('My user state', userData.avatar)
@@ -142,28 +206,8 @@ class StoryPage extends React.Component {
                             </clipPath>
                         </svg>
                         <img onError={this.addDefaultStoryImg} src={storyProps.file_src + `1`} className='clip' alt='img' />
-                        <div className='chat' onClick={() => this.setModalToOpen()}>
-                            <svg
-                                aria-hidden="true"
-                                focusable="false"
-                                data-prefix="fas"
-                                data-icon="question-circle"
-                                class="svg-inline--fa fa-question-circle fa-w-16"
-                                role="img" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512">
 
-                                <g className="fa-group">
-                                    <path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path>
-                                </g>
-                            </svg>
-                        </div>
-                            <div className="circle">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-
-                            </div>
+                        {isStoryOwner ? vistorQuestions : userQuestions}
 
                         <Modal className="modal-wrapper"
                             isOpen={modalIsOpen}
@@ -249,8 +293,17 @@ class StoryPage extends React.Component {
     }
 }
 
-export default StoryPage;
+// export default StoryPage;
 
+const mapStateToProps = (state) => {
+    // console.log('check state:', state.auth.payload.username)
+    return state.auth.payload
+}
+
+
+export default withRouter(connect(
+    mapStateToProps
+)(StoryPage));
 
 {/* <div className='inner-pages'>
 <div className='blog-container'>
