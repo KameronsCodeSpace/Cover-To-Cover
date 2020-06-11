@@ -40,13 +40,22 @@ class Explore extends React.Component {
     // }
 
     render() {
-        const filteredData = this.state.data.filter(
-            (element) => {
-                return element.caption.toLowerCase().indexOf(this.state.searchBar.toLowerCase()) !== -1;
-            }
-        )
+        // const filteredData = this.state.data.filter(
+        //     (element) => {
+        //         return element.caption.toLowerCase().indexOf(this.state.searchBar.toLowerCase()) !== -1;
+        //     }
+        // )
 
-        console.log("render method data:", filteredData);
+        const reducedData = this.state.data.filter(
+            element => {
+
+            return element.id % 6 === 0;
+            }
+        );
+
+        // console.log("render method data:", filteredData);
+        console.log("render method data OTHER:", reducedData);
+
         return (
             <div>
                 <Navbar />
@@ -61,7 +70,7 @@ class Explore extends React.Component {
 
                 <div className='masonry-holder'>
                     {
-                        filteredData.map((element, i) => {
+                        reducedData.map((element, i) => {
                             return (
                                 <div key={i} className="masonry-blocks">
                                     <img onError={this.addDefaultSrc} src={element.file_src + `${i}`} alt='img' />
