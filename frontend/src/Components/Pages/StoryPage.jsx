@@ -69,12 +69,12 @@ class StoryPage extends Component {
             console.log("ERROR:", err);
         }
 
-        let questionResponse = await axios.get('/questions')
+        let questionResponse = await axios.get('/userquestions/' + storyProps.id)
 
         let questionArray = []
 
         for (let i = 0; i < questionResponse.data.payload.length; i++) {
-            questionArray.push(questionResponse.data.payload[i].starter)
+            questionArray.push(questionResponse.data.payload[i].new_question)
         }
 
         this.setState({

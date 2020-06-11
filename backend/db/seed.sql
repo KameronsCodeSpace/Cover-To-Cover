@@ -42,8 +42,7 @@ CREATE TABLE user_questions (
 
 CREATE TABLE followup_questions (
     id SERIAL PRIMARY KEY,
-    story_id INT NOT NULL REFERENCES posts(id),
-    followup_question VARCHAR,
+    user_question_id INT NOT NULL REFERENCES user_questions(id),
     followup_answer VARCHAR
 );
 
