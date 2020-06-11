@@ -25,7 +25,6 @@ class StoryPage extends React.Component {
             usersuggestion: '',
             userData: [],
             user_avatar: '',
-
             starter_question: '',
             modalIsOpen: false
 
