@@ -873,6 +873,7 @@ p {
   font-size: 30px;
   text-decoration: none;
   transition: 0.5s;
+  z-index: 1;
 }
 
 .chat:hover {
@@ -977,6 +978,62 @@ nav .story-navigation a:nth-child(4) {
 
 .story-card-left .clip {
   clip-path: url('#clip-polygon')
+}
+
+.circle {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  bottom: 120px;
+  left: 14px;
+  background: linear-gradient(#33ccff, #ff0066);
+  border-radius: 50%;
+  animation: animate 2.0s linear infinite;
+}
+
+@keyframes animate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.circle::after, .circle::before {
+  content: '';
+  position: absolute;
+  height: 55%;
+  width: 55%;
+  bottom: 10px;
+  left: 10px;
+  background-image: linear-gradient(120deg, white, white);
+  border-radius: 50%;
+}
+
+.circle span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#33ccff, #ff0066);
+  border-radius: 50%;
+}
+
+.circle span:nth-child(1){
+  filter: blur(5px);
+}
+
+.circle span:nth-child(2){
+  filter: blur(10px);
+}
+
+.circle span:nth-child(3){
+  filter: blur(20px);
+}
+
+.circle span:nth-child(4){
+  filter: blur(55px);
 }
 
 /* Modal CSS */

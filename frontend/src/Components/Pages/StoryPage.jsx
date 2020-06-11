@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from "axios";
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../Actions/authActions';
 
-import Navbar from '../Support Files/Navbar'
-import questionAvatar from '../../img/QuestionAvatar.png'
+import PropTypes from 'prop-types';
+import Navbar from '../Support Files/Navbar';
+import questionAvatar from '../../img/QuestionAvatar.png';
 import staticStoryImg from '../../img/Unknown_location.png';
-import Modal from 'react-modal'
+import Modal from 'react-modal';
 
 //will need props value of current story clicked on
 //Show username and avatar of story creater
@@ -13,7 +16,7 @@ import Modal from 'react-modal'
 
 Modal.setAppElement('#root')
 
-class StoryPage extends React.Component {
+class StoryPage extends Component {
     constructor(props) {
         console.log('storypage state????:', props)
         super(props)
@@ -26,15 +29,26 @@ class StoryPage extends React.Component {
             userData: [],
             user_avatar: '',
             starter_question: '',
-            modalIsOpen: false
-
+            modalIsOpen: false,
+            isStoryOwner: false
         }
+    }
+
+    static propTypes = {
+        auth: PropTypes.object.isRequired
     }
 
     async componentDidMount() {
         const { storyProps } = this.props.location.state
         console.log("PROPS", storyProps);
-        console.log("STORY PROPS", storyProps.id);
+        console.log("STORY PROPS", storyProps.p_username);
+        console.log("Redux props", this.props.username);
+
+        if (storyProps.p_username === this.props.username) {
+            this.setState({
+                isStoryOwner: true
+            });
+        }
 
         try {
             let blogs = await axios.get('/users/user/' + storyProps.p_username);
@@ -50,20 +64,14 @@ class StoryPage extends React.Component {
         } catch (err) {
             console.log("ERROR:", err);
         }
+    }
 
-        // try {
-        //     let firstquestion = await axios.get('/starterquestion/' + storyProps.id);
-        //     this.setState({
-        //         starter_question: firstquestion
-        //     });
-        //     console.log("QUESTION state:", this.state);
-        // } catch (err) {
-        //     console.log("ERROR:", err);
-        // }
+    componentDidUpdate() {
+
 
     }
-    
-    
+
+
     addDefaultSrc(ev) {
         const { storyProps } = this.props.location.state
         ev.target.src = `https://api.adorable.io/avatars/285/${storyProps.p_username}.png`
@@ -121,9 +129,59 @@ class StoryPage extends React.Component {
     }
 
     render() {
-        const { userData, starter_question, modalIsOpen } = this.state
+        const { userData, starter_question, modalIsOpen, isStoryOwner } = this.state
 
         const { storyProps } = this.props.location.state
+
+        const userQuestions = (
+            <Fragment>
+                <div className='chat' onClick={() => this.setModalToOpen()}>
+
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope-open-text" class="svg-inline--fa fa-envelope-open-text fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+                        <g className="fa-group">
+                            <path fill="currentColor" d="M176 216h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16zm-16 80c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v16zm96 121.13c-16.42 0-32.84-5.06-46.86-15.19L0 250.86V464c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V250.86L302.86 401.94c-14.02 10.12-30.44 15.19-46.86 15.19zm237.61-254.18c-8.85-6.94-17.24-13.47-29.61-22.81V96c0-26.51-21.49-48-48-48h-77.55c-3.04-2.2-5.87-4.26-9.04-6.56C312.6 29.17 279.2-.35 256 0c-23.2-.35-56.59 29.17-73.41 41.44-3.17 2.3-6 4.36-9.04 6.56H96c-26.51 0-48 21.49-48 48v44.14c-12.37 9.33-20.76 15.87-29.61 22.81A47.995 47.995 0 0 0 0 200.72v10.65l96 69.35V96h320v184.72l96-69.35v-10.65c0-14.74-6.78-28.67-18.39-37.77z"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="circle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+            </Fragment>
+        );
+
+        const vistorQuestions = (
+            <Fragment>
+                <div className='chat' onClick={() => this.setModalToOpen()}>
+                    <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="fas"
+                        data-icon="reply-all"
+                        class="svg-inline--fa fa-reply-all fa-w-18"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 576 512">
+
+                        <g className="fa-group">
+                            <path fill="currentColor" d="M136.309 189.836L312.313 37.851C327.72 24.546 352 35.348 352 56.015v82.763c129.182 10.231 224 52.212 224 183.548 0 61.441-39.582 122.309-83.333 154.132-13.653 9.931-33.111-2.533-28.077-18.631 38.512-123.162-3.922-169.482-112.59-182.015v84.175c0 20.701-24.3 31.453-39.687 18.164L136.309 226.164c-11.071-9.561-11.086-26.753 0-36.328zm-128 36.328L184.313 378.15C199.7 391.439 224 380.687 224 359.986v-15.818l-108.606-93.785A55.96 55.96 0 0 1 96 207.998a55.953 55.953 0 0 1 19.393-42.38L224 71.832V56.015c0-20.667-24.28-31.469-39.687-18.164L8.309 189.836c-11.086 9.575-11.071 26.767 0 36.328z"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div className="circle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+            </Fragment>
+        );
+
 
         console.log('My story props', storyProps)
         console.log('My user state', userData.avatar)
@@ -142,26 +200,8 @@ class StoryPage extends React.Component {
                             </clipPath>
                         </svg>
                         <img onError={this.addDefaultStoryImg} src={storyProps.file_src + `1`} className='clip' alt='img' />
-                        <div className='chat' onClick={() => this.setModalToOpen()}>
-                            <svg
-                                aria-hidden="true"
-                                focusable="false"
-                                data-prefix="fas"
-                                data-icon="comment-dots"
-                                class="svg-inline--fa fa-comment-dots fa-w-16"
-                                role="img"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512">
 
-                                <g className="fa-group">
-                                    <path
-                                        fill="currentColor"
-                                        d="M256 32C114.6 32 0 125.1 0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3 0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4 0 256-93.1 256-208S397.4 32 256 32zM128 272c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"
-                                    >
-                                    </path>
-                                </g>
-                            </svg>
-                        </div>
+                        {isStoryOwner ? vistorQuestions : userQuestions}
 
                         <Modal className="modal-wrapper"
                             isOpen={modalIsOpen}
@@ -227,15 +267,16 @@ class StoryPage extends React.Component {
                                 <a href='#'><i className='story-next'>
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-circle-right" class="svg-inline--fa fa-arrow-circle-right fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"></path></svg>
                                 </i></a>
-                                <Link to={{pathname:'/comments',
-                                            state: {
-                                                storyProps: storyProps
-                                            }
-                                        }}
+                                <Link to={{
+                                    pathname: '/comments',
+                                    state: {
+                                        storyProps: storyProps
+                                    }
+                                }}
 
                                 ><i className='story-comments'>
-                                    <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="comment-alt" class="svg-inline--fa fa-comment-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 7.1 5.8 12 12 12 2.4 0 4.9-.7 7.1-2.4L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-12.8 9.6L208 428v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path></svg>
-                                   </i>
+                                        <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="comment-alt" class="svg-inline--fa fa-comment-alt fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 7.1 5.8 12 12 12 2.4 0 4.9-.7 7.1-2.4L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-12.8 9.6L208 428v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z"></path></svg>
+                                    </i>
                                 </Link>
                             </div>
                         </nav>
@@ -246,8 +287,17 @@ class StoryPage extends React.Component {
     }
 }
 
-export default StoryPage;
+// export default StoryPage;
 
+const mapStateToProps = (state) => {
+    // console.log('check state:', state.auth.payload.username)
+    return state.auth.payload
+}
+
+
+export default withRouter(connect(
+    mapStateToProps
+)(StoryPage));
 
 {/* <div className='inner-pages'>
 <div className='blog-container'>
