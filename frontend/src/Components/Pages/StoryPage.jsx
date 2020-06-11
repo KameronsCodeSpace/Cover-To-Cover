@@ -30,6 +30,7 @@ class StoryPage extends Component {
             user_avatar: '',
             starter_question: '',
             modalIsOpen: false,
+            responseModalIsOpen: false,
             isStoryOwner: false
         }
     }
@@ -66,12 +67,6 @@ class StoryPage extends Component {
         }
     }
 
-    componentDidUpdate() {
-
-
-    }
-
-
     addDefaultSrc(ev) {
         const { storyProps } = this.props.location.state
         ev.target.src = `https://api.adorable.io/avatars/285/${storyProps.p_username}.png`
@@ -92,9 +87,21 @@ class StoryPage extends Component {
         });
     }
 
+    setResponseModalToOpen() {
+        this.setState({
+            responseModalIsOpen: true
+        });
+    }
+
     setModalToClose() {
         this.setState({
             modalIsOpen: false
+        });
+    }
+
+    setResponseModalToClose() {
+        this.setState({
+            responseModalIsOpen: false
         });
     }
 
@@ -126,36 +133,17 @@ class StoryPage extends Component {
         }
 
         this.setModalToClose()
+        this.setResponseModalToClose()
     }
 
     render() {
-        const { userData, starter_question, modalIsOpen, isStoryOwner } = this.state
+        const { userData, starter_question, modalIsOpen, responseModalIsOpen, isStoryOwner } = this.state
 
         const { storyProps } = this.props.location.state
 
         const userQuestions = (
             <Fragment>
-                <div className='chat' onClick={() => this.setModalToOpen()}>
-                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="question-circle" class="svg-inline--fa fa-question-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        
-                        <g className="fa-group">
-                            <path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path>
-                        </g>
-                    </svg>
-                </div>
-                <div className="circle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-
-                </div>
-            </Fragment>
-        );
-
-        const vistorQuestions = (
-            <Fragment>
-                <div className='chat' onClick={() => this.setModalToOpen()}>
+                <div className='chat' onClick={() => this.setResponseModalToOpen()}>
 
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="envelope-open-text" class="svg-inline--fa fa-envelope-open-text fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 
@@ -171,6 +159,110 @@ class StoryPage extends Component {
                     <span></span>
 
                 </div>
+
+                {/* User Modal */}
+                <Modal className="modal-wrapper"
+                    isOpen={responseModalIsOpen}
+                    onRequestClose={() => this.setResponseModalToClose()}
+                    style={
+                        {
+                            overlay: {
+                                backgroundColor: 'rgba(32, 37, 58, 0.50)'
+                            },
+                            content: {
+                                color: 'orange',
+                                width: '900px',
+                                height: '80%',
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)'
+                            }
+                        }
+                    }
+                >
+                    <h2>Answer a question</h2>
+                    <form onSubmit={this.handleSubmit}>
+
+                        <div className="modal-info-form">
+                            <div className="modal-input-fields">
+                                <input type='text' name='username' className='modal-input' placeholder="Name2" onChange={this.handleInput}></input>
+                                <input type='text' name='useremail' className='modal-input' placeholder="Email2" onChange={this.handleInput}></input>
+                                <input type='text' name='userregion' className='modal-input' placeholder="Your Region2" onChange={this.handleInput}></input>
+                                <input type='text' name='usersuggestion' className='modal-input' placeholder="Simliar Story Link2" onChange={this.handleInput}></input>
+
+                                <button className='modal-btn' onClick={() => this.setResponseModalToClose()}>Close</button>
+                            </div>
+                            <div className='modal-msg'>
+                                <textarea name='questionmsg' placeholder='Question' onChange={this.handleInput}></textarea>
+                                <button className='modal-btn' type='submit'>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </Modal>
+            </Fragment>
+        );
+
+        const vistorQuestions = (
+            <Fragment>
+                <div className='chat' onClick={() => this.setModalToOpen()}>
+
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="question-circle" class="svg-inline--fa fa-question-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+
+                        <g className="fa-group">
+                            <path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path>
+                        </g>
+                    </svg>
+
+                </div>
+                <div className="circle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+                {/* Vistor Modal */}
+                <Modal className="modal-wrapper"
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => this.setModalToClose()}
+                    style={
+                        {
+                            overlay: {
+                                backgroundColor: 'rgba(32, 37, 58, 0.50)'
+                            },
+                            content: {
+                                color: 'orange',
+                                width: '900px',
+                                height: '80%',
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)'
+                            }
+                        }
+                    }
+                >
+                    <h2>Ask your question</h2>
+                    <form onSubmit={this.handleSubmit}>
+
+                        <div className="modal-info-form">
+                            <div className="modal-input-fields">
+                                <input type='text' name='username' className='modal-input' placeholder="Name" onChange={this.handleInput}></input>
+                                <input type='text' name='useremail' className='modal-input' placeholder="Email" onChange={this.handleInput}></input>
+                                <input type='text' name='userregion' className='modal-input' placeholder="Your Region" onChange={this.handleInput}></input>
+                                <input type='text' name='usersuggestion' className='modal-input' placeholder="Simliar Story Link" onChange={this.handleInput}></input>
+
+                                <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
+                            </div>
+                            <div className='modal-msg'>
+                                <textarea name='questionmsg' placeholder='Question' onChange={this.handleInput}></textarea>
+                                <button className='modal-btn' type='submit'>Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </Modal>
             </Fragment>
         );
 
@@ -193,49 +285,8 @@ class StoryPage extends Component {
                         </svg>
                         <img onError={this.addDefaultStoryImg} src={storyProps.file_src + `1`} className='clip' alt='img' />
 
-                        {isStoryOwner ? vistorQuestions : userQuestions}
+                        {isStoryOwner ?  userQuestions : vistorQuestions}
 
-                        <Modal className="modal-wrapper"
-                            isOpen={modalIsOpen}
-                            onRequestClose={() => this.setModalToClose()}
-                            style={
-                                {
-                                    overlay: {
-                                        backgroundColor: 'rgba(32, 37, 58, 0.50)'
-                                    },
-                                    content: {
-                                        color: 'orange',
-                                        width: '900px',
-                                        height: '80%',
-                                        position: 'absolute',
-                                        top: '50%',
-                                        left: '50%',
-                                        transform: 'translate(-50%, -50%)'
-                                    }
-                                }
-                            }
-                        >
-                            <h2>Ask your question</h2>
-                            <form onSubmit={this.handleSubmit}>
-
-                                <div className="modal-info-form">
-                                    <div className="modal-input-fields">
-                                        <input type='text' name='username' className='modal-input' placeholder="Name" onChange={this.handleInput}></input>
-                                        <input type='text' name='useremail' className='modal-input' placeholder="Email" onChange={this.handleInput}></input>
-                                        <input type='text' name='userregion' className='modal-input' placeholder="Your Region" onChange={this.handleInput}></input>
-                                        <input type='text' name='usersuggestion' className='modal-input' placeholder="Simliar Story Link" onChange={this.handleInput}></input>
-
-                                        <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
-                                    </div>
-                                    <div className='modal-msg'>
-                                        <textarea name='questionmsg' placeholder='Question' onChange={this.handleInput}></textarea>
-                                        <button className='modal-btn' type='submit'>Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-
-
-                        </Modal>
                     </div>
 
 
