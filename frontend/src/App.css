@@ -913,6 +913,26 @@ p {
   color: var(--primary)
 }
 
+.storyBodyScroll {
+  margin-left:auto; 
+  margin-right:auto; 
+  width: 100%; 
+  height: 100%; 
+  overflow-y: scroll;
+}
+
+.storyBody {
+  float:left;
+  color: #666666;
+  width: 100%;
+  font-size: 14px; 
+  font-weight: bold; 
+  border-right: thin dotted #666666; 
+  line-height: 18px;
+}
+
+
+
 .story-navigation {
   position: absolute;
   bottom: 50px;

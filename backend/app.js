@@ -19,7 +19,7 @@ const commentsRouter = require('./routes/comments');
 const likesRouter = require('./routes/likes');
 const tagsRouter = require('./routes/tags');
 const questionsRouter = require ('./routes/questions');
-const starterQuestion = require ('./routes/starter_question');
+// const followUpQuestions = require ('./routes/followup_questions');
 const userQuestions = require ('./routes/user_questions');
 
 // const postRouter = require('./routes/posts');
@@ -65,8 +65,8 @@ app.use('/comments', commentsRouter);
 app.use('/likes', likesRouter);
 app.use('/tags', tagsRouter);
 app.use('/questions', questionsRouter);
-app.use('/starterquestion', starterQuestion);
 app.use('/userquestions', userQuestions)
+// app.use('/followupquestions', followUpQuestions);
 
 app.post('/upload', upload.single('avatar'), async(req, res,next) => {
     console.log('req.file:', req.file)

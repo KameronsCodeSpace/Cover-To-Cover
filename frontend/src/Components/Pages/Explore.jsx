@@ -49,7 +49,7 @@ class Explore extends React.Component {
         const reducedData = this.state.data.filter(
             element => {
 
-            return element.id % 6 === 0;
+            return element.id % 2 === 0;
             }
         );
 
