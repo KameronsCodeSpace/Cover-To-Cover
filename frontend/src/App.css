@@ -1039,6 +1039,56 @@ nav .story-navigation a:nth-child(4) {
   font-size: .9em;
 }
 
+.upload-btn {
+  color: rgb(168, 161, 161);
+  size: 20px;
+}
+
+.comments  {
+ text-align: center;
+ 
+}
+
+.statement {
+  
+  width: 300px;
+  height: 100px;
+  margin: 5px;
+  padding: 10px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.comment-form {
+  text-align: center;
+}
+
+.comment-form textarea {
+  width: 60%;
+  height: 50%;
+  padding: 5px;
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.comment-form input[type=text], input[type=number] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+} 
+
+.comment-form input[type=submit] {
+  background-color: grey;
+  color: white;
+  padding: 5px ;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* float: right; */
+}
+
 ::-webkit-input-placeholder {
   color: var(--white);
 }
@@ -1127,10 +1177,7 @@ nav .story-navigation a:nth-child(4) {
   
 }
 
-.upload-btn {
-  color: rgb(168, 161, 161);
-  size: 20px;
-}
+
 
 @media screen and (min-width: 1200px) {
   .masonry-holder{

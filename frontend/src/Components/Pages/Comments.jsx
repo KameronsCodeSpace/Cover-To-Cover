@@ -79,13 +79,13 @@ class Comments extends React.Component {
     render() {
         const { postComments, comment, commentors_name, c_post_id } = this.state
         return(
-            <div>
+            <div className='comments-container'>
                 <Navbar/>
-                   <div>
+                   <div className='comments'>
                        {postComments.map(statement => {
                            
                            return (
-                               <div>
+                               <div className = 'statement'>
                                     <h3>{statement.commentors_name}</h3>
                                     <ol>
                                         <li>{statement.comment}</li>
@@ -96,41 +96,42 @@ class Comments extends React.Component {
                        })}
                    </div>
                    <br></br>
-                   <form onSubmit={this.handleForm}>
-                        <label>
-                            comment author's name :
-                            <input
-                                className='commentors-name' 
-                                type='text' 
-                                placeholder='Enter commentors name'
-                                onChange={this.handleCommentor}
-                                value={commentors_name}
-                            />
-                        </label>
-                       <br></br>
-                       <label>
-                            post# :
-                            <input
-                                className='post-id' 
-                                type='number' 
-                                onChange={this.handlePostId}
-                                value={c_post_id}
-                            />
-                       </label>
+
+                   <form onSubmit={this.handleForm} className='comment-form'>
+                        <label>comment author's name :</label>
                         <br></br>
-                        <label>
-                            Comment :  
-                            <textarea value={comment} 
-                                onChange={this.handleComment}> 
-                            </textarea>
-                        </label>
+                        <input
+                            className='commentors-name' 
+                            type='text' 
+                            placeholder='Enter commentors name'
+                            onChange={this.handleCommentor}
+                            value={commentors_name}
+                        />
+                        
+                       <br></br>
+                       <label>post# :</label>
+                            <br></br> 
+                        <input
+                            className='post-id' 
+                            type='number' 
+                            onChange={this.handlePostId}
+                            value={c_post_id}
+                        />
+                        <br></br>
+                       
+                        <label>Comment : </label>
+                             <br></br>
+                        <textarea value={comment} 
+                            onChange={this.handleComment}> 
+                        </textarea>
+                       
                        <br></br>
                        <input type='submit' value='send'/>
                    </form>
-                   <div>
+                   {/* <div>
                        <h3>{commentors_name}</h3>
                        <div>{comment}</div>
-                   </div>
+                   </div> */}
             </div>
         )
     }
