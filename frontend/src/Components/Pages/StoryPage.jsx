@@ -32,12 +32,17 @@ class StoryPage extends Component {
             modalIsOpen: false,
             responseModalIsOpen: false,
             isStoryOwner: false,
+            theStoryBook: false,
             questions: [],
             questionOptions: [],
             questionChoice: '',
             questionSelect: '',
             followupResponse: '',
-            userQuestionId: ''
+            userQuestionId: '',
+            pageNumber: 0,
+            lastPage: 2,
+            followUpData: []
+
         }
     }
 
@@ -45,11 +50,28 @@ class StoryPage extends Component {
         auth: PropTypes.object.isRequired
     }
 
+    turnPageRight() {
+        this.setState({
+            theStoryBook: true
+        })
+    }
+
+
     async componentDidMount() {
         const { storyProps, questionSelect } = this.props.location.state
         console.log("PROPS", storyProps);
         console.log("STORY PROPS", storyProps.p_username);
         console.log("Redux props", this.props.username);
+
+        try {
+            let followUpCovers = await axios.get('/userquestions/all/' + storyProps.id);
+            this.setState({
+                followUpData: followUpCovers.data.payload
+            });
+            console.log("state:", this.state);
+        } catch (err) {
+            console.log("ERROR:", err);
+        }
 
         if (storyProps.p_username === this.props.username) {
             this.setState({
@@ -115,13 +137,9 @@ class StoryPage extends Component {
 
     setModalToClose() {
         this.setState({
-            modalIsOpen: false
-        });
-    }
-
-    setResponseModalToClose() {
-        this.setState({
+            modalIsOpen: false,
             responseModalIsOpen: false
+
         });
     }
 
@@ -153,7 +171,6 @@ class StoryPage extends Component {
         }
 
         this.setModalToClose();
-        this.setResponseModalToClose();
     }
 
     handleResponseSubmit = async (event) => {
@@ -174,7 +191,6 @@ class StoryPage extends Component {
             console.log(err)
         }
 
-        this.setResponseModalToClose();
         this.setModalToClose();
     }
 
@@ -193,10 +209,59 @@ class StoryPage extends Component {
         })
     }
 
+    turnPageLeft = () => {
+        const { pageNumber } = this.state
+
+        let pageChanger = pageNumber - 1
+
+        if (pageChanger < 1) {
+            this.setState({
+                theStoryBook: false,
+                pageNumber: 0
+            })
+            pageChanger = 0
+        } else {
+            this.setState({
+                theStoryBook: true,
+                pageNumber: pageChanger
+            })
+        }
+
+    }
+
+    turnPageRight = () => {
+        const { pageNumber, questions } = this.state
+
+        let pageChanger = pageNumber + 1
+
+
+        if (pageChanger > questions.length) {
+            this.setState({
+                theStoryBook: false,
+                pageNumber: 0
+            })
+            pageChanger = 0
+        } else {
+            this.setState({
+                theStoryBook: true,
+                pageNumber: pageChanger
+            })
+        }
+    }
+
     render() {
-        const { userData, starter_question, modalIsOpen, responseModalIsOpen, isStoryOwner, questionOptions } = this.state
+        const { userData, starter_question, modalIsOpen, responseModalIsOpen, isStoryOwner, theStoryBook, questionOptions, pageNumber } = this.state
 
         const { storyProps } = this.props.location.state
+
+        const followUpPages = this.state.followUpData.filter(
+            element => {
+
+                return element.followup_answer !== null && element.id === pageNumber;
+            }
+        );
+
+        console.log('Filtered followup questions', followUpPages);
 
         const userQuestions = (
             <Fragment>
@@ -220,7 +285,7 @@ class StoryPage extends Component {
                 {/* User Modal */}
                 <Modal className="modal-wrapper"
                     isOpen={responseModalIsOpen}
-                    onRequestClose={() => this.setResponseModalToClose()}
+                    onRequestClose={() => this.setModalToClose()}
                     style={
                         {
                             overlay: {
@@ -251,7 +316,7 @@ class StoryPage extends Component {
                                     {questionOptions}
                                 </select>
 
-                                <button className='modal-btn' onClick={() => this.setResponseModalToClose()}>Close</button>
+                                <button className='modal-btn' onClick={() => this.setModalToClose()}>Close</button>
                             </div>
                             <div className='modal-msg'>
                                 <textarea name='followupResponse' placeholder='Respond to a Question' onChange={this.handleInput}></textarea>
@@ -326,6 +391,53 @@ class StoryPage extends Component {
             </Fragment>
         );
 
+        const firstPage = (
+            <Fragment>
+                <h2>{starter_question} - Q 1/10</h2>
+
+                <div classname='avatar-username'>
+                    <h3>
+                        <img className='avatar-picture' onError={this.addDefaultSrc} src={`https://api.adorable.io/avatars/285/` + storyProps.p_username + `.png`} alt='img' />
+                        {storyProps.p_username}
+                    </h3>
+                </div>
+
+                <div className="storyBodyScroll">
+                    <p className="storyBody">
+                        {storyProps.caption}
+                    </p>
+                </div>
+            </Fragment>
+        );
+
+        const followingPages = (
+            <Fragment>
+                {
+                    followUpPages.map((element, i) => {
+                        return (
+                            <div>
+                                <h2>{element.new_question} - Q {element.id + 1}/10</h2>
+
+                                <div classname='avatar-username'>
+                                    <h3>
+                                        <img className='avatar-picture' onError={this.addDefaultSrc} src={`https://api.adorable.io/avatars/285/` + storyProps.p_username + `.png`} alt='img' />
+                                        {storyProps.p_username}
+                                    </h3>
+                                </div>
+                                <div className="storyBodyScroll">
+                                    <p className="storyBody">
+                                        {element.followup_answer}
+                                    </p>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
+            </Fragment>
+        );
+
+
+
 
         console.log('My story props', storyProps)
         console.log('My user state', userData.avatar)
@@ -353,27 +465,15 @@ class StoryPage extends Component {
 
                     <div className='story-card-right'>
 
-                        <h2>{starter_question} - Q 1/10</h2>
-                        <div classname='avatar-username'>
-                            <h3>
-                                <img className='avatar-picture' onError={this.addDefaultSrc} src={`https://api.adorable.io/avatars/285/` + storyProps.p_username + `.png`} alt='img' />
-                                {storyProps.p_username}
-                            </h3>
-                        </div>
-
-                        <div className="storyBodyScroll">
-                            <p className="storyBody">
-                                {storyProps.caption}
-                            </p>
-                        </div>
+                        {theStoryBook ? followingPages : firstPage}
 
                         <nav>
                             <div className='story-navigation'>
                                 <h1>{storyProps.story_title}</h1>
-                                <a href='#'><i className='story-back'>
+                                <a onClick={this.turnPageLeft}><i className='story-back'>
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-circle-left" class="svg-inline--fa fa-arrow-circle-left fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"></path></svg>
                                 </i></a>
-                                <a href='#'><i className='story-next'>
+                                <a onClick={this.turnPageRight}><i className='story-next'>
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-circle-right" class="svg-inline--fa fa-arrow-circle-right fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"></path></svg>
                                 </i></a>
                                 <Link to={{
