@@ -37,14 +37,15 @@ CREATE TABLE user_questions (
     user_name VARCHAR,
     user_email VARCHAR,
     user_region VARCHAR,
-    suggested_story VARCHAR
-);
-
-CREATE TABLE followup_questions (
-    id SERIAL PRIMARY KEY,
-    user_question_id INT NOT NULL REFERENCES user_questions(id),
+    suggested_story VARCHAR,
     followup_answer VARCHAR
 );
+
+-- CREATE TABLE followup_questions (
+--     id SERIAL PRIMARY KEY,
+--     user_question_id INT NOT NULL REFERENCES user_questions(id),
+--     followup_answer VARCHAR
+-- );
 
 CREATE TABLE likes(
     id SERIAL PRIMARY KEY,

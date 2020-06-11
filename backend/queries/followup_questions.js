@@ -1,7 +1,21 @@
 const db = require("../db/db");
 
 
-//QUERY get first question for a story
+//QUERY to add a feed in the POST route
+const createNewFollowUpQuestion = async (questionid, response) => {
+    let insertQuery = `INSERT INTO followup_questions(user_question_id, followup_answer)
+                        VALUES($1, $2)
+                        RETURNING *`
+
+    const newFeed = await db.oneOrNone(insertQuery, [
+        questionid,
+        response
+    ]);
+    // console.log('new feed', newFeed)
+    return newFeed
+}
+
+//QUERY get follow up questions for a story
 const getFollowUpQuestions = async (question) => {
     let requestQuery = `SELECT *
                             FROM user_questions uq
@@ -14,7 +28,8 @@ const getFollowUpQuestions = async (question) => {
 }
 
 module.exports = {
-    getFollowUpQuestions
+    getFollowUpQuestions,
+    createNewFollowUpQuestion
 }
 
 // // //QUERY to add first question to new Story

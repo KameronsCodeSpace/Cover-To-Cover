@@ -34,7 +34,10 @@ class StoryPage extends Component {
             isStoryOwner: false,
             questions: [],
             questionOptions: [],
-            questionChoice: ''
+            questionChoice: '',
+            questionSelect: '',
+            followupResponse: '',
+            userQuestionId: ''
         }
     }
 
@@ -43,7 +46,7 @@ class StoryPage extends Component {
     }
 
     async componentDidMount() {
-        const { storyProps } = this.props.location.state
+        const { storyProps, questionSelect } = this.props.location.state
         console.log("PROPS", storyProps);
         console.log("STORY PROPS", storyProps.p_username);
         console.log("Redux props", this.props.username);
@@ -69,7 +72,7 @@ class StoryPage extends Component {
             console.log("ERROR:", err);
         }
 
-        let questionResponse = await axios.get('/userquestions/' + storyProps.id)
+        let questionResponse = await axios.get('/userquestions/all/' + storyProps.id)
 
         let questionArray = []
 
@@ -78,6 +81,7 @@ class StoryPage extends Component {
         }
 
         this.setState({
+            // userQuestionId: followUpQuestionId,
             questions: questionArray
         })
         this.populateSelect();
@@ -148,8 +152,30 @@ class StoryPage extends Component {
             console.log(err)
         }
 
-        this.setModalToClose()
-        this.setResponseModalToClose()
+        this.setModalToClose();
+        this.setResponseModalToClose();
+    }
+
+    handleResponseSubmit = async (event) => {
+        event.preventDefault();
+        const { followupResponse, questionSelect, questions } = this.state;
+        // const { storyProps } = this.props.location.state
+        // console.log('working?', questionSelect)
+        // let followUpQuestionId = await axios.get('/userquestions/findid/' + questionSelect)
+console.log('Whats in here', questionSelect)
+        try {
+            const res = await axios.patch(`/userquestions/`,
+                {
+                    theUserQuestion: questions[questionSelect - 1],
+                    followupResponse: followupResponse
+                })
+            console.log('The info', res)
+        } catch (err) {
+            console.log(err)
+        }
+
+        this.setResponseModalToClose();
+        this.setModalToClose();
     }
 
     populateSelect = () => {
@@ -213,7 +239,7 @@ class StoryPage extends Component {
                     }
                 >
                     <h2>Answer a question</h2>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleResponseSubmit}>
 
                         <div className="modal-info-form">
                             <div className="modal-input-fields">
@@ -228,7 +254,7 @@ class StoryPage extends Component {
                                 <button className='modal-btn' onClick={() => this.setResponseModalToClose()}>Close</button>
                             </div>
                             <div className='modal-msg'>
-                                <textarea name='questionmsg' placeholder='Respond to Question' onChange={this.handleInput}></textarea>
+                                <textarea name='followupResponse' placeholder='Respond to a Question' onChange={this.handleInput}></textarea>
                                 <button className='modal-btn' type='submit'>Submit</button>
                             </div>
                         </div>

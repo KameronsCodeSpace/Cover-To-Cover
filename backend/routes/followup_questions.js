@@ -11,10 +11,10 @@ router.get("/:storyid", async (req, res, next) => {
     console.log('What is the story id?', storyid)
     try {
 
-        const thisQuestion = await questionQueries.getFollowUpQuestions(storyid);
-        console.log('Proof theseQuestion Works', thisQuestion)
+        const theseQuestions = await questionQueries.getFollowUpQuestions(storyid);
+        console.log('Proof theseQuestions Works', theseQuestions)
         res.json({
-            payload: theseQuestion,
+            payload: theseQuestions,
             message: `This question was successfully retrieved`,
             error: false
         });
@@ -27,6 +27,25 @@ router.get("/:storyid", async (req, res, next) => {
         });
 
     }
+})
+
+router.post('/new', async (req, res) => {
+    console.log('CHECKITOUT', req.body);
+  let questionid = req.body.followupquestion
+  let response = req.body.userresponse
+
+  try {
+      const newFeed = await questionQueries.createNewFollowUpQuestion(questionid, response)
+      res.json({
+          payload: newFeed,
+          message: `Post was sent!`
+      })
+  } catch (error) {
+      res.json({
+          message: `There was an error!`
+      })
+      console.log(error)
+  }
 })
 
 module.exports = router;
