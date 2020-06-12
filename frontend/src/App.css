@@ -4,7 +4,7 @@
   --sight: #800080;
   --white: #fdfdfd;
   --dark: #181717;
-  --nav-text-primary: #b6b6b6;
+  --nav-text-primary: #7e7676;
   --nav-text-secondary: #ececec;
   --nav-bg-primary: #23232e;
   --nav-bg-secondary: #141418;
@@ -931,8 +931,6 @@ p {
   line-height: 18px;
 }
 
-
-
 .story-navigation {
   position: absolute;
   bottom: 50px;
@@ -1117,15 +1115,15 @@ nav .story-navigation a:nth-child(4) {
 }
 
 ::-webkit-input-placeholder {
-  color: var(--white);
+  color: var(--nav-text-primary);
 }
 
 ::-moz-input-placeholder {
-  color: var(--white);
+  color: var(--nav-text-primary);
 }
 
 ::-ms-input-placeholder {
-  color: var(--white);
+  color: var(--nav-text-primary);
 }
 
 .modal-btn {
