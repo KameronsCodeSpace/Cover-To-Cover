@@ -6,7 +6,7 @@ import { login } from '../../Actions/authActions';
 
 import PropTypes from 'prop-types';
 import Navbar from '../Support Files/Navbar';
-import questionAvatar from '../../img/QuestionAvatar.png';
+// import questionAvatar from '../../img/QuestionAvatar.png';
 import staticStoryImg from '../../img/Unknown_location.png';
 import Modal from 'react-modal';
 
@@ -115,7 +115,7 @@ class StoryPage extends Component {
     }
 
     addDefaultAvatar(ev) {
-        ev.target.src = questionAvatar
+        ev.target.src = ''
     }
 
     addDefaultStoryImg(ev) {

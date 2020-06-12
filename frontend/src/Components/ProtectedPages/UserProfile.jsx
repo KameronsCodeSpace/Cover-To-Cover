@@ -7,7 +7,7 @@ import { Button } from '../Support Files/Button'
 import axios from 'axios';
 // import Post from '../Support Files/posts';
 import { login } from '../../Actions/authActions';
-import questionAvatar from '../../img/QuestionAvatar.png'
+// import questionAvatar from '../../img/QuestionAvatar.png'
 import staticStoryImg from '../../img/Unknown_location.png';
 import Modal from 'react-modal'
 
@@ -69,7 +69,7 @@ class UserProfile extends React.Component {
     }
 
     addDefaultSrc(ev) {
-        ev.target.src = questionAvatar
+        ev.target.src = ''
     }
 
     addDefaultStoryImg(ev) {
