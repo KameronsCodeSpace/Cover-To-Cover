@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from 'react-router-dom'
 
 import Navbar from '../Support Files/Navbar'
-import staticPostImg from '../../img/Unknown_location.png';
+// import staticPostImg from '../../img/Unknown_location.png';
 
 class Explore extends React.Component {
     constructor() {
@@ -31,7 +31,7 @@ class Explore extends React.Component {
     }
 
     addDefaultSrc(ev) {
-        ev.target.src = staticPostImg
+        ev.target.src = 'https://ak.picdn.net/shutterstock/videos/1005609832/thumb/12.jpg?ip=x480'
     }
 
     // showStory = (element) => {

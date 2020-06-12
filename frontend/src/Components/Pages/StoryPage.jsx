@@ -7,7 +7,7 @@ import { login } from '../../Actions/authActions';
 import PropTypes from 'prop-types';
 import Navbar from '../Support Files/Navbar';
 // import questionAvatar from '../../img/QuestionAvatar.png';
-import staticStoryImg from '../../img/Unknown_location.png';
+// import staticStoryImg from '../../img/Unknown_location.png';
 import Modal from 'react-modal';
 
 //will need props value of current story clicked on
@@ -119,7 +119,7 @@ class StoryPage extends Component {
     }
 
     addDefaultStoryImg(ev) {
-        ev.target.src = staticStoryImg
+        ev.target.src = 'https://ak.picdn.net/shutterstock/videos/1005609832/thumb/12.jpg?ip=x480'
     }
 
 

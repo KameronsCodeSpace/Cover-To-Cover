@@ -8,7 +8,7 @@ import axios from 'axios';
 // import Post from '../Support Files/posts';
 import { login } from '../../Actions/authActions';
 // import questionAvatar from '../../img/QuestionAvatar.png'
-import staticStoryImg from '../../img/Unknown_location.png';
+// import staticStoryImg from '../../img/Unknown_location.png';
 import Modal from 'react-modal'
 
 Modal.setAppElement('#root')
@@ -73,7 +73,7 @@ class UserProfile extends React.Component {
     }
 
     addDefaultStoryImg(ev) {
-        ev.target.src = staticStoryImg
+        ev.target.src = 'https://ak.picdn.net/shutterstock/videos/1005609832/thumb/12.jpg?ip=x480'
     }
 
     handleFileInput = (e) => {
