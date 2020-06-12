@@ -308,10 +308,10 @@ class StoryPage extends Component {
 
                         <div className="modal-info-form">
                             <div className="modal-input-fields">
-                                <input type='text' name='username' className='modal-input' placeholder="Name2" onChange={this.handleInput}></input>
-                                <input type='text' name='useremail' className='modal-input' placeholder="Email2" onChange={this.handleInput}></input>
-                                <input type='text' name='userregion' className='modal-input' placeholder="Your Region2" onChange={this.handleInput}></input>
-                                <input type='text' name='usersuggestion' className='modal-input' placeholder="Simliar Story Link2" onChange={this.handleInput}></input>
+                                <input type='text' name='username' className='modal-input' placeholder="Users Name" onChange={this.handleInput}></input>
+                                <input type='text' name='useremail' className='modal-input' placeholder="Users Email" onChange={this.handleInput}></input>
+                                <input type='text' name='userregion' className='modal-input' placeholder="Users Region" onChange={this.handleInput}></input>
+                                <input type='text' name='usersuggestion' className='modal-input' placeholder="Users Suggestion" onChange={this.handleInput}></input>
                                 <select name='questionSelect' onChange={this.handleInput}>
                                     {questionOptions}
                                 </select>
@@ -393,7 +393,7 @@ class StoryPage extends Component {
 
         const firstPage = (
             <Fragment>
-                <h2>{starter_question} - Q 1/{questions.length}</h2>
+                <h2>{starter_question} - Q 1/{questions.length + 1}</h2>
 
                 <div classname='avatar-username'>
                     <h3>
@@ -416,7 +416,7 @@ class StoryPage extends Component {
                     followUpPages.map((element, i) => {
                         return (
                             <div>
-                                <h2>{element.new_question} - Q {element.id + 1}/{questions.length}</h2>
+                                <h2>{element.new_question} - Q {element.id + 1}/{questions.length + 1}</h2>
 
                                 <div classname='avatar-username'>
                                     <h3>
