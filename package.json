@@ -1,0 +1,22 @@
+{
+  "name": "Cover To Cover",
+  "version": "1.0.0",
+  "description": "Explore the stories of people all over the world and find out what makes you special",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "heroku-prebuild": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KameronsCodeSpace/Group-6-Capstone.git"
+  },
+  "keywords": [],
+  "author": "Pursuit Cohort 6.2 - Group 6",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KameronsCodeSpace/Group-6-Capstone/issues"
+  },
+  "homepage": "https://github.com/KameronsCodeSpace/Group-6-Capstone#readme"
+}
