@@ -52,14 +52,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 app.use(express.static(path.join(__dirname, "/public"))); 
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
-});
 
 app.use(session({
-    secret: "NOT_A_GOOD_SECRET",
-    resave: false,
-    saveUninitialized: true
+  secret: "NOT_A_GOOD_SECRET",
+  resave: false,
+  saveUninitialized: true
 }));
 
 app.use(passport.initialize());
@@ -76,36 +73,40 @@ app.use('/userquestions', userQuestions)
 // app.use('/followupquestions', followUpQuestions);
 
 app.post('/upload', upload.single('avatar'), async(req, res,next) => {
-    console.log('req.file:', req.file)
-    console.log('req.body:', req.body)
-    let userPic = req.file.path
-    console.log('user pic', userPic)
-    let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
-    if (!req.file) {
+  console.log('req.file:', req.file)
+  console.log('req.body:', req.body)
+  let userPic = req.file.path
+  console.log('user pic', userPic)
+  let imgURL = `http://localhost:3100/${userPic.replace('public/', '')}`;
+  if (!req.file) {
     console.log("No file received");
     return res.send({
       success: false
     });
   } else {
     await users.updateAvatar(req.body.id, imgURL)
-     res.json({
-        imgURL: imgURL,
-        msg: `File has been uploaded`
-      })
-      console.log('file received');
-      // return res.send({
+    res.json({
+      imgURL: imgURL,
+      msg: `File has been uploaded`
+    })
+    console.log('file received');
+    // return res.send({
       //   success: true
       // })
     }
-   
-})
-app.post('/upstream', upstream.single ("image"), (req,res,next) => {
+    
+  })
+  app.post('/upstream', upstream.single ("image"), (req,res,next) => {
     
     let fileURL = "http://localhost:3100/" + req.file.path.replace('public/', '')
     res.json({
-        fileURL: fileURL,
-        message: "file uploaded"
- })
- })
- 
-module.exports = app;
+      fileURL: fileURL,
+      message: "file uploaded"
+    })
+  })
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+  });
+  
+  module.exports = app;
