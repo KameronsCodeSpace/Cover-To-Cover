@@ -308,10 +308,10 @@ class StoryPage extends Component {
 
                         <div className="modal-info-form">
                             <div className="modal-input-fields">
-                                <input type='text' name='username' className='modal-input' placeholder="Users Name" onChange={this.handleInput}></input>
+                                {/* <input type='text' name='username' className='modal-input' placeholder="Users Name" onChange={this.handleInput}></input>
                                 <input type='text' name='useremail' className='modal-input' placeholder="Users Email" onChange={this.handleInput}></input>
                                 <input type='text' name='userregion' className='modal-input' placeholder="Users Region" onChange={this.handleInput}></input>
-                                <input type='text' name='usersuggestion' className='modal-input' placeholder="Users Suggestion" onChange={this.handleInput}></input>
+                                <input type='text' name='usersuggestion' className='modal-input' placeholder="Users Suggestion" onChange={this.handleInput}></input> */}
                                 <select name='questionSelect' onChange={this.handleInput}>
                                     {questionOptions}
                                 </select>

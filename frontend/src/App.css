@@ -1085,7 +1085,24 @@ nav .story-navigation a:nth-child(4) {
   margin-right: 4%;
 }
 
+.modal-input-fields select {
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  width: 100%;
+  height: 30px;
+  border: none;
+  font-size: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+  margin-top: 85px;
+  margin-bottom: 82px;
+}
+
 .modal-input-fields input{
+  font-size: .9em;
+}
+
+.modal-input-fields p{
   font-size: .9em;
 }
 
